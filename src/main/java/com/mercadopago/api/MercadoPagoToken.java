@@ -1,4 +1,4 @@
-package com.mercadopago;
+package com.mercadopago.api;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

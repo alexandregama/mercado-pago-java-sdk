@@ -1,4 +1,4 @@
-package com.mercadopago;
+package com.mercadopago.api;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -7,9 +7,9 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class MercadoPago {
+class MercadoPagoJerseyClient implements MercadoPagoClient {
 
-	public static MercadoPagoToken getToken(TokenClientCredentials clientCredentials) {
+	public MercadoPagoToken retrieveNewTokenUsing(TokenClientCredentials clientCredentials) {
 		Client client = ClientBuilder.newClient();
 		
 		Form form = new Form();
