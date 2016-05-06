@@ -1,5 +1,7 @@
 package com.mercadopago.api;
 
+import java.util.List;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -7,8 +9,12 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.mercadopago.payment.PaymentMethod;
+
 class MercadoPagoJerseyClient implements MercadoPagoClient {
 
+	private static final String MERCADO_PAGO_API = "https://api.mercadopago.com/v1";
+	
 	public MercadoPagoToken retrieveNewTokenUsing(TokenClientCredentials clientCredentials) {
 		Client client = ClientBuilder.newClient();
 		
@@ -25,6 +31,20 @@ class MercadoPagoJerseyClient implements MercadoPagoClient {
 		MercadoPagoToken token = response.readEntity(MercadoPagoToken.class);
 		
 		return token;
+	}
+
+	public List<PaymentMethod> retrieveAllPaymentMethodsUsing(MercadoPagoToken token) {
+		Client client = ClientBuilder.newClient();
+		
+		String string = client
+				.target(MERCADO_PAGO_API)
+				.path("payment_methods")
+				.queryParam("access_token", token.getAccessToken())
+				.request(MediaType.APPLICATION_JSON)
+				.get(String.class);
+		
+		System.out.println(string);
+		return null;
 	}
 
 }
