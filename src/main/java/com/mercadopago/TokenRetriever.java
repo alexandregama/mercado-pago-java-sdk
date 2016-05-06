@@ -10,7 +10,7 @@ public class TokenRetriever {
 		
 		MercadoPagoToken token = MercadoPago.getToken(clientCredentials);
 		
-		System.out.println(token.getAccessToken());
+		System.out.println(token);
 	}
 	
 }
