@@ -3,6 +3,7 @@ package com.mercadopago.payment;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -25,6 +26,11 @@ public class PaymentMethodRetrieverTest {
 		
 		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
 		
+		System.out.println(paymentAcceptedMethods);
 		assertThat(paymentAcceptedMethods.size(), is(equalTo(18)));
+		assertTrue(paymentAcceptedMethods.stream().anyMatch(method -> method.getName().equals("Visa")));
+		assertTrue(paymentAcceptedMethods.stream().anyMatch(method -> method.getName().equals("Mastercard")));
+		assertTrue(paymentAcceptedMethods.stream().anyMatch(method -> method.getName().equals("American Express")));
+		assertTrue(paymentAcceptedMethods.stream().anyMatch(method -> method.getName().equals("Naranja")));
 	}
 }

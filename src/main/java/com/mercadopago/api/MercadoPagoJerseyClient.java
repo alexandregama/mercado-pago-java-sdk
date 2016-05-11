@@ -45,7 +45,6 @@ public class MercadoPagoJerseyClient implements MercadoPagoClient {
 				.accept(MediaType.APPLICATION_JSON) 
 				.get();
 		List<PaymentMethod> methods = response.readEntity(new GenericType<List<PaymentMethod>>() {});
-		
 		return methods;
 	}
 
