@@ -6,12 +6,13 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Form;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.mercadopago.payment.PaymentMethod;
 
-class MercadoPagoJerseyClient implements MercadoPagoClient {
+public class MercadoPagoJerseyClient implements MercadoPagoClient {
 
 	private static final String MERCADO_PAGO_API = "https://api.mercadopago.com/v1";
 	
@@ -36,15 +37,16 @@ class MercadoPagoJerseyClient implements MercadoPagoClient {
 	public List<PaymentMethod> retrieveAllPaymentMethodsUsing(MercadoPagoToken token) {
 		Client client = ClientBuilder.newClient();
 		
-		String string = client
+		Response response = client
 				.target(MERCADO_PAGO_API)
 				.path("payment_methods")
 				.queryParam("access_token", token.getAccessToken())
 				.request(MediaType.APPLICATION_JSON)
-				.get(String.class);
+				.accept(MediaType.APPLICATION_JSON) 
+				.get();
+		List<PaymentMethod> methods = response.readEntity(new GenericType<List<PaymentMethod>>() {});
 		
-		System.out.println(string);
-		return null;
+		return methods;
 	}
 
 }

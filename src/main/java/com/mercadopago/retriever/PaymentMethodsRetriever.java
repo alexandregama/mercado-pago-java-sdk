@@ -17,6 +17,7 @@ public class PaymentMethodsRetriever {
 		MercadoPagoToken token = mercadoPago.getToken(clientCredentials);
 		List<PaymentMethod> methods = mercadoPago.getPaymentMethods(token);
 		
+		System.out.println(methods);
 	}
 	
 }
