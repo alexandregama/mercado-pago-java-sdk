@@ -22,6 +22,9 @@ public class PaymentMethod {
 	@XmlElement(name = "payment_type_id")
 	private PaymentType type;
 	
+	@XmlElement(name = "status")
+	private PaymentStatus status;
+	
 	public enum PaymentType {
 		TICKET("ticket"), ATM("atm"), CREDIT_CARD("credit_card"), DEBIT_CARD("debit_card"), PREPAID_CARD("prepaid_card");
 		
@@ -36,10 +39,25 @@ public class PaymentMethod {
 			return name;
 		}
 	}
+	
+	public enum PaymentStatus {
+		ACTIVE("active"), DEACTIVE("deactive"), TEMPORALLY_DEACTIVE("temporally_deactive");
+		
+		private String name;
+		
+		PaymentStatus(String name) {
+			this.name = name;
+		}
+		
+		@JsonValue
+		public String getName() {
+			return name;
+		}
+	}
 
 	@Override
 	public String toString() {
-		return "PaymentMethod [id=" + id + ", name=" + name + ", type=" + type + "]";
+		return "PaymentMethod [id=" + id + ", name=" + name + ", type=" + type + ", status=" + status + "]";
 	}
 
 	public String getId() {
@@ -56,6 +74,14 @@ public class PaymentMethod {
 
 	public void setType(PaymentType type) {
 		this.type = type;
+	}
+
+	public PaymentStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(PaymentStatus status) {
+		this.status = status;
 	}
 
 }
