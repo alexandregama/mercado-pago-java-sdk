@@ -72,16 +72,8 @@ public class PaymentMethod {
 		return type;
 	}
 
-	public void setType(PaymentType type) {
-		this.type = type;
-	}
-
 	public PaymentStatus getStatus() {
 		return status;
-	}
-
-	public void setStatus(PaymentStatus status) {
-		this.status = status;
 	}
 
 }
