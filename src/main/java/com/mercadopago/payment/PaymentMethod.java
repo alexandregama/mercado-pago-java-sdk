@@ -1,5 +1,7 @@
 package com.mercadopago.payment;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,6 +36,9 @@ public class PaymentMethod {
 	@XmlElement(name = "deferred_capture")
 	private String deferredCapture;
 	
+	@XmlElement(name = "settings")
+	private List<PaymentMethodSettings> settings;
+	
 	public enum PaymentType {
 		TICKET("ticket"), ATM("atm"), CREDIT_CARD("credit_card"), DEBIT_CARD("debit_card"), PREPAID_CARD("prepaid_card");
 		
@@ -66,7 +71,9 @@ public class PaymentMethod {
 
 	@Override
 	public String toString() {
-		return "PaymentMethod [id=" + id + ", name=" + name + ", type=" + type + ", status=" + status + "]";
+		return "PaymentMethod [id=" + id + ", name=" + name + ", type=" + type + ", status=" + status
+				+ ", secureThumbnail=" + secureThumbnail + ", thumbnail=" + thumbnail + ", deferredCapture="
+				+ deferredCapture + ", settings=" + settings + "]";
 	}
 
 	public String getId() {
@@ -96,5 +103,8 @@ public class PaymentMethod {
 	public String getDeferredCapture() {
 		return deferredCapture;
 	}
-	
+
+	public List<PaymentMethodSettings> getSettings() {
+		return settings;
+	}
 }
