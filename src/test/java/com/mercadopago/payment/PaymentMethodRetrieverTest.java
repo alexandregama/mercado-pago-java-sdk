@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +45,7 @@ public class PaymentMethodRetrieverTest {
 		List<String> methodsIds = new ArrayList<>();
 		paymentAcceptedMethods.forEach(method -> methodsIds.add(method.getId()));
 		
-		assertThat(paymentAcceptedMethods.size(), is(equalTo(18)));
+		assertThat(paymentAcceptedMethods.size(), is(equalTo(19)));
 		PaymentMethodsIds.forEach(id -> assertThat(methodsIds, hasItem(id)));
 	}
 	
@@ -53,6 +54,27 @@ public class PaymentMethodRetrieverTest {
 		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
 		
 		paymentAcceptedMethods.forEach(method -> assertThat(method.getStatus().getName(), is(equalTo("active"))));
+	}
+	
+	@Test
+	public void shouldCheckIfAllPaymentMethodsHaveASecureThumbnail() throws Exception {
+		List<PaymentMethod> paymentMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
+		
+		paymentMethods.forEach(method -> assertThat(method.getSecureThumbnail(), is(notNullValue())));
+	}
+
+	@Test
+	public void shouldCheckIfAllPaymentMethodsHaveAThumbnail() throws Exception {
+		List<PaymentMethod> paymentMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
+		
+		paymentMethods.forEach(method -> assertThat(method.getThumbnail(), is(notNullValue())));
+	}
+
+	@Test
+	public void shouldCheckIfAllPaymentMethodsHaveADeferredCapture() throws Exception {
+		List<PaymentMethod> paymentMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
+		
+		paymentMethods.forEach(method -> assertThat(method.getDeferredCapture(), is(notNullValue())));
 	}
 	
 }

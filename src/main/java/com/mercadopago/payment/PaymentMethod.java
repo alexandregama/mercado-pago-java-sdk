@@ -25,6 +25,15 @@ public class PaymentMethod {
 	@XmlElement(name = "status")
 	private PaymentStatus status;
 	
+	@XmlElement(name = "secure_thumbnail")
+	private String secureThumbnail;
+	
+	@XmlElement(name = "thumbnail")
+	private String thumbnail;
+	
+	@XmlElement(name = "deferred_capture")
+	private String deferredCapture;
+	
 	public enum PaymentType {
 		TICKET("ticket"), ATM("atm"), CREDIT_CARD("credit_card"), DEBIT_CARD("debit_card"), PREPAID_CARD("prepaid_card");
 		
@@ -76,4 +85,16 @@ public class PaymentMethod {
 		return status;
 	}
 
+	public String getSecureThumbnail() {
+		return secureThumbnail;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public String getDeferredCapture() {
+		return deferredCapture;
+	}
+	
 }
