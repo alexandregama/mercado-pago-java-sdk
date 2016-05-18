@@ -48,6 +48,9 @@ public class PaymentMethod {
 	@XmlElement(name = "max_allowed_amount")
 	private Integer maxAllowedAmount;
 	
+	@XmlElement(name = "accreditation_time")
+	private Integer accreditationTime;
+	
 	public enum PaymentType {
 		TICKET("ticket"), ATM("atm"), CREDIT_CARD("credit_card"), DEBIT_CARD("debit_card"), PREPAID_CARD("prepaid_card");
 		
@@ -122,13 +125,17 @@ public class PaymentMethod {
 		return maxAllowedAmount;
 	}
 
+	public Integer getAccreditationTime() {
+		return accreditationTime;
+	}
+
 	@Override
 	public String toString() {
 		return "PaymentMethod [id=" + id + ", name=" + name + ", type=" + type + ", status=" + status
 				+ ", secureThumbnail=" + secureThumbnail + ", thumbnail=" + thumbnail + ", deferredCapture="
 				+ deferredCapture + ", settings=" + settings + ", additionalInfoNeeded=" + additionalInfoNeeded
-				+ ", minAllowedAmount=" + minAllowedAmount + ", maxAllowedAmount=" + maxAllowedAmount + "]";
+				+ ", minAllowedAmount=" + minAllowedAmount + ", maxAllowedAmount=" + maxAllowedAmount
+				+ ", accreditationTime=" + accreditationTime + "]";
 	}
-	
 	
 }

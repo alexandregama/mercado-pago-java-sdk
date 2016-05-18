@@ -110,4 +110,13 @@ public class PaymentMethodRetrieverTest {
 		assertThat(paymentMethod.getMaxAllowedAmount(), is(equalTo(250_000)));
 	}
 	
+	@Test
+	public void shouldCheckIfExistsAccreditationTimeForVisaCreditCard() throws Exception {
+		List<PaymentMethod> paymentMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
+
+		PaymentMethod paymentMethod = paymentMethods.stream().filter(method -> method.getId().equals("visa")).findFirst().get();
+		
+		assertThat(paymentMethod.getAccreditationTime(), is(equalTo(2_880)));
+	}
+	
 }
