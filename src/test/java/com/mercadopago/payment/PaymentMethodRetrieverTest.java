@@ -87,4 +87,27 @@ public class PaymentMethodRetrieverTest {
 		assertThat(installmentsPattern, is(equalTo("^4")));
 	}
 	
+	@Test
+	public void shouldCheckIfExistsAdditionalInformationNeededForVisaCreditCard() throws Exception {
+		List<PaymentMethod> paymentMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
+
+		PaymentMethod paymentMethod = paymentMethods.stream().filter(method -> method.getId().equals("visa")).findFirst().get();
+		
+		assertThat(paymentMethod.getAdditionalInfoNeeded(), is(notNullValue()));
+		assertThat(paymentMethod.getAdditionalInfoNeeded().size(), is(equalTo(3)));
+		assertThat(paymentMethod.getAdditionalInfoNeeded().get(0), is(equalTo("cardholder_name")));
+		assertThat(paymentMethod.getAdditionalInfoNeeded().get(1), is(equalTo("cardholder_identification_type")));
+		assertThat(paymentMethod.getAdditionalInfoNeeded().get(2), is(equalTo("cardholder_identification_number")));
+	}
+	
+	@Test
+	public void shouldCheckIfExistsMaxAllowedAmountForVisaCreditCard() throws Exception {
+		List<PaymentMethod> paymentMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
+		
+		PaymentMethod paymentMethod = paymentMethods.stream().filter(method -> method.getId().equals("visa")).findFirst().get();
+		
+		assertThat(paymentMethod.getMinAllowedAmount(), is(equalTo(0)));
+		assertThat(paymentMethod.getMaxAllowedAmount(), is(equalTo(250_000)));
+	}
+	
 }

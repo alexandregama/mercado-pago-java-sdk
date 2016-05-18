@@ -39,6 +39,15 @@ public class PaymentMethod {
 	@XmlElement(name = "settings")
 	private List<PaymentMethodSettings> settings;
 	
+	@XmlElement(name = "additional_info_needed")
+	private List<String> additionalInfoNeeded;
+
+	@XmlElement(name = "min_allowed_amount")
+	private Integer minAllowedAmount;
+	
+	@XmlElement(name = "max_allowed_amount")
+	private Integer maxAllowedAmount;
+	
 	public enum PaymentType {
 		TICKET("ticket"), ATM("atm"), CREDIT_CARD("credit_card"), DEBIT_CARD("debit_card"), PREPAID_CARD("prepaid_card");
 		
@@ -67,13 +76,6 @@ public class PaymentMethod {
 		public String getName() {
 			return name;
 		}
-	}
-
-	@Override
-	public String toString() {
-		return "PaymentMethod [id=" + id + ", name=" + name + ", type=" + type + ", status=" + status
-				+ ", secureThumbnail=" + secureThumbnail + ", thumbnail=" + thumbnail + ", deferredCapture="
-				+ deferredCapture + ", settings=" + settings + "]";
 	}
 
 	public String getId() {
@@ -107,4 +109,26 @@ public class PaymentMethod {
 	public List<PaymentMethodSettings> getSettings() {
 		return settings;
 	}
+	
+	public List<String> getAdditionalInfoNeeded() {
+		return additionalInfoNeeded;
+	}
+	
+	public Integer getMinAllowedAmount() {
+		return minAllowedAmount;
+	}
+	
+	public Integer getMaxAllowedAmount() {
+		return maxAllowedAmount;
+	}
+
+	@Override
+	public String toString() {
+		return "PaymentMethod [id=" + id + ", name=" + name + ", type=" + type + ", status=" + status
+				+ ", secureThumbnail=" + secureThumbnail + ", thumbnail=" + thumbnail + ", deferredCapture="
+				+ deferredCapture + ", settings=" + settings + ", additionalInfoNeeded=" + additionalInfoNeeded
+				+ ", minAllowedAmount=" + minAllowedAmount + ", maxAllowedAmount=" + maxAllowedAmount + "]";
+	}
+	
+	
 }
