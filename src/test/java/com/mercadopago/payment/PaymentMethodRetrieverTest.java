@@ -5,7 +5,6 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +18,6 @@ import org.junit.Test;
 import com.mercadopago.api.MercadoPagoClient;
 import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
-import com.mercadopago.api.TokenClientCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
 
 public class PaymentMethodRetrieverTest {
@@ -78,9 +76,15 @@ public class PaymentMethodRetrieverTest {
 	@Test
 	public void shouldCheckIfAllPaymentMethodsHaveSettingsWithBinPattern() throws Exception {
 		List<PaymentMethod> paymentMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
+
+		PaymentMethod paymentMethod = paymentMethods.stream().filter(method -> method.getId().equals("visa")).findFirst().get();
+		String pattern = paymentMethod.getSettings().get(0).getBin().getPattern();
+		String exclusionPattern = paymentMethod.getSettings().get(0).getBin().getExclusionPattern();
+		String installmentsPattern = paymentMethod.getSettings().get(0).getBin().getInstallmentsPattern();
 		
-		System.out.println(paymentMethods.get(0));
-		String pattern = paymentMethods.get(0).getSettings().get(0).getBin().getPattern();
-		paymentMethods.forEach(method -> assertThat(method.getSettings().get(0).getBin().getPattern(), is(notNullValue())));
+		assertThat(pattern, is(equalTo("^4")));
+		assertThat(exclusionPattern, is(equalTo("^(487017)")));
+		assertThat(installmentsPattern, is(equalTo("^4")));
 	}
+	
 }
