@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,9 +39,6 @@ public class PaymentMethodRetrieverTest {
 	
 	@Test
 	public void shouldRetrieveAllAcceptedPaymentMethodsFromMercadoPago() throws Exception {
-		TokenClientCredentials clientCredentials = new TokenClientCredentialsReader().getCredentials();
-		MercadoPagoToken token = mercadoPago.retrieveNewTokenUsing(clientCredentials);
-		
 		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
 		List<String> methodsIds = new ArrayList<>();
 		paymentAcceptedMethods.forEach(method -> methodsIds.add(method.getId()));
@@ -76,5 +74,13 @@ public class PaymentMethodRetrieverTest {
 		
 		paymentMethods.forEach(method -> assertThat(method.getDeferredCapture(), is(notNullValue())));
 	}
-	
+
+	@Test
+	public void shouldCheckIfAllPaymentMethodsHaveSettingsWithBinPattern() throws Exception {
+		List<PaymentMethod> paymentMethods = mercadoPago.retrieveAllPaymentMethodsUsing(token);
+		
+		System.out.println(paymentMethods.get(0));
+		String pattern = paymentMethods.get(0).getSettings().get(0).getBin().getPattern();
+		paymentMethods.forEach(method -> assertThat(method.getSettings().get(0).getBin().getPattern(), is(notNullValue())));
+	}
 }
