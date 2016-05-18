@@ -1,5 +1,9 @@
 package com.mercadopago.api;
 
+import java.util.List;
+
+import com.mercadopago.payment.PaymentMethod;
+
 public class MercadoPago {
 	
 	private MercadoPagoClient client;
@@ -12,6 +16,10 @@ public class MercadoPago {
 		MercadoPagoToken token = client.retrieveNewTokenUsing(clientCredentials);
 		
 		return token;
+	}
+
+	public List<PaymentMethod> getPaymentMethods(MercadoPagoToken token) {
+		return client.retrieveAllPaymentMethodsUsing(token);
 	}
 
 }
