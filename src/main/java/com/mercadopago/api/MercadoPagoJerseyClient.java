@@ -11,6 +11,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.mercadopago.payment.PaymentMethod;
+import com.mercadopago.preference.Preference;
 
 public class MercadoPagoJerseyClient implements MercadoPagoClient {
 
@@ -46,6 +47,20 @@ public class MercadoPagoJerseyClient implements MercadoPagoClient {
 				.get();
 		List<PaymentMethod> methods = response.readEntity(new GenericType<List<PaymentMethod>>() {});
 		return methods;
+	}
+
+	public void createPreference(Preference preference, MercadoPagoToken token) {
+		Client client = ClientBuilder.newClient();
+		
+		Response response = client
+				.target("https://api.mercadopago.com")
+				.path("checkout/preferences")
+				.queryParam("access_token", token.getAccessToken())
+				.request(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)
+				.post(Entity.json(preference));
+		
+		System.out.println(response);
 	}
 
 }
