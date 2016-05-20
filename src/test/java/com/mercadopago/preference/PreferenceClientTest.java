@@ -1,5 +1,9 @@
 package com.mercadopago.preference;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+
 import java.math.BigDecimal;
 
 import org.junit.Before;
@@ -33,10 +37,23 @@ public class PreferenceClientTest {
 	@Test
 	public void shouldCreateANewPreference() throws Exception {
 		Preference preference = new Preference();
-		Item item = new Item(1L, "First Produto", "First Awesome Product", "http://s3.amazon.com/mercadopago/image.png", "Music", 2, "BRL", BigDecimal.TEN);
+		Item item = Item
+			.fromId(1L)
+			.withProductNamed("First Produto")
+			.withDescription("First Awesome Product")
+			.costing(BigDecimal.TEN)
+			.withQuantity(10)
+			.usingPictureOnUrl("http://s3.amazon.com/mercadopago/image.png")
+			.fromCategory("Music")
+			.withCurrecyCode("BRL")
+			.build();
+		
 		preference.addItem(item);
 		
-		mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreted = mercadoPago.preferences().createPreference(preference);
+		Item cretedItem = preferenceCreted.getItems().get(0);
+		
+		assertThat(cretedItem.getId(), is(equalTo(1L)));
 	}
 	
 }

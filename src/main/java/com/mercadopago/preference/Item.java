@@ -30,19 +30,66 @@ public class Item {
 	@XmlElement(name = "unit_price")
 	private BigDecimal price;
 	
-	public Item(Long id, String title, String description, String pictureUrl, String category, int quantity,
-			String currency, BigDecimal price) {
+	public Item(Long id, String title) {
 		this.id = id;
 		this.title = title;
-		this.description = description;
-		this.pictureUrl = pictureUrl;
-		this.category = category;
-		this.quantity = quantity;
-		this.currency = currency;
-		this.price = price;
 	}
-
+	
 	public Item() {
+	}
+	
+	public static ItemBuilder fromId(Long id) {
+		return new ItemBuilder(id);
+	}
+	
+	public static class ItemBuilder {
+		
+		private Item item;
+		
+		public ItemBuilder(Long id) {
+			item = new Item();
+			item.setId(id);
+		}
+
+		public ItemBuilder withProductNamed(String productName) {
+			item.setTitle(productName);
+			return this;
+		}
+
+		public ItemBuilder withDescription(String description) {
+			item.setDescription(description);
+			return this;
+		}
+
+		public ItemBuilder costing(BigDecimal price) {
+			item.setPrice(price);
+			return this;
+		}
+
+		public ItemBuilder withQuantity(int quantity) {
+			item.setQuantity(quantity);
+			return this;
+		}
+
+		public ItemBuilder usingPictureOnUrl(String pictureUrl) {
+			item.setPictureUrl(pictureUrl);
+			return this;
+		}
+
+		public ItemBuilder fromCategory(String category) {
+			item.setCategory(category);
+			return this;
+		}
+
+		public ItemBuilder withCurrecyCode(String currencyCode) {
+			item.setCurrency(currencyCode);
+			return this;
+		}
+
+		public Item build() {
+			return this.item;
+		}
+		
 	}
 
 	public Long getId() {
@@ -101,4 +148,15 @@ public class Item {
 		this.price = price;
 	}
 
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", title=" + title + ", description=" + description + ", pictureUrl=" + pictureUrl
+				+ ", category=" + category + ", quantity=" + quantity + ", currency=" + currency + ", price=" + price
+				+ "]";
+	}
+	
 }
