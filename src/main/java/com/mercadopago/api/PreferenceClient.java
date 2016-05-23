@@ -30,8 +30,8 @@ public class PreferenceClient {
 				.post(Entity.json(preference));
 		
 		if (response.getStatus() != Status.CREATED.getStatusCode()) {
-			MercadoPagoExceptionInformation internalMercadoPagoEception = response.readEntity(new GenericType<MercadoPagoExceptionInformation>() {});
-			throw new MercadoPagoBadRequestException("An error ocurred while trying to Create a new Preference", internalMercadoPagoEception.getMessage(), internalMercadoPagoEception.getError());
+			MercadoPagoExceptionInformation internalMercadoPagoException = response.readEntity(new GenericType<MercadoPagoExceptionInformation>() {});
+			throw new MercadoPagoBadRequestException("An error ocurred while trying to Create a new Preference", internalMercadoPagoException.getMessage(), internalMercadoPagoException.getError());
 		}
 		return preference;
 	}
