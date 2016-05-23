@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.mercadopago.api.MercadoPagoBadRequestException;
 import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
 import com.mercadopago.api.TokenClientCredentials;
@@ -54,6 +55,43 @@ public class PreferenceClientTest {
 		Item cretedItem = preferenceCreted.getItems().get(0);
 		
 		assertThat(cretedItem.getId(), is(equalTo(1L)));
+	}
+
+	@Test(expected = MercadoPagoBadRequestException.class)
+	public void shouldNotCreateANewPreferenceWhenUserDoesNotSendProductPrice() throws Exception {
+		Preference preference = new Preference();
+		Item item = new Item();
+		item.setId(1L);
+		item.setQuantity(3);
+		item.setCategory("Music");
+		item.setCurrency("BRL");
+		
+		preference.addItem(item);
+		mercadoPago.preferences().createPreference(preference);
+	}
+	
+	@Test(expected = MercadoPagoBadRequestException.class)
+	public void shouldNotCreateANewPreferenceWhenUserDoesNotSendQuantity() throws Exception {
+		Preference preference = new Preference();
+		Item item = new Item();
+		item.setId(1L);
+		item.setPrice(BigDecimal.TEN);
+		item.setCategory("Music");
+		item.setCurrency("BRL");
+		
+		preference.addItem(item);
+		mercadoPago.preferences().createPreference(preference);
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWhenUserSendAllMinimalInformations() throws Exception {
+		Preference preference = new Preference();
+		Item item = new Item();
+		item.setPrice(BigDecimal.TEN);
+		item.setQuantity(3);
+		
+		preference.addItem(item);
+		mercadoPago.preferences().createPreference(preference);
 	}
 	
 }
