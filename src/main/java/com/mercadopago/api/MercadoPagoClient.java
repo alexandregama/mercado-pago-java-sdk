@@ -4,6 +4,6 @@ public interface MercadoPagoClient {
 
 	PaymentMethodClient paymentMethods();
 	
-	PreferenceClient preferences();
+	PreferenceClientApi preferences();
 
 }

@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 public class Item {
 
 	@XmlElement(name = "id")
-	private Long id;
+	private String id;
 
 	@XmlElement(name = "title")
 	private String title;
@@ -21,16 +21,16 @@ public class Item {
 	@XmlElement(name = "category_id")
 	private String category;
 	
-	@XmlElement(name = "quantity")
+	@XmlElement(name = "quantity", required = true)
 	private int quantity;
 	
 	@XmlElement(name = "currency_id")
 	private String currency;
 	
-	@XmlElement(name = "unit_price")
+	@XmlElement(name = "unit_price", required = true)
 	private BigDecimal price;
 	
-	public Item(Long id, String title) {
+	public Item(String id, String title) {
 		this.id = id;
 		this.title = title;
 	}
@@ -38,7 +38,7 @@ public class Item {
 	public Item() {
 	}
 	
-	public static ItemBuilder fromId(Long id) {
+	public static ItemBuilder fromId(String id) {
 		return new ItemBuilder(id);
 	}
 	
@@ -46,7 +46,7 @@ public class Item {
 		
 		private Item item;
 		
-		public ItemBuilder(Long id) {
+		public ItemBuilder(String id) {
 			item = new Item();
 			item.setId(id);
 		}
@@ -92,11 +92,11 @@ public class Item {
 		
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

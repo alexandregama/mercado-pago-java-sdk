@@ -12,8 +12,8 @@ public class MercadoPagoJerseyClient implements MercadoPagoClient {
 		return new PaymentMethodClient(token);
 	}
 
-	public PreferenceClient preferences() {
-		return new PreferenceClient(token);
+	public PreferenceClientApi preferences() {
+		return new PreferenceClientApi(token);
 	}
 
 }

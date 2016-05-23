@@ -39,7 +39,7 @@ public class PreferenceClientTest {
 	public void shouldCreateANewPreference() throws Exception {
 		Preference preference = new Preference();
 		Item item = Item
-			.fromId(1L)
+			.fromId("1")
 			.withProductNamed("First Produto")
 			.withDescription("First Awesome Product")
 			.costing(BigDecimal.TEN)
@@ -54,14 +54,14 @@ public class PreferenceClientTest {
 		Preference preferenceCreted = mercadoPago.preferences().createPreference(preference);
 		Item cretedItem = preferenceCreted.getItems().get(0);
 		
-		assertThat(cretedItem.getId(), is(equalTo(1L)));
+		assertThat(cretedItem.getId(), is(equalTo("1")));
 	}
 
 	@Test(expected = MercadoPagoBadRequestException.class)
 	public void shouldNotCreateANewPreferenceWhenUserDoesNotSendProductPrice() throws Exception {
 		Preference preference = new Preference();
 		Item item = new Item();
-		item.setId(1L);
+		item.setId("1");
 		item.setQuantity(3);
 		item.setCategory("Music");
 		item.setCurrency("BRL");
@@ -74,7 +74,7 @@ public class PreferenceClientTest {
 	public void shouldNotCreateANewPreferenceWhenUserDoesNotSendQuantity() throws Exception {
 		Preference preference = new Preference();
 		Item item = new Item();
-		item.setId(1L);
+		item.setId("1");
 		item.setPrice(BigDecimal.TEN);
 		item.setCategory("Music");
 		item.setCurrency("BRL");

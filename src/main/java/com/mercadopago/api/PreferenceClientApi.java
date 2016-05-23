@@ -10,11 +10,11 @@ import javax.ws.rs.core.Response.Status;
 
 import com.mercadopago.preference.Preference;
 
-public class PreferenceClient {
+public class PreferenceClientApi {
 
 	private MercadoPagoToken token;
 
-	public PreferenceClient(MercadoPagoToken token) {
+	public PreferenceClientApi(MercadoPagoToken token) {
 		this.token = token;
 	}
 
@@ -35,5 +35,5 @@ public class PreferenceClient {
 		}
 		return preference;
 	}
-
+	
 }
