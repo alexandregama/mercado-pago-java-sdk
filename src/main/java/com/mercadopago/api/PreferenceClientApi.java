@@ -33,6 +33,34 @@ public class PreferenceClientApi {
 			MercadoPagoExceptionInformation internalMercadoPagoException = response.readEntity(new GenericType<MercadoPagoExceptionInformation>() {});
 			throw new MercadoPagoBadRequestException("An error ocurred while trying to Create a new Preference", internalMercadoPagoException.getMessage(), internalMercadoPagoException.getError());
 		}
+		Preference preferenceCreated = response.readEntity(Preference.class);
+		
+		return preferenceCreated;
+	}
+
+	public Preference getPreferenceFrom(String id) {
+		Client client = ClientBuilder.newClient();
+		
+		Response response = client
+			.target("https://api.mercadopago.com")
+			.path("/checkout/preferences/" + id)
+			.queryParam("access_token", token.getAccessToken())
+			.request(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.get();
+		
+		System.out.println(response.getStatusInfo());
+		if (response.getStatus() == Status.NOT_FOUND.getStatusCode()) {
+			System.out.println("Error");
+			MercadoPagoExceptionInformation internalMercadoPagoException = response.readEntity(new GenericType<MercadoPagoExceptionInformation>() {});
+			throw new MercadoPagoNotFoundException(String.format("Preference with id {} was not found.", id), internalMercadoPagoException);
+		}
+		if (response.getStatusInfo() != Status.OK) {
+			MercadoPagoException internalMercadoPagoException = response.readEntity(new GenericType<MercadoPagoException>() {});
+			System.out.println(internalMercadoPagoException);
+		}
+		
+		Preference preference = response.readEntity(Preference.class);
 		return preference;
 	}
 	
