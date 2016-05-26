@@ -1,11 +1,10 @@
 package com.mercadopago.preference;
 
+import static com.mercadopago.preference.Preference.PreferenceOperationType.REGULAR_PAYMENT;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-
-import static com.mercadopago.preference.Preference.PreferenceOperationType.REGULAR_PAYMENT;
 
 import java.math.BigDecimal;
 
@@ -71,6 +70,10 @@ public class PreferenceClientTest {
 		assertThat(preferenceCreted.getCollectorId(), is(notNullValue()));
 		assertThat(preferenceCreted.getOperationType(), is(equalTo(REGULAR_PAYMENT)));
 		assertThat(preferenceCreted.getAdditionalInformation(), is(equalTo("Elo7 - Additional Infos")));
+		
+		assertThat(preferenceCreted.getBackUrl().getSuccess(), is(notNullValue()));
+		assertThat(preferenceCreted.getBackUrl().getPending(), is(notNullValue()));
+		assertThat(preferenceCreted.getBackUrl().getFailure(), is(notNullValue()));
 	}
 	
 	@Test

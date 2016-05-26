@@ -30,6 +30,9 @@ public class Preference {
 	@XmlElement(name = "additional_info")
 	private String additionalInformation;
 	
+	@XmlElement(name = "back_urls")
+	private PreferenceBackUrl backUrl;
+	
 	public enum PreferenceOperationType {
 		REGULAR_PAYMENT("regular_payment"), MONEY_TRANSFER("money_transfer");
 		
@@ -44,7 +47,7 @@ public class Preference {
 			return operationName;
 		}
 	}
-
+	
 	public List<Item> getItems() {
 		return items;
 	}
@@ -69,17 +72,26 @@ public class Preference {
 		return operationType;
 	}
 
-	@Override
-	public String toString() {
-		return "Preference [id=" + id + ", items=" + items + "]";
-	}
-
 	public String getAdditionalInformation() {
 		return additionalInformation;
 	}
 
 	public void setAdditionalInformation(String additionalInformation) {
 		this.additionalInformation = additionalInformation;
+	}
+
+	public PreferenceBackUrl getBackUrl() {
+		return backUrl;
+	}
+
+	public void setBackUrl(PreferenceBackUrl backUrl) {
+		this.backUrl = backUrl;
+	}
+
+	@Override
+	public String toString() {
+		return "Preference [id=" + id + ", items=" + items + ", collectorId=" + collectorId + ", operationType="
+				+ operationType + ", additionalInformation=" + additionalInformation + ", backUrl=" + backUrl + "]";
 	}
 
 }
