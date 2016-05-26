@@ -33,6 +33,9 @@ public class Preference {
 	@XmlElement(name = "back_urls")
 	private PreferenceBackUrl backUrl;
 	
+	@XmlElement(name = "payer")
+	private Payer payer;
+	
 	public enum PreferenceOperationType {
 		REGULAR_PAYMENT("regular_payment"), MONEY_TRANSFER("money_transfer");
 		
@@ -88,10 +91,19 @@ public class Preference {
 		this.backUrl = backUrl;
 	}
 
+	public Payer getPayer() {
+		return payer;
+	}
+
+	public void setPayer(Payer payer) {
+		this.payer = payer;
+	}
+
 	@Override
 	public String toString() {
 		return "Preference [id=" + id + ", items=" + items + ", collectorId=" + collectorId + ", operationType="
-				+ operationType + ", additionalInformation=" + additionalInformation + ", backUrl=" + backUrl + "]";
+				+ operationType + ", additionalInformation=" + additionalInformation + ", backUrl=" + backUrl
+				+ ", payer=" + payer + "]";
 	}
 
 }

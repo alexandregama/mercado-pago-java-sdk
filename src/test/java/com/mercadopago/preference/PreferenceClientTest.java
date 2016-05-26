@@ -51,8 +51,22 @@ public class PreferenceClientTest {
 			.withCurrecyCode("ARS")
 			.build();
 		
+		Payer payer = new Payer();
+		
+		payer.setName("Alexandre");
+		payer.setLastname("Gama");
+		payer.setEmail("alexandre.gama.lima@gmail.com");
+		payer.setPhone(new Phone("55", "987653786"));
+		
+		Address address = new Address();
+		address.setZipCode("04676500");
+		address.setStreetNumber(40);
+		address.setStreetName("First Street");
+		payer.setAddress(address);
+		
 		preference.addItem(item);
 		preference.setAdditionalInformation("Elo7 - Additional Infos");
+		preference.setPayer(payer);
 		
 		Preference preferenceCreted = mercadoPago.preferences().createPreference(preference);
 		Item cretedItem = preferenceCreted.getItems().get(0);
@@ -74,6 +88,17 @@ public class PreferenceClientTest {
 		assertThat(preferenceCreted.getBackUrl().getSuccess(), is(notNullValue()));
 		assertThat(preferenceCreted.getBackUrl().getPending(), is(notNullValue()));
 		assertThat(preferenceCreted.getBackUrl().getFailure(), is(notNullValue()));
+		
+		Payer payerFromPreference = preferenceCreted.getPayer();
+		assertThat(payerFromPreference.getName(), is(equalTo("Alexandre")));
+		assertThat(payerFromPreference.getLastname(), is(equalTo("Gama")));
+		assertThat(payerFromPreference.getEmail(), is(equalTo("alexandre.gama.lima@gmail.com")));
+		assertThat(payerFromPreference.getPhone().getAreaCode(), is(equalTo("55")));
+		assertThat(payerFromPreference.getPhone().getNumber(), is(equalTo("987653786")));
+		assertThat(payerFromPreference.getAddress().getStreetName(), is(equalTo("First Street")));
+		assertThat(payerFromPreference.getAddress().getStreetNumber(), is(equalTo(40)));
+		assertThat(payerFromPreference.getAddress().getZipCode(), is(equalTo("04676500")));
+		
 	}
 	
 	@Test
@@ -96,7 +121,7 @@ public class PreferenceClientTest {
 		Preference preferenceCreted = mercadoPago.preferences().createPreference(preference);
 		Item cretedItem = preferenceCreted.getItems().get(0);
 		
-		assertThat(preferenceCreted.getId(), is(equalTo("1")));
+		assertThat(preferenceCreted.getId(), is(notNullValue()));
 		assertThat(cretedItem.getId(), is(equalTo("1")));
 	}
 
@@ -160,9 +185,9 @@ public class PreferenceClientTest {
 		item.setQuantity(3);
 		preference.addItem(item);
 		
-		mercadoPago.preferences().createPreference(preference);
-		Preference preferenceCreated = mercadoPago.preferences().getPreferenceFrom("2");
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceFound = mercadoPago.preferences().getPreferenceFrom(preferenceCreated.getId());
 		
-		System.out.println(preferenceCreated);
+		System.out.println(preferenceFound);
 	}
 }
