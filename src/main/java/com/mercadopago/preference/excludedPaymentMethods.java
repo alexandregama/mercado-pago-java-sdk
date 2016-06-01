@@ -12,30 +12,34 @@ import com.mercadopago.payment.PaymentMethod;
 
 @XmlRootElement(name = "payment_methods")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class excludedPaymentMethods {
+public class ExcludedPaymentMethods {
 
 	@XmlElement(name = "excluded_payment_methods")
-	private List<PaymentMethod> excludedPaymentMethods = new ArrayList<>();
+	private List<PaymentMethod> paymentMethods = new ArrayList<>();
 	
 	@XmlElement(name = "excluded_payment_types")
-	private List<ExcludedPaymentType> excludedPaymentTypes = new ArrayList<>();
+	private List<ExcludedPaymentType> paymentTypes = new ArrayList<>();
 
-	public List<PaymentMethod> getExcludedPaymentMethods() {
-		return excludedPaymentMethods;
+	public List<PaymentMethod> getPaymentMethods() {
+		return paymentMethods;
+	}
+	
+	public List<ExcludedPaymentType> getPaymentTypes() {
+		return paymentTypes;
+	}
+	
+	public void addPaymentMethod(PaymentMethod paymentMethod) {
+		this.paymentMethods.add(paymentMethod);
 	}
 
-	public void addExcludedPaymentMethod(PaymentMethod paymentMethod) {
-		this.excludedPaymentMethods.add(paymentMethod);
-	}
-
-	public void addExcludedPaymentType(ExcludedPaymentType paymentType) {
-		this.excludedPaymentTypes.add(paymentType);
+	public void addPaymentType(ExcludedPaymentType paymentType) {
+		this.paymentTypes.add(paymentType);
 	}
 
 	@Override
 	public String toString() {
-		return "excludedPaymentMethods [excludedPaymentMethods=" + excludedPaymentMethods + ", excludedPaymentTypes="
-				+ excludedPaymentTypes + "]";
+		return "excludedPaymentMethods [excludedPaymentMethods=" + paymentMethods + ", excludedPaymentTypes="
+				+ paymentTypes + "]";
 	}
 	
 }

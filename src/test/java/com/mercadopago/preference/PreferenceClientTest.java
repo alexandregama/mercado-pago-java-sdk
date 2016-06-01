@@ -1,5 +1,6 @@
 package com.mercadopago.preference;
 
+import static com.mercadopago.payment.PaymentType.TICKET;
 import static com.mercadopago.preference.Preference.PreferenceOperationType.REGULAR_PAYMENT;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -19,7 +20,6 @@ import com.mercadopago.api.TokenClientCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
 import com.mercadopago.payment.ExcludedPaymentType;
 import com.mercadopago.payment.PaymentMethod;
-import com.mercadopago.payment.PaymentType;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
 public class PreferenceClientTest {
@@ -180,25 +180,24 @@ public class PreferenceClientTest {
 	@Test
 	public void shouldCreateANewPreferenceWithExcludedPaymentMethod() throws Exception {
 		Preference preference = new Preference();
-		Item item = new Item();
-		item.setPrice(BigDecimal.TEN);
-		item.setQuantity(3);
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
 		
-		excludedPaymentMethods acceptedPaymentMethods = new excludedPaymentMethods();
 		PaymentMethod paymentMethodToBeExcluded = mercadoPago.paymentMethods().getBy("visa").get();
-		acceptedPaymentMethods.addExcludedPaymentMethod(paymentMethodToBeExcluded);
-		ExcludedPaymentType paymentType = new ExcludedPaymentType();
-		paymentType.setPaymentType(PaymentType.TICKET);
-		acceptedPaymentMethods.addExcludedPaymentType(paymentType);
+		ExcludedPaymentMethods excludedPaymentMethods = new ExcludedPaymentMethods();
+		excludedPaymentMethods.addPaymentMethod(paymentMethodToBeExcluded);
+		
+		ExcludedPaymentType paymentTypeToBeExcluded = new ExcludedPaymentType();
+		paymentTypeToBeExcluded.setPaymentType(TICKET);
+		excludedPaymentMethods.addPaymentType(paymentTypeToBeExcluded);
 		
 		preference.addItem(item);
-		preference.setAcceptedPaymentMethods(acceptedPaymentMethods);
-		
-		System.out.println(preference);
+		preference.setExcludedPaymentMethods(excludedPaymentMethods);
 		
 		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		ExcludedPaymentMethods paymentMethod = preferenceCreated.getExcludedPaymentMethods();
 		
-		System.out.println(preferenceCreated);
+		paymentMethod.getPaymentMethods().forEach(method -> assertThat(method.getId(), is(equalTo("visa"))));
+		paymentMethod.getPaymentTypes().forEach(type -> assertThat(type.getPaymentType(), is(equalTo(TICKET.getName()))));
 	}
 	
 }

@@ -1,19 +1,23 @@
 package com.mercadopago.payment;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "excluded_payment_types")
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ExcludedPaymentType {
 
 	@XmlElement(name = "id")
-	private PaymentType paymentType;
-
-	public PaymentType getPaymentType() {
+	private String paymentType;
+	
+	public String getPaymentType() {
 		return paymentType;
 	}
 
 	public void setPaymentType(PaymentType paymentType) {
-		this.paymentType = paymentType;
+		this.paymentType = paymentType.getName();
 	}	
 }
