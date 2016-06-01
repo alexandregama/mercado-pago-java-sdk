@@ -49,9 +49,7 @@ public class PreferenceClientApi {
 			.accept(MediaType.APPLICATION_JSON)
 			.get();
 		
-		System.out.println(response.getStatusInfo());
 		if (response.getStatus() == Status.NOT_FOUND.getStatusCode()) {
-			System.out.println("Error");
 			MercadoPagoExceptionInformation internalMercadoPagoException = response.readEntity(new GenericType<MercadoPagoExceptionInformation>() {});
 			throw new MercadoPagoNotFoundException(String.format("Preference with id {} was not found.", id), internalMercadoPagoException);
 		}

@@ -36,6 +36,9 @@ public class Preference {
 	@XmlElement(name = "payer")
 	private Payer payer;
 	
+	@XmlElement(name = "payment_methods")
+	private AcceptedPaymentMethods acceptedPaymentMethods;
+	
 	public enum PreferenceOperationType {
 		REGULAR_PAYMENT("regular_payment"), MONEY_TRANSFER("money_transfer");
 		
@@ -98,12 +101,20 @@ public class Preference {
 	public void setPayer(Payer payer) {
 		this.payer = payer;
 	}
+	
+	public AcceptedPaymentMethods getAcceptedPaymentMethods() {
+		return acceptedPaymentMethods;
+	}
+	
+	public void setAcceptedPaymentMethods(AcceptedPaymentMethods acceptedPaymentMethods) {
+		this.acceptedPaymentMethods = acceptedPaymentMethods;
+	}
 
 	@Override
 	public String toString() {
 		return "Preference [id=" + id + ", items=" + items + ", collectorId=" + collectorId + ", operationType="
 				+ operationType + ", additionalInformation=" + additionalInformation + ", backUrl=" + backUrl
-				+ ", payer=" + payer + "]";
+				+ ", payer=" + payer + ", acceptedPaymentMethods=" + acceptedPaymentMethods + "]";
 	}
 
 }

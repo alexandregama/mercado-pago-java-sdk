@@ -17,6 +17,7 @@ import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
 import com.mercadopago.api.TokenClientCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
+import com.mercadopago.payment.PaymentMethod;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
 public class PreferenceClientTest {
@@ -175,19 +176,23 @@ public class PreferenceClientTest {
 	}
 
 	@Test
-	public void shouldGetPreferenceFromItsId() throws Exception {
-		System.out.println(token.getAccessToken());
+	public void shouldCreateANewPreferenceWithExcludedPaymentMethod() throws Exception {
 		Preference preference = new Preference();
-		preference.setId("2");
 		Item item = new Item();
-		item.setId("100");
 		item.setPrice(BigDecimal.TEN);
 		item.setQuantity(3);
+		
+		AcceptedPaymentMethods acceptedPaymentMethods = new AcceptedPaymentMethods();
+		
+		PaymentMethod paymentMethodToBeExcluded = mercadoPago.paymentMethods().getBy("visa").get();
+		acceptedPaymentMethods.addExcludedPaymentMethod(paymentMethodToBeExcluded);
+		
 		preference.addItem(item);
+		preference.setAcceptedPaymentMethods(acceptedPaymentMethods);
 		
 		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
-		Preference preferenceFound = mercadoPago.preferences().getPreferenceFrom(preferenceCreated.getId());
 		
-		System.out.println(preferenceFound);
+		System.out.println(preferenceCreated);
 	}
+	
 }

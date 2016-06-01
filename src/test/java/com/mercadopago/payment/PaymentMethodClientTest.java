@@ -5,11 +5,13 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.Before;
@@ -129,6 +131,14 @@ public class PaymentMethodClientTest {
 		PaymentMethod paymentMethod = paymentAcceptedMethods.stream().filter(method -> method.getId().equals("visa")).findFirst().get();
 		
 		assertThat(paymentMethod.getAccreditationTime(), is(equalTo(2_880)));
+	}
+	
+	@Test
+	public void shouldRetrieveAPaymentMethodByItsId() throws Exception {
+		String paymentMethodId = "visa";
+		Optional<PaymentMethod> paymentMethod = mercadoPago.paymentMethods().getBy(paymentMethodId);
+		
+		assertTrue(paymentMethod.isPresent());
 	}
 	
 }
