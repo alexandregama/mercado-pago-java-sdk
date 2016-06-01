@@ -51,21 +51,6 @@ public class PaymentMethod {
 	@XmlElement(name = "accreditation_time")
 	private Integer accreditationTime;
 	
-	public enum PaymentType {
-		TICKET("ticket"), ATM("atm"), CREDIT_CARD("credit_card"), DEBIT_CARD("debit_card"), PREPAID_CARD("prepaid_card");
-		
-		private String name;
-		
-		PaymentType(String name) {
-			this.name = name;
-		}
-		
-		@JsonValue
-		public String getName() {
-			return name;
-		}
-	}
-	
 	public enum PaymentStatus {
 		ACTIVE("active"), DEACTIVE("deactive"), TEMPORALLY_DEACTIVE("temporally_deactive");
 		
@@ -131,7 +116,7 @@ public class PaymentMethod {
 
 	@Override
 	public String toString() {
-		return "PaymentMethod [id=" + id + ", name=" + name + ", type=" + type + ", status=" + status
+		return "PaymentMethod [value=" + id + ", value=" + name + ", type=" + type + ", status=" + status
 				+ ", secureThumbnail=" + secureThumbnail + ", thumbnail=" + thumbnail + ", deferredCapture="
 				+ deferredCapture + ", settings=" + settings + ", additionalInfoNeeded=" + additionalInfoNeeded
 				+ ", minAllowedAmount=" + minAllowedAmount + ", maxAllowedAmount=" + maxAllowedAmount

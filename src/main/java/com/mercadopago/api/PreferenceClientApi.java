@@ -31,6 +31,7 @@ public class PreferenceClientApi {
 		
 		if (response.getStatus() != Status.CREATED.getStatusCode()) {
 			MercadoPagoExceptionInformation internalMercadoPagoException = response.readEntity(new GenericType<MercadoPagoExceptionInformation>() {});
+			System.out.println(internalMercadoPagoException);
 			throw new MercadoPagoBadRequestException("An error ocurred while trying to Create a new Preference", internalMercadoPagoException.getMessage(), internalMercadoPagoException.getError());
 		}
 		Preference preferenceCreated = response.readEntity(Preference.class);

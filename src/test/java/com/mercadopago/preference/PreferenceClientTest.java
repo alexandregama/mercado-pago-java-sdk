@@ -17,7 +17,9 @@ import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
 import com.mercadopago.api.TokenClientCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
+import com.mercadopago.payment.ExcludedPaymentType;
 import com.mercadopago.payment.PaymentMethod;
+import com.mercadopago.payment.PaymentType;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
 public class PreferenceClientTest {
@@ -182,13 +184,17 @@ public class PreferenceClientTest {
 		item.setPrice(BigDecimal.TEN);
 		item.setQuantity(3);
 		
-		AcceptedPaymentMethods acceptedPaymentMethods = new AcceptedPaymentMethods();
-		
+		excludedPaymentMethods acceptedPaymentMethods = new excludedPaymentMethods();
 		PaymentMethod paymentMethodToBeExcluded = mercadoPago.paymentMethods().getBy("visa").get();
 		acceptedPaymentMethods.addExcludedPaymentMethod(paymentMethodToBeExcluded);
+		ExcludedPaymentType paymentType = new ExcludedPaymentType();
+		paymentType.setPaymentType(PaymentType.TICKET);
+		acceptedPaymentMethods.addExcludedPaymentType(paymentType);
 		
 		preference.addItem(item);
 		preference.setAcceptedPaymentMethods(acceptedPaymentMethods);
+		
+		System.out.println(preference);
 		
 		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
 		
