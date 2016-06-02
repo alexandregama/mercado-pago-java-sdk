@@ -235,5 +235,22 @@ public class PreferenceClientTest {
 		
 		assertThat(maximumInstallmentsAllowed, is(equalTo(12)));
 	}
+
+	@Test
+	public void shouldCreateANewPreferenceSettingThePreferedNumberOfInstallmentsForCreditCard() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		
+		PreferencePaymentMethods paymentMethods = new PreferencePaymentMethods();
+		paymentMethods.setPreferedInstallmentsForCreditCard(3);
+		
+		preference.addItem(item);
+		preference.setPaymentMethods(paymentMethods);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Integer preferedInstallmentsForCreditCard = preferenceCreated.getPaymentMethods().getPreferedInstallmentsForCreditCard();
+		
+		assertThat(preferedInstallmentsForCreditCard, is(equalTo(3)));
+	}
 	
 }

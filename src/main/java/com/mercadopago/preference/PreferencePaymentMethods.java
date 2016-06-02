@@ -28,6 +28,9 @@ public class PreferencePaymentMethods {
 	
 	@XmlElement(name = "installments")
 	private Integer maximumInstallmentsAllowed;
+	
+	@XmlElement(name = "default_installments")
+	private Integer preferedInstallmentsForCreditCard;
 
 	public List<PaymentMethod> getExcludedPaymentMethods() {
 		return excludedPaymentMethods;
@@ -65,6 +68,14 @@ public class PreferencePaymentMethods {
 
 	public void setMaximumInstallmentsAllowed(Integer maximumInstallmentsAllowed) {
 		this.maximumInstallmentsAllowed = maximumInstallmentsAllowed;
+	}
+
+	public Integer getPreferedInstallmentsForCreditCard() {
+		return preferedInstallmentsForCreditCard;
+	}
+
+	public void setPreferedInstallmentsForCreditCard(Integer preferedInstallmentsForCreditCard) {
+		this.preferedInstallmentsForCreditCard = preferedInstallmentsForCreditCard;
 	}
 	
 }
