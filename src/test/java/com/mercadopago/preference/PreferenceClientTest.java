@@ -183,21 +183,40 @@ public class PreferenceClientTest {
 		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
 		
 		PaymentMethod paymentMethodToBeExcluded = mercadoPago.paymentMethods().getBy("visa").get();
-		ExcludedPaymentMethods excludedPaymentMethods = new ExcludedPaymentMethods();
-		excludedPaymentMethods.addPaymentMethod(paymentMethodToBeExcluded);
+		PreferencePaymentMethods excludedPaymentMethods = new PreferencePaymentMethods();
+		excludedPaymentMethods.addPaymentMethodToBeExcluded(paymentMethodToBeExcluded);
 		
 		ExcludedPaymentType paymentTypeToBeExcluded = new ExcludedPaymentType();
 		paymentTypeToBeExcluded.setPaymentType(TICKET);
-		excludedPaymentMethods.addPaymentType(paymentTypeToBeExcluded);
+		excludedPaymentMethods.addPaymentTypeToBeExcluded(paymentTypeToBeExcluded);
 		
 		preference.addItem(item);
-		preference.setExcludedPaymentMethods(excludedPaymentMethods);
+		preference.setPaymentMethods(excludedPaymentMethods);
 		
 		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
-		ExcludedPaymentMethods paymentMethod = preferenceCreated.getExcludedPaymentMethods();
+		PreferencePaymentMethods paymentMethod = preferenceCreated.getPaymentMethods();
 		
-		paymentMethod.getPaymentMethods().forEach(method -> assertThat(method.getId(), is(equalTo("visa"))));
+		paymentMethod.getExcludedPaymentMethods().forEach(method -> assertThat(method.getId(), is(equalTo("visa"))));
 		paymentMethod.getPaymentTypes().forEach(type -> assertThat(type.getPaymentType(), is(equalTo(TICKET.getName()))));
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithDefaultPaymentMethod() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		
+		PaymentMethod paymentMethodToBeDefault = mercadoPago.paymentMethods().getBy("visa").get();
+		
+		PreferencePaymentMethods paymentMethods = new PreferencePaymentMethods();
+		paymentMethods.setDefaultPaymentMethod(paymentMethodToBeDefault.getId());
+		
+		preference.addItem(item);
+		preference.setPaymentMethods(paymentMethods);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		String defaultPaymentMethodId = preferenceCreated.getPaymentMethods().getDefaultPaymentMethod();
+		
+		assertThat(defaultPaymentMethodId, is(equalTo(paymentMethodToBeDefault.getId())));
 	}
 	
 }

@@ -37,7 +37,7 @@ public class Preference {
 	private Payer payer;
 	
 	@XmlElement(name = "payment_methods")
-	private ExcludedPaymentMethods paymentMethods;
+	private PreferencePaymentMethods paymentMethods;
 	
 	public enum PreferenceOperationType {
 		REGULAR_PAYMENT("regular_payment"), MONEY_TRANSFER("money_transfer");
@@ -102,11 +102,11 @@ public class Preference {
 		this.payer = payer;
 	}
 	
-	public ExcludedPaymentMethods getExcludedPaymentMethods() {
+	public PreferencePaymentMethods getPaymentMethods() {
 		return paymentMethods;
 	}
 	
-	public void setExcludedPaymentMethods(ExcludedPaymentMethods paymentMethods) {
+	public void setPaymentMethods(PreferencePaymentMethods paymentMethods) {
 		this.paymentMethods = paymentMethods;
 	}
 
