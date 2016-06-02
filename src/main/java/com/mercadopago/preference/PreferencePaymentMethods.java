@@ -1,9 +1,10 @@
 package com.mercadopago.preference;
 
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -14,7 +15,7 @@ import com.mercadopago.payment.PaymentMethod;
 
 @XmlRootElement(name = "payment_methods")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(FIELD)
 public class PreferencePaymentMethods {
 
 	@XmlElement(name = "excluded_payment_methods")
