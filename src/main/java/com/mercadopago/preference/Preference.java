@@ -110,11 +110,4 @@ public class Preference {
 		this.paymentMethods = paymentMethods;
 	}
 
-	@Override
-	public String toString() {
-		return "Preference [id=" + id + ", items=" + items + ", collectorId=" + collectorId + ", operationType="
-				+ operationType + ", additionalInformation=" + additionalInformation + ", backUrl=" + backUrl
-				+ ", payer=" + payer + ", acceptedPaymentMethods=" + paymentMethods + "]";
-	}
-
 }
