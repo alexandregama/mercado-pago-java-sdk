@@ -3,6 +3,7 @@ package com.mercadopago.preference;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.google.common.base.MoreObjects;
 import com.mercadopago.payment.ExcludedPaymentType;
 import com.mercadopago.payment.PaymentMethod;
 
@@ -34,11 +36,11 @@ public class PreferencePaymentMethods {
 	private Integer preferedInstallmentsForCreditCard;
 
 	public List<PaymentMethod> getExcludedPaymentMethods() {
-		return excludedPaymentMethods;
+		return Collections.unmodifiableList(excludedPaymentMethods);
 	}
 	
 	public List<ExcludedPaymentType> getPaymentTypes() {
-		return paymentTypes;
+		return Collections.unmodifiableList(paymentTypes);
 	}
 	
 	public void addPaymentMethodToBeExcluded(PaymentMethod paymentMethod) {
@@ -57,12 +59,6 @@ public class PreferencePaymentMethods {
 		return defaultPaymentMethodId;
 	}
 
-	@Override
-	public String toString() {
-		return "excludedPaymentMethods [excludedPaymentMethods=" + excludedPaymentMethods + ", excludedPaymentTypes="
-				+ paymentTypes + "]";
-	}
-
 	public Integer getMaximumInstallmentsAllowed() {
 		return maximumInstallmentsAllowed;
 	}
@@ -77,6 +73,17 @@ public class PreferencePaymentMethods {
 
 	public void setPreferedInstallmentsForCreditCard(Integer preferedInstallmentsForCreditCard) {
 		this.preferedInstallmentsForCreditCard = preferedInstallmentsForCreditCard;
+	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+			.add("excludedPaymentMethods", excludedPaymentMethods)
+			.add("paymentTypes", paymentTypes)
+			.add("defaultPaymentMethodId", defaultPaymentMethodId)
+			.add("maximumInstallmentsAllowed", maximumInstallmentsAllowed)
+			.add("preferedInstallmentsForCreditCard", preferedInstallmentsForCreditCard)
+		.toString();	
 	}
 	
 }

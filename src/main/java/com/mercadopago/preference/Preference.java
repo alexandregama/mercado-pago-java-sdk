@@ -3,6 +3,7 @@ package com.mercadopago.preference;
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -56,7 +57,7 @@ public class Preference {
 	}
 	
 	public List<Item> getItems() {
-		return items;
+		return Collections.unmodifiableList(items);
 	}
 
 	public void addItem(Item item) {

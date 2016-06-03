@@ -1,9 +1,13 @@
 package com.mercadopago.preference;
 
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.google.common.base.MoreObjects;
 
+@XmlAccessorType(FIELD)
 public class Phone {
 
 	@XmlElement(name = "area_code")
@@ -16,7 +20,7 @@ public class Phone {
 	Phone() {
 	}
 	
-	public Phone(String areaCode, String number) {
+	public Phone(final String areaCode, final String number) {
 		this.areaCode = areaCode;
 		this.number = number;
 	}
@@ -25,16 +29,8 @@ public class Phone {
 		return areaCode;
 	}
 
-	public void setAreaCode(String areaCode) {
-		this.areaCode = areaCode;
-	}
-
 	public String getNumber() {
 		return number;
-	}
-
-	public void setNumber(String number) {
-		this.number = number;
 	}
 	
 	@Override

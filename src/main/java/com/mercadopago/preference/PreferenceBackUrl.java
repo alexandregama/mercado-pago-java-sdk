@@ -1,9 +1,13 @@
 package com.mercadopago.preference;
 
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.google.common.base.MoreObjects;
 
+@XmlAccessorType(FIELD)
 public class PreferenceBackUrl {
 
 	@XmlElement(name = "success")
