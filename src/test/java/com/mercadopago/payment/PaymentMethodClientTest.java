@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.mercadopago.api.MercadoPagoClient;
+import com.mercadopago.api.MercadoPagoClientApi;
 import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
 import com.mercadopago.api.TokenClientCredentials;
@@ -33,7 +33,7 @@ public class PaymentMethodClientTest {
 	
 	private static MercadoPagoToken token;
 
-	private MercadoPagoClient mercadoPago;
+	private MercadoPagoClientApi mercadoPago;
 
 	@BeforeClass
 	public static void generateNewTokenForAllThoseTests() {

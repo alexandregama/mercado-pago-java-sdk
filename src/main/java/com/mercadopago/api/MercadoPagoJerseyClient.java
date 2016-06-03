@@ -1,6 +1,6 @@
 package com.mercadopago.api;
 
-public class MercadoPagoJerseyClient implements MercadoPagoClient {
+public class MercadoPagoJerseyClient implements MercadoPagoClientApi {
 
 	private final MercadoPagoToken token;
 	
@@ -8,8 +8,8 @@ public class MercadoPagoJerseyClient implements MercadoPagoClient {
 		this.token = token;
 	}
 
-	public PaymentMethodClient paymentMethods() {
-		return new PaymentMethodClient(token);
+	public PaymentMethodClientApi paymentMethods() {
+		return new PaymentMethodClientApi(token);
 	}
 
 	public PreferenceClientApi preferences() {
