@@ -11,7 +11,20 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<!-- PROJECT VERSIONING -->
+			<java.version>1.8</java.version>
+			<hamcrest.version>1.3</hamcrest.version>
+			<junit.version>4.12</junit.version>
+			<jersey.version>2.22.2</jersey.version>
+			<jersey.jackson.version>2.22</jersey.jackson.version>
+			<maven.war.plugin.version>2.4</maven.war.plugin.version>
+		<!-- PROJECT VERSIONING -->
+		
+		<!-- PLUGIN VERSIONING -->
+			<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+			<maven.surefire.plugin.version>2.18</maven.surefire.plugin.version>
+		<!-- PLUGIN VERSIONING -->
+		
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -20,47 +33,48 @@
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-all</artifactId>
-			<version>1.3</version>
+			<version>${hamcrest.version}</version>
 		</dependency>
+		<!-- TESTING DEPENDENCIES -->
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 		</dependency>
 
 		<!-- JERSEY DEPENDENCY -->
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>2.22.2</version>
+			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>2.22</version>
+			<version>${jersey.jackson.version}</version>
 		</dependency>
-
+		<!-- JERSEY DEPENDENCY -->
 	</dependencies>
 
 	<build>
-		<finalName>procurando-ape</finalName>
+		<finalName>mercado-pago-java-sdk</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.1</version>
+					<version>${maven.compiler.plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.18</version>
+					<version>${maven.surefire.plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>2.4</version>
+					<version>${maven.war.plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
