@@ -2,6 +2,8 @@ package com.mercadopago.payment;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.google.common.base.MoreObjects;
+
 public class BinSettings {
 
 	@XmlElement(name = "pattern")
@@ -24,11 +26,14 @@ public class BinSettings {
 	public String getInstallmentsPattern() {
 		return installmentsPattern;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "BinSettings [pattern=" + pattern + ", exclusionPattern=" + exclusionPattern + ", installmentsPattern="
-				+ installmentsPattern + "]";
+		return MoreObjects.toStringHelper(this)
+			.add("pattern", pattern)
+			.add("exclusionPattern", exclusionPattern)
+			.add("installmentsPattern", installmentsPattern)
+		.toString();
 	}
 
 }

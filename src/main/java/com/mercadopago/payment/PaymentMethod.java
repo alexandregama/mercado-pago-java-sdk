@@ -9,10 +9,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.common.base.MoreObjects;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PaymentMethod {
 
 	@XmlElement(name = "id")
@@ -50,21 +51,6 @@ public class PaymentMethod {
 	
 	@XmlElement(name = "accreditation_time")
 	private Integer accreditationTime;
-	
-	public enum PaymentType {
-		TICKET("ticket"), ATM("atm"), CREDIT_CARD("credit_card"), DEBIT_CARD("debit_card"), PREPAID_CARD("prepaid_card");
-		
-		private String name;
-		
-		PaymentType(String name) {
-			this.name = name;
-		}
-		
-		@JsonValue
-		public String getName() {
-			return name;
-		}
-	}
 	
 	public enum PaymentStatus {
 		ACTIVE("active"), DEACTIVE("deactive"), TEMPORALLY_DEACTIVE("temporally_deactive");
@@ -131,11 +117,43 @@ public class PaymentMethod {
 
 	@Override
 	public String toString() {
-		return "PaymentMethod [id=" + id + ", name=" + name + ", type=" + type + ", status=" + status
-				+ ", secureThumbnail=" + secureThumbnail + ", thumbnail=" + thumbnail + ", deferredCapture="
-				+ deferredCapture + ", settings=" + settings + ", additionalInfoNeeded=" + additionalInfoNeeded
-				+ ", minAllowedAmount=" + minAllowedAmount + ", maxAllowedAmount=" + maxAllowedAmount
-				+ ", accreditationTime=" + accreditationTime + "]";
+		return MoreObjects.toStringHelper(this)
+			.add("id", id)
+			.add("name", name)
+			.add("type", type)
+			.add("status", status)
+			.add("secureThumbnail", secureThumbnail)
+			.add("thumbnail", thumbnail)
+			.add("additionalInfoNeeded", additionalInfoNeeded)
+			.add("minAllowedAmount", minAllowedAmount)
+			.add("maxAllowedAmount", maxAllowedAmount)
+			.add("accreditationTime", accreditationTime)
+		.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PaymentMethod other = (PaymentMethod) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 }

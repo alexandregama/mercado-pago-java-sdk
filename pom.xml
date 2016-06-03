@@ -1,56 +1,128 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mercadopago</groupId>
 	<artifactId>mercado-pago-java-sdk</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>mercado-pago-java-sdk</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<!-- PROJECT VERSIONING -->
+			<java.version>1.8</java.version>
+			<hamcrest.version>1.3</hamcrest.version>
+			<junit.version>4.12</junit.version>
+			<jersey.version>2.22.2</jersey.version>
+			<jersey.jackson.version>2.22</jersey.jackson.version>
+			<guava.version>19.0</guava.version>
+			<maven.war.plugin.version>2.4</maven.war.plugin.version>
+		<!-- PROJECT VERSIONING -->
+
+		<!-- PLUGIN VERSIONING -->
+			<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+			<maven.surefire.plugin.version>2.18</maven.surefire.plugin.version>
+			<maven.release.pugin.version>2.5.3</maven.release.pugin.version>
+		<!-- PLUGIN VERSIONING -->
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
+	<scm>
+		<connection>scm:git:git@github.com:alexandregama/mercado-pago-java-sdk.git</connection>
+		<developerConnection>scm:git:git@github.com:alexandregama/mercado-pago-java-sdk.git</developerConnection>
+		<url>scm:git:git@github.com:alexandregama/mercado-pago-java-sdk.git</url>
+		<tag>HEAD</tag>
+	</scm>
 
 	<dependencies>
 		<!-- TESTING DEPENDENCIES -->
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-all</artifactId>
-			<version>1.3</version>
+			<version>${hamcrest.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
+			<version>${junit.version}</version>
 		</dependency>
+		<!-- TESTING DEPENDENCIES -->
+
+		<!-- UTILITY DEPENDENCIES -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		<!-- UTILITY DEPENDENCIES -->
 
 		<!-- JERSEY DEPENDENCY -->
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
-			<version>2.22.2</version>
+			<version>${jersey.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>2.22</version>
+			<version>${jersey.jackson.version}</version>
 		</dependency>
-
+		<!-- JERSEY DEPENDENCY -->
 	</dependencies>
 
 	<build>
+		<finalName>mercado-pago-java-sdk</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>${maven.surefire.plugin.version}</version>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven.war.plugin.version}</version>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${maven.release.pugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.apache.maven.scm</groupId>
+							<artifactId>maven-scm-provider-gitexe</artifactId>
+							<version>1.9.2</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<autoVersionSubmodules>true</autoVersionSubmodules>
+						<tagNameFormat>@{project.version}</tagNameFormat>
+					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<configuration>
+						<downloadSources>true</downloadSources>
+						<downloadJavadocs>true</downloadJavadocs>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<downloadSources>true</downloadSources>
-					<downloadJavadocs>true</downloadJavadocs>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 		</plugins>

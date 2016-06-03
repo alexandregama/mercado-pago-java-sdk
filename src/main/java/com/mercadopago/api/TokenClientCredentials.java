@@ -2,10 +2,10 @@ package com.mercadopago.api;
 
 public class TokenClientCredentials {
 
-	private String clientId;
-	private String clientSecret;
+	private final String clientId;
+	private final String clientSecret;
 
-	public TokenClientCredentials(String clientId, String clientSecret) {
+	public TokenClientCredentials(final String clientId, final String clientSecret) {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 	}

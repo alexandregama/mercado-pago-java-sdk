@@ -5,6 +5,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.common.base.MoreObjects;
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MercadoPagoToken {
@@ -57,12 +59,18 @@ public class MercadoPagoToken {
 	public String getScope() {
 		return scope;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "MercadoPagoToken [accessToken=" + accessToken + ", refreshToken=" + refreshToken + ", liveMode="
-				+ liveMode + ", userId=" + userId + ", tokenType=" + tokenType + ", expiresIn=" + expiresIn + ", scope="
-				+ scope + "]";
+		return MoreObjects.toStringHelper(this)
+			.add("accessToken", accessToken)
+			.add("refreshToken", refreshToken)
+			.add("liveMode", liveMode)
+			.add("userId", userId)
+			.add("tokenType", tokenType)
+			.add("expiresIn", expiresIn)
+			.add("scope", scope)
+		.toString();
 	}
 	
 }
