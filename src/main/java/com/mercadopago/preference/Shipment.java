@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 @XmlRootElement(name = "shipments")
 @XmlAccessorType(FIELD)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Shipments {
+public class Shipment {
 
 	@XmlElement(name = "mode")
 	private Mode mode;
@@ -67,6 +67,14 @@ public class Shipments {
 	 */
 	@XmlElement(name = "free_shipping")
 	private boolean freeShipping;
+	
+	/**
+	 * Mercado Pago Description
+	 * Shipping address
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "receiver_address")
+	private ReceiverAddress receiverAddress;
 	
 	public enum Mode {
 		
@@ -152,6 +160,14 @@ public class Shipments {
 
 	public void notUsingFreeShipping() {
 		this.freeShipping = false;
+	}
+
+	public ReceiverAddress getReceiverAddress() {
+		return receiverAddress;
+	}
+
+	public void setReceiverAddress(ReceiverAddress receiverAddress) {
+		this.receiverAddress = receiverAddress;
 	}
 
 }

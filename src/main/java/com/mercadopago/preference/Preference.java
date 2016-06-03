@@ -42,7 +42,7 @@ public class Preference {
 	private PreferencePaymentMethods paymentMethods;
 	
 	@XmlElement(name = "shipments")
-	private Shipments shipments;
+	private Shipment shipments;
 	
 	public enum PreferenceOperationType {
 		REGULAR_PAYMENT("regular_payment"), MONEY_TRANSFER("money_transfer");
@@ -130,11 +130,11 @@ public class Preference {
 		.toString();
 	}
 
-	public Shipments getShipments() {
+	public Shipment getShipments() {
 		return shipments;
 	}
 
-	public void setShipments(Shipments shipments) {
+	public void setShipments(Shipment shipments) {
 		this.shipments = shipments;
 	}
 	

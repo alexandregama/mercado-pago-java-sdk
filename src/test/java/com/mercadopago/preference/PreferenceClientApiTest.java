@@ -2,15 +2,14 @@ package com.mercadopago.preference;
 
 import static com.mercadopago.payment.PaymentType.TICKET;
 import static com.mercadopago.preference.Preference.PreferenceOperationType.REGULAR_PAYMENT;
-import static com.mercadopago.preference.Shipments.Mode.CUSTOM;
-import static com.mercadopago.preference.Shipments.Mode.NOT_SPECIFIED;
+import static com.mercadopago.preference.Shipment.Mode.CUSTOM;
+import static com.mercadopago.preference.Shipment.Mode.NOT_SPECIFIED;
 import static java.math.BigDecimal.TEN;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 
@@ -25,7 +24,7 @@ import com.mercadopago.api.TokenClientCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
 import com.mercadopago.payment.ExcludedPaymentType;
 import com.mercadopago.payment.PaymentMethod;
-import com.mercadopago.preference.Shipments.Mode;
+import com.mercadopago.preference.Shipment.Mode;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
 public class PreferenceClientApiTest {
@@ -264,7 +263,7 @@ public class PreferenceClientApiTest {
 		Preference preference = new Preference();
 		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
 		
-		Shipments shipments = new Shipments();
+		Shipment shipments = new Shipment();
 		shipments.setMode(CUSTOM);
 		
 		preference.addItem(item);
@@ -281,7 +280,7 @@ public class PreferenceClientApiTest {
 		Preference preference = new Preference();
 		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
 		
-		Shipments shipments = new Shipments();
+		Shipment shipments = new Shipment();
 		shipments.setMode(CUSTOM);
 		shipments.notUsingLocalPickup();
 		
@@ -301,7 +300,7 @@ public class PreferenceClientApiTest {
 		Preference preference = new Preference();
 		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
 		
-		Shipments shipments = new Shipments();
+		Shipment shipments = new Shipment();
 		shipments.setMode(NOT_SPECIFIED);
 		shipments.notUsingLocalPickup();
 		
@@ -321,7 +320,7 @@ public class PreferenceClientApiTest {
 		Preference preference = new Preference();
 		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
 		
-		Shipments shipments = new Shipments();
+		Shipment shipments = new Shipment();
 		shipments.setMode(CUSTOM);
 		shipments.setCost(TEN);
 		
@@ -339,7 +338,7 @@ public class PreferenceClientApiTest {
 		Preference preference = new Preference();
 		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
 		
-		Shipments shipments = new Shipments();
+		Shipment shipments = new Shipment();
 		shipments.setMode(CUSTOM);
 		shipments.usingFreeShipping();
 		
@@ -357,7 +356,7 @@ public class PreferenceClientApiTest {
 		Preference preference = new Preference();
 		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
 		
-		Shipments shipments = new Shipments();
+		Shipment shipments = new Shipment();
 		shipments.setMode(CUSTOM);
 		shipments.notUsingFreeShipping();
 		
@@ -368,6 +367,106 @@ public class PreferenceClientApiTest {
 		Boolean usingFreeShipping = preferenceCreated.getShipments().isUsingFreeShipping();
 		
 		assertFalse(usingFreeShipping);
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithZipcodeOnShippingAddress() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		
+		ReceiverAddress address = new ReceiverAddress();
+		address.setZipcode("123456789");
+		
+		Shipment shipment = new Shipment();
+		shipment.setReceiverAddress(address);
+		
+		preference.addItem(item);
+		preference.setShipments(shipment);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
+		
+		assertThat(receiverAddress.getZipcode(), is(equalTo("123456789")));
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithStreetNameOnShippingAddress() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		
+		ReceiverAddress address = new ReceiverAddress();
+		address.setStreetName("Rua Beira Rio");
+		
+		Shipment shipment = new Shipment();
+		shipment.setReceiverAddress(address);
+		
+		preference.addItem(item);
+		preference.setShipments(shipment);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
+		
+		assertThat(receiverAddress.getStreetName(), is(equalTo("Rua Beira Rio")));
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithStreetNumberOnShippingAddress() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		
+		ReceiverAddress address = new ReceiverAddress();
+		address.setStreetNumber(158);
+		
+		Shipment shipment = new Shipment();
+		shipment.setReceiverAddress(address);
+		
+		preference.addItem(item);
+		preference.setShipments(shipment);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
+		
+		assertThat(receiverAddress.getStreetNumber(), is(equalTo(158)));
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithFloorOnShippingAddress() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		
+		ReceiverAddress address = new ReceiverAddress();
+		address.setFloor("Ap 32");
+		
+		Shipment shipment = new Shipment();
+		shipment.setReceiverAddress(address);
+		
+		preference.addItem(item);
+		preference.setShipments(shipment);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
+		
+		assertThat(receiverAddress.getFloor(), is(equalTo("Ap 32")));
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithApartmentOnShippingAddress() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		
+		ReceiverAddress address = new ReceiverAddress();
+		address.setFloor("Ap 32");
+		
+		Shipment shipment = new Shipment();
+		shipment.setReceiverAddress(address);
+		
+		preference.addItem(item);
+		preference.setShipments(shipment);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
+		
+		assertThat(receiverAddress.getFloor(), is(equalTo("Ap 32")));
 	}
 	
 }
