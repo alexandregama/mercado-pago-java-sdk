@@ -6,7 +6,6 @@ public class MercadoPagoNotFoundException extends RuntimeException {
 	
 	public MercadoPagoNotFoundException(String friendlyErrorMessage, MercadoPagoExceptionInformation internalMercadoPagoException) {
 		super(friendlyErrorMessage);
-		System.out.println(internalMercadoPagoException);
 	}
 
 }

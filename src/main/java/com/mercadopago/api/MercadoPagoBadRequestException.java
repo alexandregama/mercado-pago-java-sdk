@@ -1,5 +1,7 @@
 package com.mercadopago.api;
 
+import com.google.common.base.MoreObjects;
+
 public class MercadoPagoBadRequestException extends MercadoPagoException {
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +26,15 @@ public class MercadoPagoBadRequestException extends MercadoPagoException {
 	
 	public String getMercadoPagoErrorMessage() {
 		return mercadoPagoErrorMessage;
+	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+			.add("friendlyMessage", friendlyMessage)
+			.add("errorCode", errorCode)
+			.add("mercadoPagoErrorMessage", mercadoPagoErrorMessage)
+		.toString();
 	}
 	
 }

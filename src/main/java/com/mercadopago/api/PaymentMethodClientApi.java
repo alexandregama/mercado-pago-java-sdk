@@ -15,9 +15,9 @@ public class PaymentMethodClientApi {
 
 	private static final String MERCADO_PAGO_API = "https://api.mercadopago.com/v1";
 	
-	private MercadoPagoToken token;
+	private final MercadoPagoToken token;
 
-	public PaymentMethodClientApi(MercadoPagoToken token) {
+	public PaymentMethodClientApi(final MercadoPagoToken token) {
 		this.token = token;
 	}
 	

@@ -1,8 +1,8 @@
 package com.mercadopago.api;
 
-import java.util.Arrays;
-
 import javax.xml.bind.annotation.XmlElement;
+
+import com.google.common.base.MoreObjects;
 
 public class MercadoPagoExceptionInformation {
 
@@ -52,8 +52,11 @@ public class MercadoPagoExceptionInformation {
 
 	@Override
 	public String toString() {
-		return "MercadoPagoExceptionInformation [message=" + message + ", error=" + error + ", status=" + status + ", causes="
-				+ Arrays.toString(causes) + "]";
+		return MoreObjects.toStringHelper(this)
+			.add("message", message)
+			.add("error", error)
+			.add("status", status)
+		.toString();
 	}
 
 }

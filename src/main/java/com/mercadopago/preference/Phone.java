@@ -2,6 +2,8 @@ package com.mercadopago.preference;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.google.common.base.MoreObjects;
+
 public class Phone {
 
 	@XmlElement(name = "area_code")
@@ -34,10 +36,13 @@ public class Phone {
 	public void setNumber(String number) {
 		this.number = number;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Phone [areaCode=" + areaCode + ", number=" + number + "]";
+		return MoreObjects.toStringHelper(this)
+			.add("areaCode", areaCode)
+			.add("number", number)
+		.toString();
 	}
-
+	
 }

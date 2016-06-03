@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.common.base.MoreObjects;
 
 @XmlAccessorType(FIELD)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -110,4 +111,18 @@ public class Preference {
 		this.paymentMethods = paymentMethods;
 	}
 
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+			.add("id", id)
+			.add("items", items)
+			.add("collectorId", collectorId)
+			.add("operationType", operationType)
+			.add("additionalInformation", additionalInformation)
+			.add("backUrl", backUrl)
+			.add("payer", payer)
+			.add("paymentMethods", paymentMethods)
+		.toString();
+	}
+	
 }

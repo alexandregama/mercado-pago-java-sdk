@@ -9,6 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.common.base.MoreObjects;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -116,11 +117,18 @@ public class PaymentMethod {
 
 	@Override
 	public String toString() {
-		return "PaymentMethod [value=" + id + ", value=" + name + ", type=" + type + ", status=" + status
-				+ ", secureThumbnail=" + secureThumbnail + ", thumbnail=" + thumbnail + ", deferredCapture="
-				+ deferredCapture + ", settings=" + settings + ", additionalInfoNeeded=" + additionalInfoNeeded
-				+ ", minAllowedAmount=" + minAllowedAmount + ", maxAllowedAmount=" + maxAllowedAmount
-				+ ", accreditationTime=" + accreditationTime + "]";
+		return MoreObjects.toStringHelper(this)
+			.add("id", id)
+			.add("name", name)
+			.add("type", type)
+			.add("status", status)
+			.add("secureThumbnail", secureThumbnail)
+			.add("thumbnail", thumbnail)
+			.add("additionalInfoNeeded", additionalInfoNeeded)
+			.add("minAllowedAmount", minAllowedAmount)
+			.add("maxAllowedAmount", maxAllowedAmount)
+			.add("accreditationTime", accreditationTime)
+		.toString();
 	}
 
 	@Override

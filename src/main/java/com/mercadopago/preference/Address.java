@@ -2,6 +2,8 @@ package com.mercadopago.preference;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.google.common.base.MoreObjects;
+
 public class Address {
 
 	@XmlElement(name = "zip_code")
@@ -39,7 +41,11 @@ public class Address {
 	
 	@Override
 	public String toString() {
-		return "Address [zipCode=" + zipCode + ", streetName=" + streetName + ", streetNumber=" + getStreetNumber() + "]";
+		return MoreObjects.toStringHelper(this)
+			.add("zipCode", zipCode)
+			.add("streetName", streetName)
+			.add("streetNumber", streetNumber)
+		.toString();
 	}
 	
 }

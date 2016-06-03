@@ -2,6 +2,8 @@ package com.mercadopago.preference;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.google.common.base.MoreObjects;
+
 public class PreferenceBackUrl {
 
 	@XmlElement(name = "success")
@@ -39,7 +41,11 @@ public class PreferenceBackUrl {
 
 	@Override
 	public String toString() {
-		return "PreferenceBackUrl [success=" + success + ", pending=" + pending + ", failure=" + failure + "]";
+		return MoreObjects.toStringHelper(this)
+			.add("success", success)
+			.add("pending", pending)
+			.add("failure", failure)
+		.toString();
 	}
 
 	

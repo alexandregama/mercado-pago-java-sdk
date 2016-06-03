@@ -2,6 +2,8 @@ package com.mercadopago.payment;
 
 import javax.xml.bind.annotation.XmlElement;
 
+import com.google.common.base.MoreObjects;
+
 public class CardNumberSettings {
 
 	@XmlElement(name = "length")
@@ -17,10 +19,13 @@ public class CardNumberSettings {
 	public String getValidation() {
 		return validation;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "CardNumberSettings [length=" + length + ", validation=" + validation + "]";
+		return MoreObjects.toStringHelper(this)
+			.add("length", length)
+			.add("validation", validation)
+		.toString();	
 	}
 
 }

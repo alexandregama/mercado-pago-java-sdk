@@ -12,9 +12,9 @@ import com.mercadopago.preference.Preference;
 
 public class PreferenceClientApi {
 
-	private MercadoPagoToken token;
+	private final MercadoPagoToken token;
 
-	public PreferenceClientApi(MercadoPagoToken token) {
+	public PreferenceClientApi(final MercadoPagoToken token) {
 		this.token = token;
 	}
 
@@ -31,7 +31,6 @@ public class PreferenceClientApi {
 		
 		if (response.getStatus() != Status.CREATED.getStatusCode()) {
 			MercadoPagoExceptionInformation internalMercadoPagoException = response.readEntity(new GenericType<MercadoPagoExceptionInformation>() {});
-			System.out.println(internalMercadoPagoException);
 			throw new MercadoPagoBadRequestException("An error ocurred while trying to Create a new Preference", internalMercadoPagoException.getMessage(), internalMercadoPagoException.getError());
 		}
 		Preference preferenceCreated = response.readEntity(Preference.class);
@@ -39,12 +38,12 @@ public class PreferenceClientApi {
 		return preferenceCreated;
 	}
 
-	public Preference getPreferenceFrom(String id) {
+	public Preference getPreferenceFrom(String preferenceId) {
 		Client client = ClientBuilder.newClient();
 		
 		Response response = client
 			.target("https://api.mercadopago.com")
-			.path("/checkout/preferences/" + id)
+			.path("/checkout/preferences/" + preferenceId)
 			.queryParam("access_token", token.getAccessToken())
 			.request(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON)
@@ -52,11 +51,7 @@ public class PreferenceClientApi {
 		
 		if (response.getStatus() == Status.NOT_FOUND.getStatusCode()) {
 			MercadoPagoExceptionInformation internalMercadoPagoException = response.readEntity(new GenericType<MercadoPagoExceptionInformation>() {});
-			throw new MercadoPagoNotFoundException(String.format("Preference with id {} was not found.", id), internalMercadoPagoException);
-		}
-		if (response.getStatusInfo() != Status.OK) {
-			MercadoPagoException internalMercadoPagoException = response.readEntity(new GenericType<MercadoPagoException>() {});
-			System.out.println(internalMercadoPagoException);
+			throw new MercadoPagoNotFoundException(String.format("Preference with id {} was not found.", preferenceId), internalMercadoPagoException);
 		}
 		
 		Preference preference = response.readEntity(Preference.class);
