@@ -2,10 +2,15 @@ package com.mercadopago.preference;
 
 import static com.mercadopago.payment.PaymentType.TICKET;
 import static com.mercadopago.preference.Preference.PreferenceOperationType.REGULAR_PAYMENT;
+import static com.mercadopago.preference.Shipments.Mode.CUSTOM;
+import static com.mercadopago.preference.Shipments.Mode.NOT_SPECIFIED;
+import static java.math.BigDecimal.TEN;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
@@ -20,9 +25,10 @@ import com.mercadopago.api.TokenClientCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
 import com.mercadopago.payment.ExcludedPaymentType;
 import com.mercadopago.payment.PaymentMethod;
+import com.mercadopago.preference.Shipments.Mode;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
-public class PreferenceClientTest {
+public class PreferenceClientApiTest {
 
 	private static MercadoPagoToken token;
 	
@@ -47,7 +53,7 @@ public class PreferenceClientTest {
 			.fromId("1")
 			.withProductNamed("First Product")
 			.withDescription("First Awesome Product")
-			.costing(BigDecimal.TEN)
+			.costing(TEN)
 			.withQuantity(10)
 			.usingPictureOnUrl("http://s3.amazon.com/mercadopago/image.png")
 			.fromCategory("Music")
@@ -112,7 +118,7 @@ public class PreferenceClientTest {
 				.fromId("1")
 				.withProductNamed("First Produto")
 				.withDescription("First Awesome Product")
-				.costing(BigDecimal.TEN)
+				.costing(TEN)
 				.withQuantity(10)
 				.usingPictureOnUrl("http://s3.amazon.com/mercadopago/image.png")
 				.fromCategory("Music")
@@ -146,7 +152,7 @@ public class PreferenceClientTest {
 		Preference preference = new Preference();
 		Item item = new Item();
 		item.setId("1");
-		item.setPrice(BigDecimal.TEN);
+		item.setPrice(TEN);
 		item.setCategory("Music");
 		item.setCurrency("BRL");
 		
@@ -159,7 +165,7 @@ public class PreferenceClientTest {
 		Preference preference = new Preference();
 		Item item = new Item();
 		item.setId("1");
-		item.setPrice(BigDecimal.TEN);
+		item.setPrice(TEN);
 		item.setCategory("Music");
 		item.setCurrency("BRL");
 		
@@ -180,7 +186,7 @@ public class PreferenceClientTest {
 	@Test
 	public void shouldCreateANewPreferenceWithExcludedPaymentMethod() throws Exception {
 		Preference preference = new Preference();
-		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
 		
 		PaymentMethod paymentMethodToBeExcluded = mercadoPago.paymentMethods().getBy("visa").get();
 		PreferencePaymentMethods excludedPaymentMethods = new PreferencePaymentMethods();
@@ -203,7 +209,7 @@ public class PreferenceClientTest {
 	@Test
 	public void shouldCreateANewPreferenceWithDefaultPaymentMethod() throws Exception {
 		Preference preference = new Preference();
-		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
 		
 		PaymentMethod paymentMethodToBeDefault = mercadoPago.paymentMethods().getBy("visa").get();
 		
@@ -222,7 +228,7 @@ public class PreferenceClientTest {
 	@Test
 	public void shouldCreateANewPreferenceSettingMaximumInstallmentsAllowed() throws Exception {
 		Preference preference = new Preference();
-		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
 
 		PreferencePaymentMethods paymentMethods = new PreferencePaymentMethods();
 		paymentMethods.setMaximumInstallmentsAllowed(12);
@@ -239,7 +245,7 @@ public class PreferenceClientTest {
 	@Test
 	public void shouldCreateANewPreferenceSettingThePreferedNumberOfInstallmentsForCreditCard() throws Exception {
 		Preference preference = new Preference();
-		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
 		
 		PreferencePaymentMethods paymentMethods = new PreferencePaymentMethods();
 		paymentMethods.setPreferedInstallmentsForCreditCard(3);
@@ -251,6 +257,117 @@ public class PreferenceClientTest {
 		Integer preferedInstallmentsForCreditCard = preferenceCreated.getPaymentMethods().getPreferedInstallmentsForCreditCard();
 		
 		assertThat(preferedInstallmentsForCreditCard, is(equalTo(3)));
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithShipmentsUsingMode() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
+		
+		Shipments shipments = new Shipments();
+		shipments.setMode(CUSTOM);
+		
+		preference.addItem(item);
+		preference.setShipments(shipments);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Mode mode = preferenceCreated.getShipments().getMode();
+		
+		assertThat(mode, is(equalTo(CUSTOM)));
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithShipmentsUsingCustomLocalPickup() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
+		
+		Shipments shipments = new Shipments();
+		shipments.setMode(CUSTOM);
+		shipments.notUsingLocalPickup();
+		
+		preference.addItem(item);
+		preference.setShipments(shipments);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Mode mode = preferenceCreated.getShipments().getMode();
+		boolean isUsingLocalPickup = preferenceCreated.getShipments().isUsingLocalPickup();
+		
+		assertThat(mode, is(equalTo(CUSTOM)));
+		assertFalse(isUsingLocalPickup);
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithShipmentsUsingNotSpecifiedLocalPickup() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
+		
+		Shipments shipments = new Shipments();
+		shipments.setMode(NOT_SPECIFIED);
+		shipments.notUsingLocalPickup();
+		
+		preference.addItem(item);
+		preference.setShipments(shipments);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Mode mode = preferenceCreated.getShipments().getMode();
+		boolean isUsingLocalPickup = preferenceCreated.getShipments().isUsingLocalPickup();
+		
+		assertThat(mode, is(equalTo(NOT_SPECIFIED)));
+		assertFalse(isUsingLocalPickup);
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithShipmentsUsingCostWhenModeIsCustom() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		
+		Shipments shipments = new Shipments();
+		shipments.setMode(CUSTOM);
+		shipments.setCost(TEN);
+		
+		preference.addItem(item);
+		preference.setShipments(shipments);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		BigDecimal customShippingCost = preferenceCreated.getShipments().getCost();
+		
+		assertThat(customShippingCost, is(equalTo(TEN)));
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithShipmentsUsingFreeShipingForCustomMode() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		
+		Shipments shipments = new Shipments();
+		shipments.setMode(CUSTOM);
+		shipments.usingFreeShipping();
+		
+		preference.addItem(item);
+		preference.setShipments(shipments);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Boolean usingFreeShipping = preferenceCreated.getShipments().isUsingFreeShipping();
+		
+		assertTrue(usingFreeShipping);
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithShipmentsIsNotUsingFreeShipingForCustomMode() throws Exception {
+		Preference preference = new Preference();
+		Item item = Item.fromId("1").costing(BigDecimal.TEN).withQuantity(3).build();
+		
+		Shipments shipments = new Shipments();
+		shipments.setMode(CUSTOM);
+		shipments.notUsingFreeShipping();
+		
+		preference.addItem(item);
+		preference.setShipments(shipments);
+		
+		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Boolean usingFreeShipping = preferenceCreated.getShipments().isUsingFreeShipping();
+		
+		assertFalse(usingFreeShipping);
 	}
 	
 }
