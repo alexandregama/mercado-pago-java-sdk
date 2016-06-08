@@ -33,7 +33,7 @@
 		<connection>scm:git:git@github.com:alexandregama/mercado-pago-java-sdk.git</connection>
 		<developerConnection>scm:git:git@github.com:alexandregama/mercado-pago-java-sdk.git</developerConnection>
 		<url>scm:git:git@github.com:alexandregama/mercado-pago-java-sdk.git</url>
-	</scm>
+  </scm>
 
 	<dependencies>
 		<!-- TESTING DEPENDENCIES -->
