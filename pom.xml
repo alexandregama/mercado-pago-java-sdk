@@ -3,7 +3,7 @@
 
 	<groupId>com.mercadopago</groupId>
 	<artifactId>mercado-pago-java-sdk</artifactId>
-	<version>0.0.2-BETA-SNAPSHOT</version>
+	<version>0.0.2-BETA</version>
 	<packaging>jar</packaging>
 
 	<name>mercado-pago-java-sdk</name>
@@ -33,7 +33,7 @@
 		<connection>scm:git:git@github.com:alexandregama/mercado-pago-java-sdk.git</connection>
 		<developerConnection>scm:git:git@github.com:alexandregama/mercado-pago-java-sdk.git</developerConnection>
 		<url>scm:git:git@github.com:alexandregama/mercado-pago-java-sdk.git</url>
-		<tag>HEAD</tag>
+		<tag>0.0.2-BETA</tag>
 	</scm>
 
 	<dependencies>
