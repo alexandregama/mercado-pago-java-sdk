@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.google.common.base.MoreObjects;
 
 /**
  * 
@@ -19,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Mercado Pago Description:
  * - Data type: Object
  * - Mode readable | writable
+ * 
+ * Notes:
+ * - free_methods is not implemented yet
  */
 @XmlRootElement(name = "shipments")
 @XmlAccessorType(FIELD)
@@ -128,12 +132,6 @@ public class Shipment {
 		this.defaultShippingMethod = defaultShippingMethod;
 	}
 
-	@Override
-	public String toString() {
-		return "Shipments [mode=" + mode + ", localPickup=" + localPickup + ", dimensions=" + dimensions
-				+ ", defaultShippingMethod=" + defaultShippingMethod + "]";
-	}
-
 	public void usingLocalPickup() {
 		this.localPickup = true;
 	}
@@ -170,4 +168,24 @@ public class Shipment {
 		this.receiverAddress = receiverAddress;
 	}
 
+	public String toStrings() {
+		return "Shipment [mode=" + mode + ", localPickup=" + localPickup + ", dimensions=" + dimensions
+				+ ", defaultShippingMethod=" + defaultShippingMethod + ", cost=" + cost + ", freeShipping="
+				+ freeShipping + ", receiverAddress=" + receiverAddress + "]";
+	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+			.add("mode", mode)
+			.add("localPickup", localPickup)
+			.add("dimensions", dimensions)
+			.add("defaultShippingMethod", defaultShippingMethod)
+			.add("cost", cost)
+			.add("freeShipping", freeShipping)
+			.add("freeShipping", freeShipping)
+			.add("receiverAddress", receiverAddress)
+		.toString();
+	}
+	
 }
