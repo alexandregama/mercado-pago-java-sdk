@@ -3,7 +3,7 @@
 
 	<groupId>com.mercadopago</groupId>
 	<artifactId>mercado-pago-java-sdk</artifactId>
-	<version>0.0.1-BETA</version>
+	<version>0.0.1-BETA-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>mercado-pago-java-sdk</name>
