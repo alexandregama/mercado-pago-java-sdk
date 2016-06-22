@@ -10,7 +10,7 @@ public class TokenRetrieverTest {
 
 	@Test
 	public void shouldGetANewTokenWhenCredentialsAreCorrect() throws Exception {
-		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentials();
+		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
 		MercadoPagoToken token = tokenGenerator.generateUsing(credentials);

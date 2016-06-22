@@ -9,7 +9,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
@@ -35,7 +36,7 @@ public class PreferenceClientApiTest {
 
 	@BeforeClass
 	public static void generateToken() {
-		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentials();
+		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
 		token = tokenGenerator.generateUsing(credentials);
 	}

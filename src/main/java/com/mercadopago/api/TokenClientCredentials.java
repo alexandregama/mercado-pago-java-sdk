@@ -9,7 +9,7 @@ public class TokenClientCredentials {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 	}
-
+	
 	public String getClientId() {
 		return clientId;
 	}
@@ -17,5 +17,5 @@ public class TokenClientCredentials {
 	public String getClientSecret() {
 		return clientSecret;
 	}
-
+	
 }

@@ -24,7 +24,7 @@ public class PaymentClientTest {
 
 	@Before
 	public void getCredentials() {
-		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentials();
+		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
 		MercadoPagoToken token = tokenGenerator.generateUsing(credentials);
 		

@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +23,6 @@ import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
 import com.mercadopago.api.TokenClientCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
-import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
 public class PaymentMethodClientApiTest {
@@ -38,7 +37,7 @@ public class PaymentMethodClientApiTest {
 
 	@BeforeClass
 	public static void generateNewTokenForAllThoseTests() {
-		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentials();
+		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
 		token = tokenGenerator.generateUsing(credentials);
 		System.out.println(token);
