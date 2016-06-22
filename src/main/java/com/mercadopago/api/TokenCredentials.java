@@ -1,15 +1,15 @@
 package com.mercadopago.api;
 
-public class TokenClientCredentials {
+public class TokenCredentials {
 
 	private final String clientId;
 	private final String clientSecret;
 
-	public TokenClientCredentials(final String clientId, final String clientSecret) {
+	public TokenCredentials(final String clientId, final String clientSecret) {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 	}
-
+	
 	public String getClientId() {
 		return clientId;
 	}
@@ -17,5 +17,5 @@ public class TokenClientCredentials {
 	public String getClientSecret() {
 		return clientSecret;
 	}
-
+	
 }

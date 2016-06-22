@@ -32,6 +32,13 @@ public class MercadoPagoToken {
 	@XmlElement(name = "scope")
 	private String scope;
 
+	public MercadoPagoToken(String accessToken) {
+		this.accessToken = accessToken;
+	}
+	
+	public MercadoPagoToken() {
+	}
+
 	public String getAccessToken() {
 		return accessToken;
 	}

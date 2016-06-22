@@ -7,16 +7,16 @@ import java.util.Properties;
 
 public class TokenClientCredentialsReader {
 
-	public TokenClientCredentials getCredentials() {
+	public TokenCredentials getCredentialsForFile(String filenameOnClasspath) {
 		Properties properties = new Properties();
-		String configFileName = "config.properties";
-		InputStream file = getClass().getClassLoader().getResourceAsStream(configFileName);
+		InputStream file = getClass().getClassLoader().getResourceAsStream(filenameOnClasspath);
 		if (file != null) {
 			try {
 				properties.load(file);
 				String clientId = properties.getProperty("client_id");
 				String clientSecret = properties.getProperty("client_secret");
-				return new TokenClientCredentials(clientId, clientSecret);
+				
+				return new TokenCredentials(clientId, clientSecret);
 			} catch (FileNotFoundException e) {
 				throw new RuntimeException("You should create a config file into src/main/resources/config.properties");
 			} catch (IOException e) {

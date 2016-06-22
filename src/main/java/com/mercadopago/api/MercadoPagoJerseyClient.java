@@ -1,6 +1,7 @@
 package com.mercadopago.api;
 
 import com.google.common.base.MoreObjects;
+import com.mercadopago.payment.PaymentClientApi;
 
 public class MercadoPagoJerseyClient implements MercadoPagoClientApi {
 
@@ -17,6 +18,11 @@ public class MercadoPagoJerseyClient implements MercadoPagoClientApi {
 	public PreferenceClientApi preferences() {
 		return new PreferenceClientApi(token);
 	}
+	
+	@Override
+	public PaymentClientApi payments() {
+		return new PaymentClientApi(token);
+	}
 
 	@Override
 	public String toString() {
@@ -24,5 +30,6 @@ public class MercadoPagoJerseyClient implements MercadoPagoClientApi {
 			.add("token", token)
 		.toString();
 	}
+
 	
 }

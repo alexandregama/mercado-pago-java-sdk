@@ -1,15 +1,17 @@
 package com.mercadopago.preference;
 
-import static com.mercadopago.payment.PaymentType.TICKET;
+import static com.mercadopago.paymentmethod.PaymentType.TICKET;
 import static com.mercadopago.preference.Preference.PreferenceOperationType.REGULAR_PAYMENT;
 import static com.mercadopago.preference.Shipment.Mode.CUSTOM;
 import static com.mercadopago.preference.Shipment.Mode.NOT_SPECIFIED;
+import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.PRODUCTION;
 import static java.math.BigDecimal.TEN;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
@@ -17,13 +19,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.mercadopago.api.MercadoPagoBadRequestException;
 import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
-import com.mercadopago.api.TokenClientCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
-import com.mercadopago.payment.ExcludedPaymentType;
-import com.mercadopago.payment.PaymentMethod;
+import com.mercadopago.api.TokenCredentials;
+import com.mercadopago.api.exception.MercadoPagoBadRequestException;
+import com.mercadopago.paymentmethod.ExcludedPaymentType;
+import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Shipment.Mode;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
@@ -35,9 +37,9 @@ public class PreferenceClientApiTest {
 
 	@BeforeClass
 	public static void generateToken() {
-		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentials();
+		TokenCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
-		token = tokenGenerator.generateUsing(credentials);
+		token = tokenGenerator.generateUsing(credentials, PRODUCTION);
 	}
 	
 	@Before

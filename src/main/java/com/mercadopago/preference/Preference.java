@@ -13,6 +13,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.MoreObjects;
 
+/**
+ * 
+ * @author Alexandre Gama - Preference Model
+ * This API allows you to set up, during the payment process, all the item information, 
+ * any accepted means of payment and many other options.
+ *
+ */
+
 @XmlAccessorType(FIELD)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Preference {

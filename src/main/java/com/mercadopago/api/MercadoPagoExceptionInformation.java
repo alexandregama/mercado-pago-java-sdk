@@ -1,9 +1,13 @@
 package com.mercadopago.api;
 
+import java.util.List;
+
 import javax.xml.bind.annotation.XmlElement;
 
-import com.google.common.base.MoreObjects;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mercadopago.api.exception.MercadoPagoCauseException;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MercadoPagoExceptionInformation {
 
 	@XmlElement(name = "message")
@@ -16,7 +20,7 @@ public class MercadoPagoExceptionInformation {
 	private String status;
 
 	@XmlElement(name = "cause")
-	private String[] causes;
+	private List<MercadoPagoCauseException> causes;
 
 	public String getMessage() {
 		return message;
@@ -42,21 +46,18 @@ public class MercadoPagoExceptionInformation {
 		this.status = status;
 	}
 
-	public String[] getCauses() {
+	public List<MercadoPagoCauseException> getCauses() {
 		return causes;
 	}
 
-	public void setCauses(String[] causes) {
+	public void setCauses(List<MercadoPagoCauseException> causes) {
 		this.causes = causes;
 	}
 
 	@Override
 	public String toString() {
-		return MoreObjects.toStringHelper(this)
-			.add("message", message)
-			.add("error", error)
-			.add("status", status)
-		.toString();
+		return "MercadoPagoExceptionInformation [message=" + message + ", error=" + error + ", status=" + status
+				+ ", causes=" + causes + "]";
 	}
 
 }
