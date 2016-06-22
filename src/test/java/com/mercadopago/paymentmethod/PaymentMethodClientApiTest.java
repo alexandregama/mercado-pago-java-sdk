@@ -41,8 +41,6 @@ public class PaymentMethodClientApiTest {
 		TokenCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
 		token = tokenGenerator.generateUsing(credentials, PRODUCTION);
-		System.out.println(token);
-		
 	}
 	
 	@Before

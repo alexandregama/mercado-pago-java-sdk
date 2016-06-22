@@ -113,6 +113,5 @@ public class PaymentWithRequiredFields {
 				+ paymentMethodId + ", description=" + description + ", installments=" + installments + ", payer="
 				+ payer + "]";
 	}
-
 	
 }
