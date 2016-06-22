@@ -1,5 +1,7 @@
 package com.mercadopago.api;
 
+import static javax.ws.rs.core.Response.Status.CREATED;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -8,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.mercadopago.api.exception.MercadoPagoBadRequestException;
 import com.mercadopago.preference.Preference;
 
 public class PreferenceClientApi {
@@ -29,7 +32,7 @@ public class PreferenceClientApi {
 				.accept(MediaType.APPLICATION_JSON)
 				.post(Entity.json(preference));
 		
-		if (response.getStatus() != Status.CREATED.getStatusCode()) {
+		if (response.getStatus() != CREATED.getStatusCode()) {
 			MercadoPagoExceptionInformation internalMercadoPagoException = response.readEntity(new GenericType<MercadoPagoExceptionInformation>() {});
 			throw new MercadoPagoBadRequestException("An error ocurred while trying to Create a new Preference", internalMercadoPagoException.getMessage(), internalMercadoPagoException.getError());
 		}

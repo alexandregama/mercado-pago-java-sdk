@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.base.MoreObjects;
-import com.mercadopago.payment.ExcludedPaymentType;
-import com.mercadopago.payment.PaymentMethod;
+import com.mercadopago.paymentmethod.ExcludedPaymentType;
+import com.mercadopago.paymentmethod.PaymentMethod;
 
 @XmlRootElement(name = "payment_methods")
 @JsonIgnoreProperties(ignoreUnknown = true)

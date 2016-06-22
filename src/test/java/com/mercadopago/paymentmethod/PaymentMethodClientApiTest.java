@@ -1,4 +1,4 @@
-package com.mercadopago.payment;
+package com.mercadopago.paymentmethod;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -23,9 +23,10 @@ import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
 import com.mercadopago.api.TokenClientCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
+import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
-public class PaymentMethodClientTest {
+public class PaymentMethodClientApiTest {
 	
 	private static final Set<String> PaymentMethodsIds = new HashSet<>(Arrays.asList("visa", "master", "amex", "naranja", "nativa", 
 			"tarshop", "cencosud", "cabal", "diners", "argencard", "pagofacil", "rapipago", "redlink", "bapropagos", "cargavirtual",
@@ -40,6 +41,7 @@ public class PaymentMethodClientTest {
 		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentials();
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
 		token = tokenGenerator.generateUsing(credentials);
+		System.out.println(token);
 		
 	}
 	

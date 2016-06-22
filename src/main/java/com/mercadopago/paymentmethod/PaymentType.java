@@ -1,4 +1,4 @@
-package com.mercadopago.payment;
+package com.mercadopago.paymentmethod;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

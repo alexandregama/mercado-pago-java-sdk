@@ -1,4 +1,4 @@
-package com.mercadopago.payment;
+package com.mercadopago.paymentmethod;
 
 import javax.xml.bind.annotation.XmlElement;
 

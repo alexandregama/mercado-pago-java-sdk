@@ -1,6 +1,6 @@
 package com.mercadopago.preference;
 
-import static com.mercadopago.payment.PaymentType.TICKET;
+import static com.mercadopago.paymentmethod.PaymentType.TICKET;
 import static com.mercadopago.preference.Preference.PreferenceOperationType.REGULAR_PAYMENT;
 import static com.mercadopago.preference.Shipment.Mode.CUSTOM;
 import static com.mercadopago.preference.Shipment.Mode.NOT_SPECIFIED;
@@ -17,13 +17,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.mercadopago.api.MercadoPagoBadRequestException;
 import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
 import com.mercadopago.api.TokenClientCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
-import com.mercadopago.payment.ExcludedPaymentType;
-import com.mercadopago.payment.PaymentMethod;
+import com.mercadopago.api.exception.MercadoPagoBadRequestException;
+import com.mercadopago.paymentmethod.ExcludedPaymentType;
+import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Shipment.Mode;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 

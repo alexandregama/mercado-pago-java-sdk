@@ -1,6 +1,7 @@
-package com.mercadopago.api;
+package com.mercadopago.api.exception;
 
 import com.google.common.base.MoreObjects;
+import com.mercadopago.api.MercadoPagoException;
 
 public class MercadoPagoBadRequestException extends MercadoPagoException {
 
