@@ -1,5 +1,6 @@
 package com.mercadopago.payment;
 
+import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -12,13 +13,18 @@ import org.junit.Test;
 
 import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
-import com.mercadopago.api.TokenCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
+import com.mercadopago.api.TokenCredentials;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Address;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
-public class PaymentClientTest {
+/**
+ * 
+ * @author Alexandre Gama
+ *
+ */
+public class PaymentClientApiTest {
 
 	private MercadoPagoJerseyClient mercadoPagoApi;
 
@@ -26,7 +32,7 @@ public class PaymentClientTest {
 	public void getCredentials() {
 		TokenCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
-		MercadoPagoToken token = tokenGenerator.generateUsing(credentials);
+		MercadoPagoToken token = tokenGenerator.generateUsing(credentials, SANDBOX);
 		
 		mercadoPagoApi = new MercadoPagoJerseyClient(token);
 	}
@@ -52,7 +58,6 @@ public class PaymentClientTest {
 		payment.setPayer(payer);
 		
 		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
-		System.out.println(paymentCreated);
 		
 		assertThat(paymentCreated.getId(), is(notNullValue()));
 		assertThat(paymentCreated.getPaymentMethodId(), is(equalTo("pagofacil")));

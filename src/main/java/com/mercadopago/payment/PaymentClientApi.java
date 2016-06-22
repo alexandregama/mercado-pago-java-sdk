@@ -18,6 +18,12 @@ import com.mercadopago.api.MercadoPagoExceptionInformation;
 import com.mercadopago.api.MercadoPagoToken;
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
 
+/**
+ * 
+ * @author Alexandre Gama
+ *
+ */
+
 public class PaymentClientApi {
 
 	private static final String MERCADO_PAGO_API = "https://api.mercadopago.com/v1";
@@ -34,7 +40,6 @@ public class PaymentClientApi {
 		mapper.writerWithDefaultPrettyPrinter().writeValue(writer, payment);
 		
 		System.out.println(writer.toString());
-		
 		
 		Response response = ClientBuilder.newClient()
 			.target(MERCADO_PAGO_API)

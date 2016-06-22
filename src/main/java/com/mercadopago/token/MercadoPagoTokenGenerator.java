@@ -1,5 +1,7 @@
 package com.mercadopago.token;
 
+import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -12,7 +14,12 @@ import com.mercadopago.api.TokenCredentials;
 
 public class MercadoPagoTokenGenerator {
 
-	public MercadoPagoToken generateUsing(TokenCredentials credentials) {
+	public MercadoPagoToken generateUsing(TokenCredentials credentials, ENVIRONMENT_MODE environmentMode) {
+		if (environmentMode == SANDBOX) {
+			MercadoPagoToken mercadoPagoToken = new MercadoPagoToken("your_sandbox_token");
+			return mercadoPagoToken;
+		}
+		
 		Client client = ClientBuilder.newClient();
 		
 		Form form = new Form();
@@ -30,4 +37,8 @@ public class MercadoPagoTokenGenerator {
 		return token;
 	}
 
+	
+	public enum ENVIRONMENT_MODE {
+		SANDBOX, PRODUCTION;
+	}
 }
