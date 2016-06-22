@@ -576,3 +576,7 @@ Complete JSON Response from Pyament Method API
   }
 ]
 ```
+
+### Payment
+
+[API Documentation](https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/create-payments/)
