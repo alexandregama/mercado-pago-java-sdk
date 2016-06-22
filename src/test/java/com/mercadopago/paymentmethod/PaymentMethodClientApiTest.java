@@ -21,7 +21,7 @@ import org.junit.Test;
 import com.mercadopago.api.MercadoPagoClientApi;
 import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
-import com.mercadopago.api.TokenClientCredentials;
+import com.mercadopago.api.TokenCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
@@ -37,7 +37,7 @@ public class PaymentMethodClientApiTest {
 
 	@BeforeClass
 	public static void generateNewTokenForAllThoseTests() {
-		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
+		TokenCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
 		token = tokenGenerator.generateUsing(credentials);
 		System.out.println(token);

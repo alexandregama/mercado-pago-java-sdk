@@ -20,7 +20,7 @@ import org.junit.Test;
 
 import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
-import com.mercadopago.api.TokenClientCredentials;
+import com.mercadopago.api.TokenCredentials;
 import com.mercadopago.api.TokenClientCredentialsReader;
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
 import com.mercadopago.paymentmethod.ExcludedPaymentType;
@@ -36,7 +36,7 @@ public class PreferenceClientApiTest {
 
 	@BeforeClass
 	public static void generateToken() {
-		TokenClientCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
+		TokenCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
 		token = tokenGenerator.generateUsing(credentials);
 	}
