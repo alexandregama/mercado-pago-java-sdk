@@ -1,5 +1,6 @@
 package com.mercadopago.payment;
 
+import static com.mercadopago.payment.OrderOnPayment.OrderType.MERCADOPAGO;
 import static com.mercadopago.payment.Payment.OperationType.REGULAR_PAYMENT;
 import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -88,11 +89,37 @@ public class PaymentClientApiTest {
 		
 		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
 		
-		assertThat(paymentCreated.getId(), is(notNullValue()));
-		assertThat(paymentCreated.getPaymentMethodId(), is(equalTo("pagofacil")));
-		assertThat(paymentCreated.getDescription(), is(equalTo("Title of what you are paying for")));
-		assertThat(paymentCreated.getInstallments(), is(equalTo(1)));
 		assertThat(paymentCreated.getOperationType(), is(equalTo(REGULAR_PAYMENT)));
+	}
+	
+	@Test
+	public void shouldCreateANewPaymentWithAllRequiredFieldsAndOrderIdentifier() throws Exception {
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		
+		PaymentPayer payer = new PaymentPayer();
+		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
+		payer.setEmail("alexandre.gama@elo7.com");
+		
+		Address address = new Address();
+		address.setStreetName("Rua Beira Rio");
+		address.setStreetNumber(70);
+		address.setZipCode("04689115");
+		
+		PaymentWithRequiredFields payment = new PaymentWithRequiredFields();
+		payment.setDescription("Title of what you are paying for");
+		payment.setTransactionAmount(BigDecimal.TEN);
+		payment.setPaymentMethodId(paymentMethod.getId());
+		payment.setInstallments(12);
+		payment.setPayer(payer);
+		
+		payment.setOrder(new OrderOnPayment(MERCADOPAGO, 10L));
+		
+		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		OrderOnPayment order = paymentCreated.getOrder();
+		
+		assertThat(paymentCreated.getOperationType(), is(equalTo(REGULAR_PAYMENT)));
+		assertThat(order.getId(), is(equalTo(10L)));
+		assertThat(order.getType(), is(equalTo(MERCADOPAGO)));
 	}
 	
 }
