@@ -87,6 +87,15 @@ public class Payment {
 	@XmlElement(name = "operation_type")
 	private OperationType operationType;
 	
+	/**
+	 * Mercado Pago Description
+	 * Order identifier
+	 * Mode readable | writable
+	 * Required Field
+	 */
+	@XmlElement(name = "order")
+	private OrderOnPayment order;
+	
 	public enum OperationType {
 		
 		POS_PAYMENT("pos_payment", "Payment done through a Point Of Sale"), 
@@ -175,6 +184,14 @@ public class Payment {
 
 	public void setOperationType(OperationType operationType) {
 		this.operationType = operationType;
+	}
+
+	public OrderOnPayment getOrder() {
+		return order;
+	}
+
+	public void setOrder(OrderOnPayment order) {
+		this.order = order;
 	}
 
 }

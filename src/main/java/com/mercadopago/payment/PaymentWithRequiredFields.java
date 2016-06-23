@@ -67,6 +67,15 @@ public class PaymentWithRequiredFields {
 	@XmlElement(name = "payer")
 	private PaymentPayer payer;
 	
+	/**
+	 * Mercado Pago Description
+	 * Order identifier
+	 * Mode readable | writable
+	 * Required Field
+	 */
+	@XmlElement(name = "order")
+	private OrderOnPayment order;
+	
 	public BigDecimal getTransactionAmount() {
 		return transactionAmount;
 	}
@@ -112,6 +121,14 @@ public class PaymentWithRequiredFields {
 		return "PaymentWithRequiredFields [transactionAmount=" + transactionAmount + ", paymentMethodId="
 				+ paymentMethodId + ", description=" + description + ", installments=" + installments + ", payer="
 				+ payer + "]";
+	}
+
+	public OrderOnPayment getOrder() {
+		return order;
+	}
+
+	public void setOrder(OrderOnPayment order) {
+		this.order = order;
 	}
 	
 }
