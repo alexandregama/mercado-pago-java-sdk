@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * 
- * @author Alexandre Gama - Payment Model
+ * @author Alexandre Gama - Payment Model to be sent when create a new Payment
  * 
  * Using the following documentation: https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/create-payments/
  *
@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PaymentWithRequiredFields {
+public class PaymentToCreate {
 	
 	/**
 	 * Mercado Pago Description
@@ -76,6 +76,9 @@ public class PaymentWithRequiredFields {
 	@XmlElement(name = "order")
 	private OrderOnPayment order;
 	
+	@XmlElement(name = "additional_info")
+	private PaymentAdditionalInformations additionalInformation;
+	
 	public BigDecimal getTransactionAmount() {
 		return transactionAmount;
 	}
@@ -116,13 +119,6 @@ public class PaymentWithRequiredFields {
 		this.description = description;
 	}
 
-	@Override
-	public String toString() {
-		return "PaymentWithRequiredFields [transactionAmount=" + transactionAmount + ", paymentMethodId="
-				+ paymentMethodId + ", description=" + description + ", installments=" + installments + ", payer="
-				+ payer + "]";
-	}
-
 	public OrderOnPayment getOrder() {
 		return order;
 	}
@@ -130,5 +126,20 @@ public class PaymentWithRequiredFields {
 	public void setOrder(OrderOnPayment order) {
 		this.order = order;
 	}
-	
+
+	public PaymentAdditionalInformations getAdditionalInformation() {
+		return additionalInformation;
+	}
+
+	public void setAdditionalInformation(PaymentAdditionalInformations additionalInformation) {
+		this.additionalInformation = additionalInformation;
+	}
+
+	@Override
+	public String toString() {
+		return "PaymentToCreate [transactionAmount=" + transactionAmount + ", paymentMethodId=" + paymentMethodId
+				+ ", description=" + description + ", installments=" + installments + ", payer=" + payer + ", order="
+				+ order + ", additionalInformation=" + additionalInformation + "]";
+	}
+
 }

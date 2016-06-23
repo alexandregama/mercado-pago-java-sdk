@@ -27,7 +27,7 @@ public class PaymentClientApi {
 		this.token = token;
 	}
 
-	public Payment createNew(PaymentWithRequiredFields payment) {
+	public Payment createNew(PaymentToCreate payment) {
 		Response response = ClientBuilder.newClient()
 			.target(MERCADO_PAGO_API)
 			.path("payments")

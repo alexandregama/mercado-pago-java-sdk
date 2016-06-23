@@ -4,6 +4,7 @@ import static com.mercadopago.payment.OrderOnPayment.OrderType.MERCADOPAGO;
 import static com.mercadopago.payment.Payment.OperationType.REGULAR_PAYMENT;
 import static com.mercadopago.payment.Payment.PaymentStatus.PENDING;
 import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
+import static java.math.BigDecimal.TEN;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -54,7 +55,7 @@ public class PaymentClientApiTest {
 		address.setStreetNumber(70);
 		address.setZipCode("04689115");
 		
-		PaymentWithRequiredFields payment = new PaymentWithRequiredFields();
+		PaymentToCreate payment = new PaymentToCreate();
 		payment.setDescription("Title of what you are paying for");
 		payment.setTransactionAmount(BigDecimal.TEN);
 		payment.setPaymentMethodId(paymentMethod.getId());
@@ -82,7 +83,7 @@ public class PaymentClientApiTest {
 		address.setStreetNumber(70);
 		address.setZipCode("04689115");
 		
-		PaymentWithRequiredFields payment = new PaymentWithRequiredFields();
+		PaymentToCreate payment = new PaymentToCreate();
 		payment.setDescription("Title of what you are paying for");
 		payment.setTransactionAmount(BigDecimal.TEN);
 		payment.setPaymentMethodId(paymentMethod.getId());
@@ -107,7 +108,7 @@ public class PaymentClientApiTest {
 		address.setStreetNumber(70);
 		address.setZipCode("04689115");
 		
-		PaymentWithRequiredFields payment = new PaymentWithRequiredFields();
+		PaymentToCreate payment = new PaymentToCreate();
 		payment.setDescription("Title of what you are paying for");
 		payment.setTransactionAmount(BigDecimal.TEN);
 		payment.setPaymentMethodId(paymentMethod.getId());
@@ -137,7 +138,7 @@ public class PaymentClientApiTest {
 		address.setStreetNumber(70);
 		address.setZipCode("04689115");
 		
-		PaymentWithRequiredFields payment = new PaymentWithRequiredFields();
+		PaymentToCreate payment = new PaymentToCreate();
 		payment.setDescription("Title of what you are paying for");
 		payment.setTransactionAmount(BigDecimal.TEN);
 		payment.setPaymentMethodId(paymentMethod.getId());
@@ -150,6 +151,43 @@ public class PaymentClientApiTest {
 		PaymentStatus status = paymentCreated.getStatus();
 		
 		assertThat(status, is(equalTo(PENDING)));
+		
+	}
+	@Test
+	public void shouldCreateANewPaymentWithAListOfItems() throws Exception {
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		
+		PaymentPayer payer = new PaymentPayer();
+		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
+		payer.setEmail("alexandre.gama@elo7.com");
+		
+		Address address = new Address();
+		address.setStreetName("Rua Beira Rio");
+		address.setStreetNumber(70);
+		address.setZipCode("04689115");
+		
+		PaymentToCreate payment = new PaymentToCreate();
+		payment.setDescription("Title of what you are paying for");
+		payment.setTransactionAmount(BigDecimal.TEN);
+		payment.setPaymentMethodId(paymentMethod.getId());
+		payment.setInstallments(12);
+		payment.setPayer(payer);
+
+		PaymentAdditionalInformations additionalInformations = new PaymentAdditionalInformations();
+		PaymentItem item = PaymentItem.fromId("10").withTitle("Macbook sticker").costing(TEN).fromCategory("macbook").withDescription("Awesome Macbook Sticker").build();
+		additionalInformations.addItem(item);
+		payment.setAdditionalInformation(additionalInformations);
+		
+		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		PaymentAdditionalInformations informations = paymentCreated.getAdditionalInformation();
+		
+		PaymentItem paymentItem = informations.getItems().get(0);
+		
+		assertThat(paymentItem.getId(), is(equalTo("10")));
+		assertThat(paymentItem.getTitle(), is(equalTo("Macbook sticker")));
+		assertThat(paymentItem.getPrice(), is(equalTo(TEN)));
+		assertThat(paymentItem.getCategory(), is(equalTo("macbook")));
+		assertThat(paymentItem.getDescription(), is(equalTo("Awesome Macbook Sticker")));
 	}
 	
 }

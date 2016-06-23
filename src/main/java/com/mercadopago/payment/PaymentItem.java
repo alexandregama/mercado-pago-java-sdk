@@ -1,10 +1,10 @@
-package com.mercadopago.preference;
+package com.mercadopago.payment;
 
 import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlElement;
 
-public class Item {
+public class PaymentItem {
 
 	@XmlElement(name = "id")
 	private String id;
@@ -24,18 +24,15 @@ public class Item {
 	@XmlElement(name = "quantity", required = true)
 	private int quantity;
 	
-	@XmlElement(name = "currency_id")
-	private String currency;
-	
 	@XmlElement(name = "unit_price", required = true)
 	private BigDecimal price;
 	
-	public Item(String id, String title) {
+	public PaymentItem(String id, String title) {
 		this.id = id;
 		this.title = title;
 	}
 	
-	public Item() {
+	public PaymentItem() {
 	}
 	
 	public static ItemBuilder fromId(String id) {
@@ -44,10 +41,10 @@ public class Item {
 	
 	public static class ItemBuilder {
 		
-		private Item item;
+		private PaymentItem item;
 		
 		public ItemBuilder(String id) {
-			item = new Item();
+			item = new PaymentItem();
 			item.setId(id);
 		}
 
@@ -86,12 +83,7 @@ public class Item {
 			return this;
 		}
 
-		public ItemBuilder withCurrecyCode(String currencyCode) {
-			item.setCurrency(currencyCode);
-			return this;
-		}
-
-		public Item build() {
+		public PaymentItem build() {
 			return this.item;
 		}
 		
@@ -137,14 +129,6 @@ public class Item {
 		this.category = category;
 	}
 
-	public String getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
-
 	public BigDecimal getPrice() {
 		return price;
 	}
@@ -160,12 +144,11 @@ public class Item {
 	public int getQuantity() {
 		return quantity;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", title=" + title + ", description=" + description + ", pictureUrl=" + pictureUrl
-				+ ", category=" + category + ", quantity=" + quantity + ", currency=" + currency + ", price=" + price
-				+ "]";
+		return "PaymentItem [id=" + id + ", title=" + title + ", description=" + description + ", pictureUrl="
+				+ pictureUrl + ", category=" + category + ", quantity=" + quantity + ", price=" + price + "]";
 	}
 	
 }

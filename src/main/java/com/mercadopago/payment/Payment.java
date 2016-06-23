@@ -99,6 +99,9 @@ public class Payment {
 	@XmlElement(name = "status")
 	private PaymentStatus status;
 	
+	@XmlElement(name = "additional_info")
+	private PaymentAdditionalInformations additionalInformation;
+	
 	public enum PaymentStatus {
 		
 		CHARGED_BACK("charged_back", "Was made a chargeback in the buyer’s credit card"),
@@ -233,6 +236,14 @@ public class Payment {
 
 	public void setStatus(PaymentStatus status) {
 		this.status = status;
+	}
+
+	public PaymentAdditionalInformations getAdditionalInformation() {
+		return additionalInformation;
+	}
+
+	public void setAdditionalInformation(PaymentAdditionalInformations additionalInformation) {
+		this.additionalInformation = additionalInformation;
 	}
 
 }
