@@ -96,6 +96,39 @@ public class Payment {
 	@XmlElement(name = "order")
 	private OrderOnPayment order;
 	
+	@XmlElement(name = "status")
+	private PaymentStatus status;
+	
+	public enum PaymentStatus {
+		
+		CHARGED_BACK("charged_back", "Was made a chargeback in the buyer’s credit card"),
+		REFUNDED("refunded", "Payment was refunded to the user"), 
+		CANCELLED("cancelled", "Payment was cancelled by one of the parties or because time for payment has expired"),
+		REJECTED("rejected", "Payment was rejected. The user may retry payment."),
+		IN_MEDIATION("in_mediation", "Users have initiated a dispute"),
+		IN_PROCESS("in_process", "Payment is being reviewed"),
+		AUTHORIZED("authorized", "The payment has been authorized but not captured yet"),
+		APPROVED("approved", "The payment has been approved and accredited"),
+		PENDING("pending", "The user has not yet completed the payment process");
+		
+		private String name;
+		private String oficialDescription;
+		
+		PaymentStatus(String name, String oficialDescription) {
+			this.name = name;
+			this.oficialDescription = oficialDescription;
+		}
+		
+		@JsonValue
+		public String getStatusName() {
+			return name;
+		}
+		
+		public String getOficialDescription() {
+			return oficialDescription;
+		}
+	}
+	
 	public enum OperationType {
 		
 		POS_PAYMENT("pos_payment", "Payment done through a Point Of Sale"), 
@@ -192,6 +225,14 @@ public class Payment {
 
 	public void setOrder(OrderOnPayment order) {
 		this.order = order;
+	}
+
+	public PaymentStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(PaymentStatus status) {
+		this.status = status;
 	}
 
 }

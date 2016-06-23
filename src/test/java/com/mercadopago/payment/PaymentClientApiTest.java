@@ -2,6 +2,7 @@ package com.mercadopago.payment;
 
 import static com.mercadopago.payment.OrderOnPayment.OrderType.MERCADOPAGO;
 import static com.mercadopago.payment.Payment.OperationType.REGULAR_PAYMENT;
+import static com.mercadopago.payment.Payment.PaymentStatus.PENDING;
 import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -17,6 +18,7 @@ import com.mercadopago.api.MercadoPagoJerseyClient;
 import com.mercadopago.api.MercadoPagoToken;
 import com.mercadopago.api.TokenClientCredentialsReader;
 import com.mercadopago.api.TokenCredentials;
+import com.mercadopago.payment.Payment.PaymentStatus;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Address;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
@@ -120,6 +122,34 @@ public class PaymentClientApiTest {
 		assertThat(paymentCreated.getOperationType(), is(equalTo(REGULAR_PAYMENT)));
 		assertThat(order.getId(), is(equalTo(10L)));
 		assertThat(order.getType(), is(equalTo(MERCADOPAGO)));
+	}
+	
+	@Test
+	public void shouldCreateANewPaymentWithAllRequiredFieldsAndRetrieveAPaymentStatus() throws Exception {
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		
+		PaymentPayer payer = new PaymentPayer();
+		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
+		payer.setEmail("alexandre.gama@elo7.com");
+		
+		Address address = new Address();
+		address.setStreetName("Rua Beira Rio");
+		address.setStreetNumber(70);
+		address.setZipCode("04689115");
+		
+		PaymentWithRequiredFields payment = new PaymentWithRequiredFields();
+		payment.setDescription("Title of what you are paying for");
+		payment.setTransactionAmount(BigDecimal.TEN);
+		payment.setPaymentMethodId(paymentMethod.getId());
+		payment.setInstallments(12);
+		payment.setPayer(payer);
+		
+		payment.setOrder(new OrderOnPayment(MERCADOPAGO, 10L));
+		
+		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		PaymentStatus status = paymentCreated.getStatus();
+		
+		assertThat(status, is(equalTo(PENDING)));
 	}
 	
 }
