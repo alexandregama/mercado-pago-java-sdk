@@ -26,7 +26,7 @@ public class PaymentMethod {
 	private PaymentType type;
 	
 	@XmlElement(name = "status")
-	private PaymentStatus status;
+	private PaymentMethodStatus status;
 	
 	@XmlElement(name = "secure_thumbnail")
 	private String secureThumbnail;
@@ -52,12 +52,12 @@ public class PaymentMethod {
 	@XmlElement(name = "accreditation_time")
 	private Integer accreditationTime;
 	
-	public enum PaymentStatus {
+	public enum PaymentMethodStatus {
 		ACTIVE("active"), DEACTIVE("deactive"), TEMPORALLY_DEACTIVE("temporally_deactive");
 		
 		private String name;
 		
-		PaymentStatus(String name) {
+		PaymentMethodStatus(String name) {
 			this.name = name;
 		}
 		
@@ -79,7 +79,7 @@ public class PaymentMethod {
 		return type;
 	}
 
-	public PaymentStatus getStatus() {
+	public PaymentMethodStatus getStatus() {
 		return status;
 	}
 
