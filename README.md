@@ -3,6 +3,8 @@
 
 [![Stories in Ready](https://badge.waffle.io/alexandregama/mercado-pago-java-sdk.png?label=ready&title=Ready)](http://waffle.io/alexandregama/mercado-pago-java-sdk)
 
+[![Throughput Graph](https://graphs.waffle.io/alexandregama/mercado-pago-java-sdk/throughput.svg)](https://waffle.io/alexandregama/mercado-pago-java-sdk/metrics/throughput)
+
 ### Payment Methods
 
 [API Documentation](https://www.mercadopago.com.br/developers/en/api-docs/custom-checkout/payment-methods/)
