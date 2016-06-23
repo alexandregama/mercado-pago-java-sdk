@@ -1,22 +1,24 @@
 package com.mercadopago.payment;
 
+import static javax.xml.bind.annotation.XmlAccessType.FIELD;
+
 import java.math.BigDecimal;
 
-import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * 
  * @author Alexandre Gama - Payment Model
  * 
  * Using the following documentation: https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/create-payments/
- *
+ * This class will be used to retrive a payment based on its id or after creating another one
  */
 
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(FIELD)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Payment {
 	
@@ -75,6 +77,43 @@ public class Payment {
 	 */
 	@XmlElement(name = "payer")
 	private PaymentPayer payer;
+	
+	/**
+	 * Mercado Pago Description
+	 * Payment type
+	 * Mode readable | writable
+	 * Required Field
+	 */
+	@XmlElement(name = "operation_type")
+	private OperationType operationType;
+	
+	public enum OperationType {
+		
+		POS_PAYMENT("pos_payment", "Payment done through a Point Of Sale"), 
+		CELLPHONE_RECHARGE("cellphone_recharge", "Recharge of a user's cellphone account"), 
+		PAYMENT_ADDITION("payment_addition", "Addition of money to an existing payment, done in MercadoPago's site"), 
+		RECURRING_PAYMENT("recurring_payment", "Automatic recurring payment due to an active user subscription"), 
+		MONEY_TRANSFER("money_transfer", "Funds transfer between two users"), 
+		REGULAR_PAYMENT("regular_payment", "Typification by default of a purchase being paid using MercadoPago"),
+		ACCOUNT_FUND("account_fund", "Money income in the user's account");
+		
+		private String name;
+		private String oficialDescription;
+		
+		OperationType(String name, String oficialDescription) {
+			this.name = name;
+			this.oficialDescription = oficialDescription;
+		}
+		
+		@JsonValue
+		public String getName() {
+			return name;
+		}
+		
+		public String getOficialDescription() {
+			return oficialDescription;
+		}
+	}
 
 	public BigDecimal getTransactionAmount() {
 		return transactionAmount;
@@ -128,6 +167,14 @@ public class Payment {
 	public String toString() {
 		return "Payment [id=" + id + ", transactionAmount=" + transactionAmount + ", paymentMethodId=" + paymentMethodId
 				+ ", description=" + description + ", installments=" + installments + ", payer=" + payer + "]";
+	}
+
+	public OperationType getOperationType() {
+		return operationType;
+	}
+
+	public void setOperationType(OperationType operationType) {
+		this.operationType = operationType;
 	}
 
 }

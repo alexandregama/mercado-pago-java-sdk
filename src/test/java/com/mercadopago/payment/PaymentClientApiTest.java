@@ -1,5 +1,6 @@
 package com.mercadopago.payment;
 
+import static com.mercadopago.payment.Payment.OperationType.REGULAR_PAYMENT;
 import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -63,6 +64,35 @@ public class PaymentClientApiTest {
 		assertThat(paymentCreated.getPaymentMethodId(), is(equalTo("pagofacil")));
 		assertThat(paymentCreated.getDescription(), is(equalTo("Title of what you are paying for")));
 		assertThat(paymentCreated.getInstallments(), is(equalTo(1)));
+	}
+	
+	@Test
+	public void shouldCreateANewPaymentWithAllRequiredFieldsAndReturningOperationType() throws Exception {
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		
+		PaymentPayer payer = new PaymentPayer();
+		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
+		payer.setEmail("alexandre.gama@elo7.com");
+		
+		Address address = new Address();
+		address.setStreetName("Rua Beira Rio");
+		address.setStreetNumber(70);
+		address.setZipCode("04689115");
+		
+		PaymentWithRequiredFields payment = new PaymentWithRequiredFields();
+		payment.setDescription("Title of what you are paying for");
+		payment.setTransactionAmount(BigDecimal.TEN);
+		payment.setPaymentMethodId(paymentMethod.getId());
+		payment.setInstallments(12);
+		payment.setPayer(payer);
+		
+		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		
+		assertThat(paymentCreated.getId(), is(notNullValue()));
+		assertThat(paymentCreated.getPaymentMethodId(), is(equalTo("pagofacil")));
+		assertThat(paymentCreated.getDescription(), is(equalTo("Title of what you are paying for")));
+		assertThat(paymentCreated.getInstallments(), is(equalTo(1)));
+		assertThat(paymentCreated.getOperationType(), is(equalTo(REGULAR_PAYMENT)));
 	}
 	
 }
