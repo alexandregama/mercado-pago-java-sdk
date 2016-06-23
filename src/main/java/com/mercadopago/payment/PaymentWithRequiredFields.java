@@ -66,7 +66,7 @@ public class PaymentWithRequiredFields {
 	 */
 	@XmlElement(name = "payer")
 	private PaymentPayer payer;
-
+	
 	public BigDecimal getTransactionAmount() {
 		return transactionAmount;
 	}
