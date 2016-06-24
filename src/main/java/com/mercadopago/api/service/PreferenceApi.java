@@ -61,6 +61,7 @@ public class PreferenceApi {
 		}
 		
 		Preference preference = response.readEntity(Preference.class);
+		
 		return preference;
 	}
 	
