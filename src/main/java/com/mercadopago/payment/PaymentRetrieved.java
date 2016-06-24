@@ -143,8 +143,16 @@ public class PaymentRetrieved {
 	 * URL where mercadopago will send notifications associated to changes in this payment
 	 * Mode readable | writable
 	 */
-	@XmlElement(name = "notification_url", required = true)
+	@XmlElement(name = "notification_url")
 	private String notificationUrl;
+	
+	/**
+	 * Mercado Pago Description
+	 * Groups the details of the transaction
+	 * Mode readable
+	 */
+	@XmlElement(name = "transaction_details")
+	private TransactionDetails transactionDetails;
 	
 	public enum PaymentStatus {
 		
@@ -312,6 +320,14 @@ public class PaymentRetrieved {
 				+ ", couponAmount=" + couponAmount + ", additionalInformation=" + additionalInformation
 				+ ", binaryMode=" + binaryMode + ", captured=" + captured + ", externalReferenceCode="
 				+ externalReferenceCode + ", notificationUrl=" + notificationUrl + "]";
+	}
+
+	public TransactionDetails getTransactionDetails() {
+		return transactionDetails;
+	}
+
+	public void setTransactionDetails(TransactionDetails transactionDetails) {
+		this.transactionDetails = transactionDetails;
 	}
 
 }
