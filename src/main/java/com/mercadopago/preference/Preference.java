@@ -44,7 +44,7 @@ public class Preference {
 	private PreferenceBackUrl backUrl;
 	
 	@XmlElement(name = "payer")
-	private Payer payer;
+	private PreferencePayer payer;
 	
 	@XmlElement(name = "payment_methods")
 	private PreferencePaymentMethods paymentMethods;
@@ -107,11 +107,11 @@ public class Preference {
 		this.backUrl = backUrl;
 	}
 
-	public Payer getPayer() {
+	public PreferencePayer getPayer() {
 		return payer;
 	}
 
-	public void setPayer(Payer payer) {
+	public void setPayer(PreferencePayer payer) {
 		this.payer = payer;
 	}
 	

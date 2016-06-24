@@ -32,8 +32,7 @@ public class PaymentItem {
 		this.title = title;
 	}
 	
-	public PaymentItem() {
-	}
+	public PaymentItem() {}
 	
 	public static ItemBuilder fromId(String id) {
 		return new ItemBuilder(id);

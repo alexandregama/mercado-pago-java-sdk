@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @XmlAccessorType(FIELD)
-public class Payer {
+public class PreferencePayer {
 
 	/**
 	 * Identification type of the associated payer

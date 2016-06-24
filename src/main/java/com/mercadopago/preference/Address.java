@@ -14,7 +14,15 @@ public class Address {
 	
 	@XmlElement(name = "street_number")
 	private Integer streetNumber;
+	
+	public Address(String zipCode, String streetName, Integer streetNumber) {
+		this.zipCode = zipCode;
+		this.streetName = streetName;
+		this.streetNumber = streetNumber;
+	}
 
+	public Address() {}
+	
 	public String getZipCode() {
 		return zipCode;
 	}

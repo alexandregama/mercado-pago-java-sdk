@@ -91,7 +91,6 @@ public class Payment {
 	 * Mercado Pago Description
 	 * Order identifier
 	 * Mode readable | writable
-	 * Required Field
 	 */
 	@XmlElement(name = "order")
 	private OrderOnPayment order;
@@ -99,6 +98,11 @@ public class Payment {
 	@XmlElement(name = "status")
 	private PaymentStatus status;
 	
+	/**
+	 * Mercado Pago Description
+	 * Data that could improve fraud analysis and conversion rates. Try to send as much information as possible.
+	 * Mode writable
+	 */
 	@XmlElement(name = "additional_info")
 	private PaymentAdditionalInformations additionalInformation;
 	

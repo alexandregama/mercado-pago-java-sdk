@@ -61,7 +61,7 @@ public class PreferenceClientApiTest {
 			.withCurrecyCode("ARS")
 			.build();
 		
-		Payer payer = new Payer();
+		PreferencePayer payer = new PreferencePayer();
 		
 		payer.setName("Alexandre");
 		payer.setLastname("Gama");
@@ -99,7 +99,7 @@ public class PreferenceClientApiTest {
 		assertThat(preferenceCreted.getBackUrl().getPending(), is(notNullValue()));
 		assertThat(preferenceCreted.getBackUrl().getFailure(), is(notNullValue()));
 		
-		Payer payerFromPreference = preferenceCreted.getPayer();
+		PreferencePayer payerFromPreference = preferenceCreted.getPayer();
 		assertThat(payerFromPreference.getName(), is(equalTo("Alexandre")));
 		assertThat(payerFromPreference.getLastname(), is(equalTo("Gama")));
 		assertThat(payerFromPreference.getEmail(), is(equalTo("alexandre.gama.lima@gmail.com")));

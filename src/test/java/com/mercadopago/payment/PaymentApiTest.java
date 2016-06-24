@@ -22,6 +22,7 @@ import com.mercadopago.api.TokenCredentials;
 import com.mercadopago.payment.Payment.PaymentStatus;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Address;
+import com.mercadopago.preference.Phone;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 
 /**
@@ -29,7 +30,7 @@ import com.mercadopago.token.MercadoPagoTokenGenerator;
  * @author Alexandre Gama
  *
  */
-public class PaymentClientApiTest {
+public class PaymentApiTest {
 
 	private MercadoPagoJerseyClient mercadoPagoApi;
 
@@ -153,6 +154,7 @@ public class PaymentClientApiTest {
 		assertThat(status, is(equalTo(PENDING)));
 		
 	}
+	
 	@Test
 	public void shouldCreateANewPaymentWithAListOfItems() throws Exception {
 		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
@@ -188,6 +190,43 @@ public class PaymentClientApiTest {
 		assertThat(paymentItem.getPrice(), is(equalTo(TEN)));
 		assertThat(paymentItem.getCategory(), is(equalTo("macbook")));
 		assertThat(paymentItem.getDescription(), is(equalTo("Awesome Macbook Sticker")));
+	}
+	
+	@Test
+	public void shouldCreateANewPaymentWithPayerInformation() throws Exception {
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		
+		PaymentPayer payer = new PaymentPayer();
+		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
+		payer.setEmail("alexandre.gama@elo7.com");
+		
+		Address address = new Address();
+		address.setStreetName("Rua Beira Rio");
+		address.setStreetNumber(70);
+		address.setZipCode("04689115");
+		
+		PaymentToCreate payment = new PaymentToCreate();
+		payment.setDescription("Title of what you are paying for");
+		payment.setTransactionAmount(BigDecimal.TEN);
+		payment.setPaymentMethodId(paymentMethod.getId());
+		payment.setInstallments(12);
+		payment.setPayer(payer);
+		
+		PaymentAdditionalInformations additionalInformations = new PaymentAdditionalInformations();
+		PaymentItem item = PaymentItem.fromId("10").withTitle("Macbook sticker").costing(TEN).fromCategory("macbook").withDescription("Awesome Macbook Sticker").build();
+		additionalInformations.addItem(item);
+		
+		PayerInformation payerInformation = new PayerInformation("Alexandre", "Gama", new Phone("11", "985648575"), new Address("04689547", "Rua Beira Rio", 100));
+		additionalInformations.setPayer(payerInformation);
+		
+		payment.setAdditionalInformation(additionalInformations);
+		
+		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		PaymentAdditionalInformations informations = paymentCreated.getAdditionalInformation();
+		
+		PayerInformation payerInformationRetrieved = informations.getPayer();
+		
+		assertThat(payerInformationRetrieved.getFirstName(), is(equalTo("Alexandre")));
 	}
 	
 }

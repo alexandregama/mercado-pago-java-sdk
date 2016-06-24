@@ -1,6 +1,7 @@
 package com.mercadopago.paymentmethod;
 
-import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.PRODUCTION;
+import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
+import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
@@ -9,7 +10,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -28,8 +28,8 @@ import com.mercadopago.token.MercadoPagoTokenGenerator;
 
 public class PaymentMethodClientApiTest {
 	
-	private static final Set<String> PaymentMethodsIds = new HashSet<>(Arrays.asList("visa", "master", "amex", "naranja", "nativa", 
-			"tarshop", "cencosud", "cabal", "diners", "argencard", "pagofacil", "rapipago", "redlink", "bapropagos", "cargavirtual",
+	private static final Set<String> PaymentMethodsIds = new HashSet<>(asList("visa", "master", "amex", "naranja", "nativa", 
+			"cencosud", "cabal", "diners", "argencard", "pagofacil", "rapipago", "redlink", "bapropagos", "cargavirtual",
 			"cordial", "cordobesa", "cmr"));
 	
 	private static MercadoPagoToken token;
@@ -40,7 +40,7 @@ public class PaymentMethodClientApiTest {
 	public static void generateNewTokenForAllThoseTests() {
 		TokenCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
-		token = tokenGenerator.generateUsing(credentials, PRODUCTION);
+		token = tokenGenerator.generateUsing(credentials, SANDBOX);
 	}
 	
 	@Before
@@ -55,7 +55,7 @@ public class PaymentMethodClientApiTest {
 		List<String> methodsIds = new ArrayList<>();
 		paymentAcceptedMethods.forEach(method -> methodsIds.add(method.getId()));
 		
-		assertThat(paymentAcceptedMethods.size(), is(equalTo(19)));
+		assertThat(paymentAcceptedMethods.size(), is(equalTo(18)));
 		PaymentMethodsIds.forEach(id -> assertThat(methodsIds, hasItem(id)));
 	}
 	

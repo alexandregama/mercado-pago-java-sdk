@@ -17,13 +17,13 @@ import com.mercadopago.api.exception.MercadoPagoBadRequestException;
  * @author Alexandre Gama
  *
  */
-public class PaymentClientApi {
+public class PaymentApi {
 
 	private static final String MERCADO_PAGO_API = "https://api.mercadopago.com/v1";
 	
 	private MercadoPagoToken token;
 
-	public PaymentClientApi(MercadoPagoToken token) {
+	public PaymentApi(MercadoPagoToken token) {
 		this.token = token;
 	}
 

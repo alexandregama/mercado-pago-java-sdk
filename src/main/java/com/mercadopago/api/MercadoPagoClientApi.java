@@ -1,6 +1,6 @@
 package com.mercadopago.api;
 
-import com.mercadopago.payment.PaymentClientApi;
+import com.mercadopago.payment.PaymentApi;
 
 public interface MercadoPagoClientApi {
 
@@ -8,6 +8,6 @@ public interface MercadoPagoClientApi {
 	
 	PreferenceClientApi preferences();
 	
-	PaymentClientApi payments();
+	PaymentApi payments();
 
 }
