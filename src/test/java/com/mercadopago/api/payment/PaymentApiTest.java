@@ -298,7 +298,10 @@ public class PaymentApiTest {
 		
 		assertThat(transactionDetails.getFinancialInstitution(), nullValue());
 		assertThat(transactionDetails.getAmountReceiveBySeller(), is(equalTo(ZERO)));
-		
+		assertThat(transactionDetails.getTotalPaidAmountWithFees(), is(equalTo(TEN)));
+		assertThat(transactionDetails.getInstallmentAmount(), is(equalTo(ZERO)));
+		assertThat(transactionDetails.getOverpaidAmount(), is(equalTo(ZERO)));
+		assertThat(transactionDetails.getExternalResourceUrl(), is(equalTo("https://sandbox.mercadopago.com/coupon/pagofacil")));
 	}
 	
 }
