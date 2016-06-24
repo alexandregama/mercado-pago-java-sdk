@@ -1,11 +1,10 @@
-package com.mercadopago.api;
+package com.mercadopago.api.exception;
 
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.mercadopago.api.exception.MercadoPagoCauseException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MercadoPagoExceptionInformation {

@@ -1,4 +1,4 @@
-package com.mercadopago.api;
+package com.mercadopago.api.service;
 
 import static javax.ws.rs.core.Response.Status.CREATED;
 
@@ -11,7 +11,10 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
+import com.mercadopago.api.exception.MercadoPagoExceptionInformation;
+import com.mercadopago.api.exception.MercadoPagoNotFoundException;
 import com.mercadopago.preference.Preference;
+import com.mercadopago.token.MercadoPagoToken;
 
 public class PreferenceClientApi {
 

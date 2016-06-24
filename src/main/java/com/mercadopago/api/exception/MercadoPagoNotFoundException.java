@@ -1,4 +1,4 @@
-package com.mercadopago.api;
+package com.mercadopago.api.exception;
 
 public class MercadoPagoNotFoundException extends RuntimeException {
 

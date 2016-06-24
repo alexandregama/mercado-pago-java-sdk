@@ -1,4 +1,4 @@
-package com.mercadopago.preference;
+package com.mercadopago.api.preference;
 
 import static com.mercadopago.paymentmethod.PaymentType.TICKET;
 import static com.mercadopago.preference.Preference.PreferenceOperationType.REGULAR_PAYMENT;
@@ -19,15 +19,23 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.mercadopago.api.MercadoPagoJerseyClient;
-import com.mercadopago.api.MercadoPagoToken;
-import com.mercadopago.api.TokenClientCredentialsReader;
-import com.mercadopago.api.TokenCredentials;
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
+import com.mercadopago.api.internal.MercadoPagoJerseyClient;
 import com.mercadopago.paymentmethod.ExcludedPaymentType;
 import com.mercadopago.paymentmethod.PaymentMethod;
+import com.mercadopago.preference.Address;
+import com.mercadopago.preference.Item;
+import com.mercadopago.preference.Phone;
+import com.mercadopago.preference.Preference;
+import com.mercadopago.preference.PreferencePayer;
+import com.mercadopago.preference.PreferencePaymentMethods;
+import com.mercadopago.preference.ReceiverAddress;
+import com.mercadopago.preference.Shipment;
 import com.mercadopago.preference.Shipment.Mode;
+import com.mercadopago.token.MercadoPagoToken;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
+import com.mercadopago.token.TokenClientCredentialsReader;
+import com.mercadopago.token.TokenCredentials;
 
 public class PreferenceClientApiTest {
 
@@ -61,7 +69,7 @@ public class PreferenceClientApiTest {
 			.withCurrecyCode("ARS")
 			.build();
 		
-		Payer payer = new Payer();
+		PreferencePayer payer = new PreferencePayer();
 		
 		payer.setName("Alexandre");
 		payer.setLastname("Gama");
@@ -99,7 +107,7 @@ public class PreferenceClientApiTest {
 		assertThat(preferenceCreted.getBackUrl().getPending(), is(notNullValue()));
 		assertThat(preferenceCreted.getBackUrl().getFailure(), is(notNullValue()));
 		
-		Payer payerFromPreference = preferenceCreted.getPayer();
+		PreferencePayer payerFromPreference = preferenceCreted.getPayer();
 		assertThat(payerFromPreference.getName(), is(equalTo("Alexandre")));
 		assertThat(payerFromPreference.getLastname(), is(equalTo("Gama")));
 		assertThat(payerFromPreference.getEmail(), is(equalTo("alexandre.gama.lima@gmail.com")));

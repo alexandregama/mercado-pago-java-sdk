@@ -1,4 +1,4 @@
-package com.mercadopago.api;
+package com.mercadopago.token;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

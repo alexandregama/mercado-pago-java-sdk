@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 @XmlAccessorType(FIELD)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Payment {
+public class PaymentRetrieved {
 	
 	/**
 	 * Mercado Pago Description
@@ -91,13 +91,20 @@ public class Payment {
 	 * Mercado Pago Description
 	 * Order identifier
 	 * Mode readable | writable
-	 * Required Field
 	 */
 	@XmlElement(name = "order")
 	private OrderOnPayment order;
 	
 	@XmlElement(name = "status")
 	private PaymentStatus status;
+	
+	/**
+	 * Mercado Pago Description
+	 * Data that could improve fraud analysis and conversion rates. Try to send as much information as possible.
+	 * Mode writable
+	 */
+	@XmlElement(name = "additional_info")
+	private PaymentAdditionalInformations additionalInformation;
 	
 	public enum PaymentStatus {
 		
@@ -233,6 +240,14 @@ public class Payment {
 
 	public void setStatus(PaymentStatus status) {
 		this.status = status;
+	}
+
+	public PaymentAdditionalInformations getAdditionalInformation() {
+		return additionalInformation;
+	}
+
+	public void setAdditionalInformation(PaymentAdditionalInformations additionalInformation) {
+		this.additionalInformation = additionalInformation;
 	}
 
 }
