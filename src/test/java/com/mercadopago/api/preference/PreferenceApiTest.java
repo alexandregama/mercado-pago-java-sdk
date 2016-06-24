@@ -10,8 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 
@@ -37,7 +36,7 @@ import com.mercadopago.token.MercadoPagoTokenGenerator;
 import com.mercadopago.token.TokenClientCredentialsReader;
 import com.mercadopago.token.TokenCredentials;
 
-public class PreferenceClientApiTest {
+public class PreferenceApiTest {
 
 	private static MercadoPagoToken token;
 	

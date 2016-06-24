@@ -16,11 +16,11 @@ import com.mercadopago.api.exception.MercadoPagoNotFoundException;
 import com.mercadopago.preference.Preference;
 import com.mercadopago.token.MercadoPagoToken;
 
-public class PreferenceClientApi {
+public class PreferenceApi {
 
 	private final MercadoPagoToken token;
 
-	public PreferenceClientApi(final MercadoPagoToken token) {
+	public PreferenceApi(final MercadoPagoToken token) {
 		this.token = token;
 	}
 
@@ -61,6 +61,7 @@ public class PreferenceClientApi {
 		}
 		
 		Preference preference = response.readEntity(Preference.class);
+		
 		return preference;
 	}
 	

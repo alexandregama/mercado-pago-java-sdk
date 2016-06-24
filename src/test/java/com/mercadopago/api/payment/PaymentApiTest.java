@@ -11,6 +11,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.base.Optional;
 import com.mercadopago.api.internal.MercadoPagoJerseyClient;
 import com.mercadopago.payment.OrderOnPayment;
 import com.mercadopago.payment.PayerInformation;
@@ -302,6 +304,50 @@ public class PaymentApiTest {
 		assertThat(transactionDetails.getInstallmentAmount(), is(equalTo(ZERO)));
 		assertThat(transactionDetails.getOverpaidAmount(), is(equalTo(ZERO)));
 		assertThat(transactionDetails.getExternalResourceUrl(), is(equalTo("https://sandbox.mercadopago.com/coupon/pagofacil")));
+	}
+	
+	@Test
+	public void shouldReturnAPaymentBasedOnItsId() throws Exception {
+		Integer paymentId = createNewValidPayment();
+		
+		Optional<PaymentRetrieved> payment = mercadoPagoApi.payments().findBy(paymentId);
+		
+		assertThat(payment.get().getId(), is(equalTo(paymentId)));
+	}
+	
+	@Test
+	public void shouldNotReturnAPaymentBasedOnInexistentId() throws Exception {
+		Integer paymentId = 12345678;
+		
+		Optional<PaymentRetrieved> payment = mercadoPagoApi.payments().findBy(paymentId);
+		
+		assertFalse(payment.isPresent());
+	}
+
+	private Integer createNewValidPayment() {
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		
+		PaymentPayer payer = new PaymentPayer();
+		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
+		payer.setEmail("alexandre.gama@elo7.com");
+		
+		Address address = new Address();
+		address.setStreetName("Rua Beira Rio");
+		address.setStreetNumber(70);
+		address.setZipCode("04689115");
+		
+		PaymentToCreate payment = new PaymentToCreate();
+		payment.setDescription("Title of what you are paying for");
+		payment.setTransactionAmount(BigDecimal.TEN);
+		payment.setPaymentMethodId(paymentMethod.getId());
+		payment.setInstallments(12);
+		payment.setPayer(payer);
+		
+		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		
+		Integer idFromMercadoPago = paymentCreated.getId();
+		
+		return idFromMercadoPago;
 	}
 	
 }
