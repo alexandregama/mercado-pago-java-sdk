@@ -2,7 +2,7 @@ package com.mercadopago.api.internal;
 
 import com.google.common.base.MoreObjects;
 import com.mercadopago.api.service.JerseyPaymentApi;
-import com.mercadopago.api.service.PaymentMethodApi;
+import com.mercadopago.api.service.JerseyPaymentMethodApi;
 import com.mercadopago.api.service.JerseyPreferenceApi;
 import com.mercadopago.token.MercadoPagoToken;
 
@@ -14,8 +14,8 @@ public class MercadoPagoJerseyClient implements MercadoPagoApi {
 		this.token = token;
 	}
 
-	public PaymentMethodApi paymentMethods() {
-		return new PaymentMethodApi(token);
+	public JerseyPaymentMethodApi paymentMethods() {
+		return new JerseyPaymentMethodApi(token);
 	}
 
 	public JerseyPreferenceApi preferences() {

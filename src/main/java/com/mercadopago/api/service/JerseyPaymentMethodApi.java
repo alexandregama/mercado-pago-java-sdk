@@ -9,20 +9,21 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.mercadopago.api.paymentmethod.PaymentMethodApi;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.token.MercadoPagoToken;
 
-public class PaymentMethodApi {
+public class JerseyPaymentMethodApi implements PaymentMethodApi {
 
 	private static final String MERCADO_PAGO_API = "https://api.mercadopago.com/v1";
 	
 	private final MercadoPagoToken token;
 
-	public PaymentMethodApi(final MercadoPagoToken token) {
+	public JerseyPaymentMethodApi(final MercadoPagoToken token) {
 		this.token = token;
 	}
 	
-	public List<PaymentMethod> getListOfAllPaymentMethods() {
+	public List<PaymentMethod> getAll() {
 		Client client = ClientBuilder.newClient();
 		
 		List<PaymentMethod> methods = paymentMethods(client);
@@ -30,7 +31,7 @@ public class PaymentMethodApi {
 		return methods;
 	}
 
-	public Optional<PaymentMethod> getBy(String paymentMethodId) {
+	public Optional<PaymentMethod> findBy(String paymentMethodId) {
 		Client client = ClientBuilder.newClient();
 		
 		List<PaymentMethod> paymentMethods = paymentMethods(client);
@@ -52,6 +53,7 @@ public class PaymentMethodApi {
 				.accept(MediaType.APPLICATION_JSON) 
 				.get();
 		List<PaymentMethod> methods = response.readEntity(new GenericType<List<PaymentMethod>>() {});
+		
 		return methods;
 	}
 	

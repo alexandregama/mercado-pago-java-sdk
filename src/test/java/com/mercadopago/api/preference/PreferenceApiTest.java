@@ -196,7 +196,7 @@ public class PreferenceApiTest {
 		Preference preference = new Preference();
 		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
 		
-		PaymentMethod paymentMethodToBeExcluded = mercadoPago.paymentMethods().getBy("visa").get();
+		PaymentMethod paymentMethodToBeExcluded = mercadoPago.paymentMethods().findBy("visa").get();
 		PreferencePaymentMethods excludedPaymentMethods = new PreferencePaymentMethods();
 		excludedPaymentMethods.addPaymentMethodToBeExcluded(paymentMethodToBeExcluded);
 		
@@ -219,7 +219,7 @@ public class PreferenceApiTest {
 		Preference preference = new Preference();
 		Item item = Item.fromId("1").costing(TEN).withQuantity(3).build();
 		
-		PaymentMethod paymentMethodToBeDefault = mercadoPago.paymentMethods().getBy("visa").get();
+		PaymentMethod paymentMethodToBeDefault = mercadoPago.paymentMethods().findBy("visa").get();
 		
 		PreferencePaymentMethods paymentMethods = new PreferencePaymentMethods();
 		paymentMethods.setDefaultPaymentMethod(paymentMethodToBeDefault.getId());
