@@ -37,7 +37,7 @@ import com.mercadopago.token.MercadoPagoTokenGenerator;
 import com.mercadopago.token.TokenClientCredentialsReader;
 import com.mercadopago.token.TokenCredentials;
 
-public class PreferenceClientApiTest {
+public class PreferenceApiTest {
 
 	private static MercadoPagoToken token;
 	
