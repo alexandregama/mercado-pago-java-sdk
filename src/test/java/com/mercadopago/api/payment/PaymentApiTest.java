@@ -259,7 +259,7 @@ public class PaymentApiTest {
 		
 		payment.useBinaryMode();
 		payment.setExternalReferenceCode("123456789");
-		payment.willBeInCaptureMode();
+		payment.willBeCaptured();
 		payment.setNotificationUrl("http://www.elo7.com.br/notification_url");
 		
 		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);

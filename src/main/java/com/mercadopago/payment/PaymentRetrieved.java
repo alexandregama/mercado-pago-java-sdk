@@ -300,18 +300,18 @@ public class PaymentRetrieved {
 		return captured;
 	}
 
+	public String getNotificationUrl() {
+		return notificationUrl;
+	}
+
 	@Override
 	public String toString() {
 		return "PaymentRetrieved [id=" + id + ", transactionAmount=" + transactionAmount + ", paymentMethodId="
 				+ paymentMethodId + ", description=" + description + ", installments=" + installments + ", payer="
 				+ payer + ", operationType=" + operationType + ", order=" + order + ", status=" + status
 				+ ", couponAmount=" + couponAmount + ", additionalInformation=" + additionalInformation
-				+ ", binaryMode=" + binaryMode + ", capture=" + captured + ", externalReferenceCode="
-				+ externalReferenceCode + "]";
-	}
-
-	public String getNotificationUrl() {
-		return notificationUrl;
+				+ ", binaryMode=" + binaryMode + ", captured=" + captured + ", externalReferenceCode="
+				+ externalReferenceCode + ", notificationUrl=" + notificationUrl + "]";
 	}
 
 }

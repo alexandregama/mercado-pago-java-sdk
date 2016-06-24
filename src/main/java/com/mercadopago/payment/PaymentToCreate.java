@@ -204,11 +204,11 @@ public class PaymentToCreate {
 		return capture;
 	}
 
-	public void willBeInCaptureMode() {
+	public void willBeCaptured() {
 		this.capture = true;
 	}
 	
-	public void willNotBeInCaptureMode() {
+	public void willNotBeCaptured() {
 		this.capture = false;
 	}
 
