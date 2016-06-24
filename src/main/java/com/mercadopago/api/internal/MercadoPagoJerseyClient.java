@@ -2,11 +2,11 @@ package com.mercadopago.api.internal;
 
 import com.google.common.base.MoreObjects;
 import com.mercadopago.api.service.PaymentApi;
-import com.mercadopago.api.service.PaymentMethodClientApi;
-import com.mercadopago.api.service.PreferenceClientApi;
+import com.mercadopago.api.service.PaymentMethodApi;
+import com.mercadopago.api.service.PreferenceApi;
 import com.mercadopago.token.MercadoPagoToken;
 
-public class MercadoPagoJerseyClient implements MercadoPagoClientApi {
+public class MercadoPagoJerseyClient implements MercadoPagoApi {
 
 	private final MercadoPagoToken token;
 	
@@ -14,12 +14,12 @@ public class MercadoPagoJerseyClient implements MercadoPagoClientApi {
 		this.token = token;
 	}
 
-	public PaymentMethodClientApi paymentMethods() {
-		return new PaymentMethodClientApi(token);
+	public PaymentMethodApi paymentMethods() {
+		return new PaymentMethodApi(token);
 	}
 
-	public PreferenceClientApi preferences() {
-		return new PreferenceClientApi(token);
+	public PreferenceApi preferences() {
+		return new PreferenceApi(token);
 	}
 	
 	@Override

@@ -12,13 +12,13 @@ import javax.ws.rs.core.Response;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.token.MercadoPagoToken;
 
-public class PaymentMethodClientApi {
+public class PaymentMethodApi {
 
 	private static final String MERCADO_PAGO_API = "https://api.mercadopago.com/v1";
 	
 	private final MercadoPagoToken token;
 
-	public PaymentMethodClientApi(final MercadoPagoToken token) {
+	public PaymentMethodApi(final MercadoPagoToken token) {
 		this.token = token;
 	}
 	
