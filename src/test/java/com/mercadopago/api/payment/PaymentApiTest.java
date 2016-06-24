@@ -259,11 +259,13 @@ public class PaymentApiTest {
 		
 		payment.useBinaryMode();
 		payment.setExternalReferenceCode("123456789");
+		payment.willBeInCaptureMode();
 		
 		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
 		
 		assertTrue(paymentCreated.isInBinaryMode());
 		assertThat(paymentCreated.getExternalReferenceCode(), is(equalTo("123456789")));
+		assertTrue(paymentCreated.wereCaptured());
 	}
 	
 }

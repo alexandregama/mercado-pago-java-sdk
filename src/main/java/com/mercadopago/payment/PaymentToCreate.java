@@ -86,6 +86,14 @@ public class PaymentToCreate {
 	
 	/**
 	 * Mercado Pago Description
+	 * Determines if the payment should be captured (true, default value) or just reserved (false)
+	 * Mode writable
+	 */
+	@XmlElement(name = "capture")
+	private Boolean capture;
+	
+	/**
+	 * Mercado Pago Description
 	 * ID given by the merchant in their system
 	 * Mode readable | writable
 	 */
@@ -183,12 +191,16 @@ public class PaymentToCreate {
 		this.externalReferenceCode = externalReference;
 	}
 
-	public BigDecimal getCouponAmount() {
-		return couponAmount;
+	public boolean getCapture() {
+		return capture;
 	}
 
-	public void setCouponAmount(BigDecimal couponAmount) {
-		this.couponAmount = couponAmount;
+	public void willBeInCaptureMode() {
+		this.capture = true;
+	}
+	
+	public void willNotBeInCaptureMode() {
+		this.capture = false;
 	}
 
 }

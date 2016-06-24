@@ -124,6 +124,14 @@ public class PaymentRetrieved {
 	
 	/**
 	 * Mercado Pago Description
+	 * Determines if the payment should be captured (true, default value) or just reserved (false)
+	 * Mode writable
+	 */
+	@XmlElement(name = "captured")
+	private Boolean captured;
+	
+	/**
+	 * Mercado Pago Description
 	 * ID given by the merchant in their system
 	 * Mode readable | writable
 	 */
@@ -236,12 +244,6 @@ public class PaymentRetrieved {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "Payment [id=" + id + ", transactionAmount=" + transactionAmount + ", paymentMethodId=" + paymentMethodId
-				+ ", description=" + description + ", installments=" + installments + ", payer=" + payer + "]";
-	}
-
 	public OperationType getOperationType() {
 		return operationType;
 	}
@@ -288,6 +290,20 @@ public class PaymentRetrieved {
 
 	public void setCouponAmount(BigDecimal couponAmount) {
 		this.couponAmount = couponAmount;
+	}
+
+	public Boolean wereCaptured() {
+		return captured;
+	}
+
+	@Override
+	public String toString() {
+		return "PaymentRetrieved [id=" + id + ", transactionAmount=" + transactionAmount + ", paymentMethodId="
+				+ paymentMethodId + ", description=" + description + ", installments=" + installments + ", payer="
+				+ payer + ", operationType=" + operationType + ", order=" + order + ", status=" + status
+				+ ", couponAmount=" + couponAmount + ", additionalInformation=" + additionalInformation
+				+ ", binaryMode=" + binaryMode + ", capture=" + captured + ", externalReferenceCode="
+				+ externalReferenceCode + "]";
 	}
 
 }
