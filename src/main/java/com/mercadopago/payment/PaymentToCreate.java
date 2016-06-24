@@ -87,6 +87,7 @@ public class PaymentToCreate {
 	/**
 	 * Mercado Pago Description
 	 * Determines if the payment should be captured (true, default value) or just reserved (false)
+	 * Notice that the Payment retrieved will use the captured field
 	 * Mode writable
 	 */
 	@XmlElement(name = "capture")
@@ -107,6 +108,14 @@ public class PaymentToCreate {
 	 */
 	@XmlElement(name = "coupon_amount")
 	private BigDecimal couponAmount;
+
+	/**
+	 * Mercado Pago Description
+	 * URL where mercadopago will send notifications associated to changes in this payment
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "notification_url", required = true)
+	private String notificationUrl;
 	
 	@XmlElement(name = "additional_info")
 	private PaymentAdditionalInformations additionalInformation;
@@ -201,6 +210,14 @@ public class PaymentToCreate {
 	
 	public void willNotBeInCaptureMode() {
 		this.capture = false;
+	}
+
+	public String getNotificationUrl() {
+		return notificationUrl;
+	}
+
+	public void setNotificationUrl(String notificationUrl) {
+		this.notificationUrl = notificationUrl;
 	}
 
 }

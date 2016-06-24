@@ -138,6 +138,14 @@ public class PaymentRetrieved {
 	@XmlElement(name = "external_reference")
 	private String externalReferenceCode;
 	
+	/**
+	 * Mercado Pago Description
+	 * URL where mercadopago will send notifications associated to changes in this payment
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "notification_url", required = true)
+	private String notificationUrl;
+	
 	public enum PaymentStatus {
 		
 		CHARGED_BACK("charged_back", "Was made a chargeback in the buyer’s credit card"),
@@ -206,10 +214,6 @@ public class PaymentRetrieved {
 
 	public String getPaymentMethodId() {
 		return paymentMethodId;
-	}
-
-	public void setPaymentMethodId(String paymentMethodId) {
-		this.paymentMethodId = paymentMethodId;
 	}
 
 	public Integer getInstallments() {
@@ -304,6 +308,10 @@ public class PaymentRetrieved {
 				+ ", couponAmount=" + couponAmount + ", additionalInformation=" + additionalInformation
 				+ ", binaryMode=" + binaryMode + ", capture=" + captured + ", externalReferenceCode="
 				+ externalReferenceCode + "]";
+	}
+
+	public String getNotificationUrl() {
+		return notificationUrl;
 	}
 
 }

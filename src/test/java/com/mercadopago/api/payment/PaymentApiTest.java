@@ -260,11 +260,13 @@ public class PaymentApiTest {
 		payment.useBinaryMode();
 		payment.setExternalReferenceCode("123456789");
 		payment.willBeInCaptureMode();
+		payment.setNotificationUrl("http://www.elo7.com.br/notification_url");
 		
 		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
 		
 		assertTrue(paymentCreated.isInBinaryMode());
 		assertThat(paymentCreated.getExternalReferenceCode(), is(equalTo("123456789")));
+		assertThat(paymentCreated.getNotificationUrl(), is(equalTo("http://www.elo7.com.br/notification_url")));
 		assertTrue(paymentCreated.wereCaptured());
 	}
 	
