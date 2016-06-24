@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 @XmlAccessorType(FIELD)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Payment {
+public class PaymentRetrieved {
 	
 	/**
 	 * Mercado Pago Description

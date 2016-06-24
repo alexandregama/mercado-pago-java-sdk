@@ -1,4 +1,4 @@
-package com.mercadopago.api;
+package com.mercadopago.token;
 
 public class TokenCredentials {
 

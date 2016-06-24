@@ -3,9 +3,19 @@ package com.mercadopago.payment;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.google.common.base.MoreObjects;
 import com.mercadopago.preference.Address;
 import com.mercadopago.preference.Phone;
 
+/**
+ * @author Alexandre Gama
+ * 
+ * Payer Informations to be used when user is creating a new Payment and needs to save
+ * a few informations about the payment.
+ * 
+ * You can use this model to complement additional informations that is represented by the class {@code com.mercadopago.payment.PaymentAdditionalInformations}
+ * 
+ */
 @XmlRootElement(name = "payer")
 public class PayerInformation {
 
@@ -64,8 +74,12 @@ public class PayerInformation {
 
 	@Override
 	public String toString() {
-		return "PayerInformation [firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone + ", address="
-				+ address + "]";
+		return MoreObjects.toStringHelper(this)
+				.add("firstName", this.firstName)
+				.add("lastName", this.lastName)
+				.add("phone", this.phone)
+				.add("address", this.address)
+			.toString();
 	}
 	
 }

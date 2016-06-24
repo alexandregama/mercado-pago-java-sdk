@@ -1,4 +1,4 @@
-package com.mercadopago.api;
+package com.mercadopago.api.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +10,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.mercadopago.paymentmethod.PaymentMethod;
+import com.mercadopago.token.MercadoPagoToken;
 
 public class PaymentMethodClientApi {
 

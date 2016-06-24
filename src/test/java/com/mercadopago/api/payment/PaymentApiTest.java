@@ -1,8 +1,8 @@
-package com.mercadopago.payment;
+package com.mercadopago.api.payment;
 
 import static com.mercadopago.payment.OrderOnPayment.OrderType.MERCADOPAGO;
-import static com.mercadopago.payment.Payment.OperationType.REGULAR_PAYMENT;
-import static com.mercadopago.payment.Payment.PaymentStatus.PENDING;
+import static com.mercadopago.payment.PaymentRetrieved.OperationType.REGULAR_PAYMENT;
+import static com.mercadopago.payment.PaymentRetrieved.PaymentStatus.PENDING;
 import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
 import static java.math.BigDecimal.TEN;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -15,15 +15,22 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mercadopago.api.MercadoPagoJerseyClient;
-import com.mercadopago.api.MercadoPagoToken;
-import com.mercadopago.api.TokenClientCredentialsReader;
-import com.mercadopago.api.TokenCredentials;
-import com.mercadopago.payment.Payment.PaymentStatus;
+import com.mercadopago.api.internal.MercadoPagoJerseyClient;
+import com.mercadopago.payment.OrderOnPayment;
+import com.mercadopago.payment.PayerInformation;
+import com.mercadopago.payment.PaymentRetrieved;
+import com.mercadopago.payment.PaymentAdditionalInformations;
+import com.mercadopago.payment.PaymentItem;
+import com.mercadopago.payment.PaymentPayer;
+import com.mercadopago.payment.PaymentToCreate;
+import com.mercadopago.payment.PaymentRetrieved.PaymentStatus;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Address;
 import com.mercadopago.preference.Phone;
+import com.mercadopago.token.MercadoPagoToken;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
+import com.mercadopago.token.TokenClientCredentialsReader;
+import com.mercadopago.token.TokenCredentials;
 
 /**
  * 
@@ -63,7 +70,7 @@ public class PaymentApiTest {
 		payment.setInstallments(12);
 		payment.setPayer(payer);
 		
-		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
 		
 		assertThat(paymentCreated.getId(), is(notNullValue()));
 		assertThat(paymentCreated.getPaymentMethodId(), is(equalTo("pagofacil")));
@@ -91,7 +98,7 @@ public class PaymentApiTest {
 		payment.setInstallments(12);
 		payment.setPayer(payer);
 		
-		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
 		
 		assertThat(paymentCreated.getOperationType(), is(equalTo(REGULAR_PAYMENT)));
 	}
@@ -118,7 +125,7 @@ public class PaymentApiTest {
 		
 		payment.setOrder(new OrderOnPayment(MERCADOPAGO, 10L));
 		
-		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
 		OrderOnPayment order = paymentCreated.getOrder();
 		
 		assertThat(paymentCreated.getOperationType(), is(equalTo(REGULAR_PAYMENT)));
@@ -148,7 +155,7 @@ public class PaymentApiTest {
 		
 		payment.setOrder(new OrderOnPayment(MERCADOPAGO, 10L));
 		
-		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
 		PaymentStatus status = paymentCreated.getStatus();
 		
 		assertThat(status, is(equalTo(PENDING)));
@@ -180,7 +187,7 @@ public class PaymentApiTest {
 		additionalInformations.addItem(item);
 		payment.setAdditionalInformation(additionalInformations);
 		
-		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
 		PaymentAdditionalInformations informations = paymentCreated.getAdditionalInformation();
 		
 		PaymentItem paymentItem = informations.getItems().get(0);
@@ -221,7 +228,7 @@ public class PaymentApiTest {
 		
 		payment.setAdditionalInformation(additionalInformations);
 		
-		Payment paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
 		PaymentAdditionalInformations informations = paymentCreated.getAdditionalInformation();
 		
 		PayerInformation payerInformationRetrieved = informations.getPayer();

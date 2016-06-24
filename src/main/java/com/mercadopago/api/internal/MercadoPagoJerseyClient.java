@@ -1,7 +1,10 @@
-package com.mercadopago.api;
+package com.mercadopago.api.internal;
 
 import com.google.common.base.MoreObjects;
-import com.mercadopago.payment.PaymentApi;
+import com.mercadopago.api.service.PaymentApi;
+import com.mercadopago.api.service.PaymentMethodClientApi;
+import com.mercadopago.api.service.PreferenceClientApi;
+import com.mercadopago.token.MercadoPagoToken;
 
 public class MercadoPagoJerseyClient implements MercadoPagoClientApi {
 

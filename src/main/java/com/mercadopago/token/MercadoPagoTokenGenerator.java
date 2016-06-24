@@ -9,14 +9,11 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.mercadopago.api.MercadoPagoToken;
-import com.mercadopago.api.TokenCredentials;
-
 public class MercadoPagoTokenGenerator {
 
 	public MercadoPagoToken generateUsing(TokenCredentials credentials, ENVIRONMENT_MODE environmentMode) {
 		if (environmentMode == SANDBOX) {
-			MercadoPagoToken mercadoPagoToken = new MercadoPagoToken("your_sandbox_token");
+			MercadoPagoToken mercadoPagoToken = new MercadoPagoToken("TEST-3716-121113-7ac6b5b4f059fcc5c2e6630db047b7b8__LB_LA__-789989");
 			return mercadoPagoToken;
 		}
 		

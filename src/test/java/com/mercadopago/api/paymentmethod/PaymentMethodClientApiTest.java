@@ -1,4 +1,4 @@
-package com.mercadopago.paymentmethod;
+package com.mercadopago.api.paymentmethod;
 
 import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
 import static java.util.Arrays.asList;
@@ -19,12 +19,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.mercadopago.api.MercadoPagoClientApi;
-import com.mercadopago.api.MercadoPagoJerseyClient;
-import com.mercadopago.api.MercadoPagoToken;
-import com.mercadopago.api.TokenClientCredentialsReader;
-import com.mercadopago.api.TokenCredentials;
+import com.mercadopago.api.internal.MercadoPagoClientApi;
+import com.mercadopago.api.internal.MercadoPagoJerseyClient;
+import com.mercadopago.paymentmethod.PaymentMethod;
+import com.mercadopago.token.MercadoPagoToken;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
+import com.mercadopago.token.TokenClientCredentialsReader;
+import com.mercadopago.token.TokenCredentials;
 
 public class PaymentMethodClientApiTest {
 	

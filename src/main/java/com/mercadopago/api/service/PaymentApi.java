@@ -1,4 +1,4 @@
-package com.mercadopago.payment;
+package com.mercadopago.api.service;
 
 import static javax.ws.rs.core.Response.Status.CREATED;
 
@@ -8,9 +8,11 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.mercadopago.api.MercadoPagoExceptionInformation;
-import com.mercadopago.api.MercadoPagoToken;
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
+import com.mercadopago.api.exception.MercadoPagoExceptionInformation;
+import com.mercadopago.payment.PaymentRetrieved;
+import com.mercadopago.payment.PaymentToCreate;
+import com.mercadopago.token.MercadoPagoToken;
 
 /**
  * 
@@ -27,7 +29,7 @@ public class PaymentApi {
 		this.token = token;
 	}
 
-	public Payment createNew(PaymentToCreate payment) {
+	public PaymentRetrieved createNew(PaymentToCreate payment) {
 		Response response = ClientBuilder.newClient()
 			.target(MERCADO_PAGO_API)
 			.path("payments")
@@ -41,7 +43,7 @@ public class PaymentApi {
 			throw new MercadoPagoBadRequestException("An error ocurred while trying to Create a new Preference", internalMercadoPagoException.getMessage(), internalMercadoPagoException.getError());
 		}
 			
-		Payment paymentSuccessfullyCreated = response.readEntity(Payment.class);
+		PaymentRetrieved paymentSuccessfullyCreated = response.readEntity(PaymentRetrieved.class);
 		
 		return paymentSuccessfullyCreated;
 	}
