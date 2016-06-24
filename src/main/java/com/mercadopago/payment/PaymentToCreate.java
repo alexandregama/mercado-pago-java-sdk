@@ -76,6 +76,30 @@ public class PaymentToCreate {
 	@XmlElement(name = "order")
 	private OrderOnPayment order;
 	
+	/**
+	 * Mercado Pago Description
+	 * When set to true, the payment can only be approved or rejected. Otherwise in_process status is added
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "binary_mode")
+	private Boolean binaryMode;
+	
+	/**
+	 * Mercado Pago Description
+	 * ID given by the merchant in their system
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "external_reference")
+	private String externalReferenceCode;
+	
+	/**
+	 * Mercado Pago Description
+	 * Amount of the coupon discount
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "coupon_amount")
+	private BigDecimal couponAmount;
+	
 	@XmlElement(name = "additional_info")
 	private PaymentAdditionalInformations additionalInformation;
 	
@@ -140,6 +164,31 @@ public class PaymentToCreate {
 		return "PaymentToCreate [transactionAmount=" + transactionAmount + ", paymentMethodId=" + paymentMethodId
 				+ ", description=" + description + ", installments=" + installments + ", payer=" + payer + ", order="
 				+ order + ", additionalInformation=" + additionalInformation + "]";
+	}
+
+	public Boolean isInBinaryMode() {
+		return binaryMode;
+	}
+
+
+	public void useBinaryMode() {
+		this.binaryMode = true;
+	}
+
+	public String getExternalReferenceCode() {
+		return externalReferenceCode;
+	}
+
+	public void setExternalReferenceCode(String externalReference) {
+		this.externalReferenceCode = externalReference;
+	}
+
+	public BigDecimal getCouponAmount() {
+		return couponAmount;
+	}
+
+	public void setCouponAmount(BigDecimal couponAmount) {
+		this.couponAmount = couponAmount;
 	}
 
 }

@@ -100,11 +100,35 @@ public class PaymentRetrieved {
 	
 	/**
 	 * Mercado Pago Description
+	 * Amount of the coupon discount
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "coupon_amount")
+	private BigDecimal couponAmount;
+	
+	/**
+	 * Mercado Pago Description
 	 * Data that could improve fraud analysis and conversion rates. Try to send as much information as possible.
 	 * Mode writable
 	 */
 	@XmlElement(name = "additional_info")
 	private PaymentAdditionalInformations additionalInformation;
+	
+	/**
+	 * Mercado Pago Description
+	 * When set to true, the payment can only be approved or rejected. Otherwise in_process status is added
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "binary_mode")
+	private Boolean binaryMode;
+	
+	/**
+	 * Mercado Pago Description
+	 * ID given by the merchant in their system
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "external_reference")
+	private String externalReferenceCode;
 	
 	public enum PaymentStatus {
 		
@@ -248,6 +272,22 @@ public class PaymentRetrieved {
 
 	public void setAdditionalInformation(PaymentAdditionalInformations additionalInformation) {
 		this.additionalInformation = additionalInformation;
+	}
+
+	public Boolean isInBinaryMode() {
+		return binaryMode;
+	}
+
+	public String getExternalReferenceCode() {
+		return externalReferenceCode;
+	}
+
+	public BigDecimal getCouponAmount() {
+		return couponAmount;
+	}
+
+	public void setCouponAmount(BigDecimal couponAmount) {
+		this.couponAmount = couponAmount;
 	}
 
 }
