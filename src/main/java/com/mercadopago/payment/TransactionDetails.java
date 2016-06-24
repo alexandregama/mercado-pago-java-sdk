@@ -32,6 +32,12 @@ public class TransactionDetails {
 	 */
 	@XmlElement(name = "net_received_amount")
 	private BigDecimal amountReceiveBySeller;
+	
+	/**
+	 * Total amount paid by the buyer (includes fees)
+	 */
+	@XmlElement(name = "total_paid_amount")
+	private BigDecimal totalPaidAmountWithFees;
 
 	public String getFinancialInstitution() {
 		return financialInstitution;
@@ -39,6 +45,10 @@ public class TransactionDetails {
 
 	public BigDecimal getAmountReceiveBySeller() {
 		return amountReceiveBySeller;
+	}
+
+	public BigDecimal getTotalPaidAmountWithFees() {
+		return totalPaidAmountWithFees;
 	}
 	
 }

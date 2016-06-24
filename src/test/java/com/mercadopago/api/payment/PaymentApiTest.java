@@ -298,6 +298,7 @@ public class PaymentApiTest {
 		
 		assertThat(transactionDetails.getFinancialInstitution(), nullValue());
 		assertThat(transactionDetails.getAmountReceiveBySeller(), is(equalTo(ZERO)));
+		assertThat(transactionDetails.getTotalPaidAmountWithFees(), is(equalTo(TEN)));
 		
 	}
 	
