@@ -1,7 +1,7 @@
 package com.mercadopago.api.internal;
 
 import com.google.common.base.MoreObjects;
-import com.mercadopago.api.service.PaymentApi;
+import com.mercadopago.api.service.JerseyPaymentApi;
 import com.mercadopago.api.service.PaymentMethodApi;
 import com.mercadopago.api.service.PreferenceApi;
 import com.mercadopago.token.MercadoPagoToken;
@@ -23,8 +23,8 @@ public class MercadoPagoJerseyClient implements MercadoPagoApi {
 	}
 	
 	@Override
-	public PaymentApi payments() {
-		return new PaymentApi(token);
+	public JerseyPaymentApi payments() {
+		return new JerseyPaymentApi(token);
 	}
 
 	@Override
