@@ -38,6 +38,24 @@ public class TransactionDetails {
 	 */
 	@XmlElement(name = "total_paid_amount")
 	private BigDecimal totalPaidAmountWithFees;
+	
+	/**
+	 * Total installments amount
+	 */
+	@XmlElement(name = "installment_amount")
+	private BigDecimal installmentAmount;
+	
+	/**
+	 * Amount overpaid (only for tickets)
+	 */
+	@XmlElement(name = "overpaid_amount")
+	private BigDecimal overpaidAmount;
+	
+	/**
+	 * Identifies the resource in the payment processor
+	 */
+	@XmlElement(name = "external_resource_url")
+	private String externalResourceUrl;
 
 	public String getFinancialInstitution() {
 		return financialInstitution;
@@ -50,5 +68,17 @@ public class TransactionDetails {
 	public BigDecimal getTotalPaidAmountWithFees() {
 		return totalPaidAmountWithFees;
 	}
-	
+
+	public BigDecimal getInstallmentAmount() {
+		return installmentAmount;
+	}
+
+	public BigDecimal getOverpaidAmount() {
+		return overpaidAmount;
+	}
+
+	public String getExternalResourceUrl() {
+		return externalResourceUrl;
+	}
+
 }
