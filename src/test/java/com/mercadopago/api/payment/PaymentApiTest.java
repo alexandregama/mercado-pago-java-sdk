@@ -58,7 +58,7 @@ public class PaymentApiTest {
 	
 	@Test
 	public void shouldCreateANewPaymentWithAllRequiredFields() throws Exception {
-		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().findBy("pagofacil").get();
 		
 		PaymentPayer payer = new PaymentPayer();
 		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
@@ -86,7 +86,7 @@ public class PaymentApiTest {
 	
 	@Test
 	public void shouldCreateANewPaymentWithAllRequiredFieldsAndReturningOperationType() throws Exception {
-		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().findBy("pagofacil").get();
 		
 		PaymentPayer payer = new PaymentPayer();
 		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
@@ -111,7 +111,7 @@ public class PaymentApiTest {
 	
 	@Test
 	public void shouldCreateANewPaymentWithAllRequiredFieldsAndOrderIdentifier() throws Exception {
-		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().findBy("pagofacil").get();
 		
 		PaymentPayer payer = new PaymentPayer();
 		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
@@ -141,7 +141,7 @@ public class PaymentApiTest {
 	
 	@Test
 	public void shouldCreateANewPaymentWithAllRequiredFieldsAndRetrieveAPaymentStatus() throws Exception {
-		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().findBy("pagofacil").get();
 		
 		PaymentPayer payer = new PaymentPayer();
 		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
@@ -170,7 +170,7 @@ public class PaymentApiTest {
 	
 	@Test
 	public void shouldCreateANewPaymentWithAListOfItems() throws Exception {
-		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().findBy("pagofacil").get();
 		
 		PaymentPayer payer = new PaymentPayer();
 		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
@@ -207,7 +207,7 @@ public class PaymentApiTest {
 	
 	@Test
 	public void shouldCreateANewPaymentWithPayerInformation() throws Exception {
-		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().findBy("pagofacil").get();
 		
 		PaymentPayer payer = new PaymentPayer();
 		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
@@ -244,7 +244,7 @@ public class PaymentApiTest {
 	
 	@Test
 	public void shouldCreateANewPaymentWithAllSimpleWritableFields() throws Exception {
-		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().findBy("pagofacil").get();
 		
 		PaymentPayer payer = new PaymentPayer();
 		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
@@ -277,7 +277,7 @@ public class PaymentApiTest {
 	
 	@Test
 	public void shouldCreateANewPaymentRetrievingAllTransactionDetails() throws Exception {
-		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().findBy("pagofacil").get();
 		
 		PaymentPayer payer = new PaymentPayer();
 		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
@@ -325,7 +325,7 @@ public class PaymentApiTest {
 	}
 
 	private Integer createNewValidPayment() {
-		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().findBy("pagofacil").get();
 		
 		PaymentPayer payer = new PaymentPayer();
 		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
