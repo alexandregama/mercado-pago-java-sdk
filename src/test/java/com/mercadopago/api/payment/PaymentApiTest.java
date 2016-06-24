@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
@@ -18,12 +19,12 @@ import org.junit.Test;
 import com.mercadopago.api.internal.MercadoPagoJerseyClient;
 import com.mercadopago.payment.OrderOnPayment;
 import com.mercadopago.payment.PayerInformation;
-import com.mercadopago.payment.PaymentRetrieved;
 import com.mercadopago.payment.PaymentAdditionalInformations;
 import com.mercadopago.payment.PaymentItem;
 import com.mercadopago.payment.PaymentPayer;
-import com.mercadopago.payment.PaymentToCreate;
+import com.mercadopago.payment.PaymentRetrieved;
 import com.mercadopago.payment.PaymentRetrieved.PaymentStatus;
+import com.mercadopago.payment.PaymentToCreate;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Address;
 import com.mercadopago.preference.Phone;
@@ -234,6 +235,39 @@ public class PaymentApiTest {
 		PayerInformation payerInformationRetrieved = informations.getPayer();
 		
 		assertThat(payerInformationRetrieved.getFirstName(), is(equalTo("Alexandre")));
+	}
+	
+	@Test
+	public void shouldCreateANewPaymentWithAllSimpleWritableFields() throws Exception {
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		
+		PaymentPayer payer = new PaymentPayer();
+		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
+		payer.setEmail("alexandre.gama@elo7.com");
+		
+		Address address = new Address();
+		address.setStreetName("Rua Beira Rio");
+		address.setStreetNumber(70);
+		address.setZipCode("04689115");
+		
+		PaymentToCreate payment = new PaymentToCreate();
+		payment.setDescription("Title of what you are paying for");
+		payment.setTransactionAmount(TEN);
+		payment.setPaymentMethodId(paymentMethod.getId());
+		payment.setInstallments(12);
+		payment.setPayer(payer);
+		
+		payment.useBinaryMode();
+		payment.setExternalReferenceCode("123456789");
+		payment.willBeCaptured();
+		payment.setNotificationUrl("http://www.elo7.com.br/notification_url");
+		
+		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		
+		assertTrue(paymentCreated.isInBinaryMode());
+		assertThat(paymentCreated.getExternalReferenceCode(), is(equalTo("123456789")));
+		assertThat(paymentCreated.getNotificationUrl(), is(equalTo("http://www.elo7.com.br/notification_url")));
+		assertTrue(paymentCreated.wereCaptured());
 	}
 	
 }

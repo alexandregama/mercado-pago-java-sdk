@@ -76,6 +76,47 @@ public class PaymentToCreate {
 	@XmlElement(name = "order")
 	private OrderOnPayment order;
 	
+	/**
+	 * Mercado Pago Description
+	 * When set to true, the payment can only be approved or rejected. Otherwise in_process status is added
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "binary_mode")
+	private Boolean binaryMode;
+	
+	/**
+	 * Mercado Pago Description
+	 * Determines if the payment should be captured (true, default value) or just reserved (false)
+	 * Notice that the Payment retrieved will use the captured field
+	 * Mode writable
+	 */
+	@XmlElement(name = "capture")
+	private Boolean capture;
+	
+	/**
+	 * Mercado Pago Description
+	 * ID given by the merchant in their system
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "external_reference")
+	private String externalReferenceCode;
+	
+	/**
+	 * Mercado Pago Description
+	 * Amount of the coupon discount
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "coupon_amount")
+	private BigDecimal couponAmount;
+
+	/**
+	 * Mercado Pago Description
+	 * URL where mercadopago will send notifications associated to changes in this payment
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "notification_url", required = true)
+	private String notificationUrl;
+	
 	@XmlElement(name = "additional_info")
 	private PaymentAdditionalInformations additionalInformation;
 	
@@ -140,6 +181,43 @@ public class PaymentToCreate {
 		return "PaymentToCreate [transactionAmount=" + transactionAmount + ", paymentMethodId=" + paymentMethodId
 				+ ", description=" + description + ", installments=" + installments + ", payer=" + payer + ", order="
 				+ order + ", additionalInformation=" + additionalInformation + "]";
+	}
+
+	public Boolean isInBinaryMode() {
+		return binaryMode;
+	}
+
+
+	public void useBinaryMode() {
+		this.binaryMode = true;
+	}
+
+	public String getExternalReferenceCode() {
+		return externalReferenceCode;
+	}
+
+	public void setExternalReferenceCode(String externalReference) {
+		this.externalReferenceCode = externalReference;
+	}
+
+	public boolean getCapture() {
+		return capture;
+	}
+
+	public void willBeCaptured() {
+		this.capture = true;
+	}
+	
+	public void willNotBeCaptured() {
+		this.capture = false;
+	}
+
+	public String getNotificationUrl() {
+		return notificationUrl;
+	}
+
+	public void setNotificationUrl(String notificationUrl) {
+		this.notificationUrl = notificationUrl;
 	}
 
 }

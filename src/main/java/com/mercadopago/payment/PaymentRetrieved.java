@@ -100,11 +100,51 @@ public class PaymentRetrieved {
 	
 	/**
 	 * Mercado Pago Description
+	 * Amount of the coupon discount
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "coupon_amount")
+	private BigDecimal couponAmount;
+	
+	/**
+	 * Mercado Pago Description
 	 * Data that could improve fraud analysis and conversion rates. Try to send as much information as possible.
 	 * Mode writable
 	 */
 	@XmlElement(name = "additional_info")
 	private PaymentAdditionalInformations additionalInformation;
+	
+	/**
+	 * Mercado Pago Description
+	 * When set to true, the payment can only be approved or rejected. Otherwise in_process status is added
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "binary_mode")
+	private Boolean binaryMode;
+	
+	/**
+	 * Mercado Pago Description
+	 * Determines if the payment should be captured (true, default value) or just reserved (false)
+	 * Mode writable
+	 */
+	@XmlElement(name = "captured")
+	private Boolean captured;
+	
+	/**
+	 * Mercado Pago Description
+	 * ID given by the merchant in their system
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "external_reference")
+	private String externalReferenceCode;
+	
+	/**
+	 * Mercado Pago Description
+	 * URL where mercadopago will send notifications associated to changes in this payment
+	 * Mode readable | writable
+	 */
+	@XmlElement(name = "notification_url", required = true)
+	private String notificationUrl;
 	
 	public enum PaymentStatus {
 		
@@ -176,10 +216,6 @@ public class PaymentRetrieved {
 		return paymentMethodId;
 	}
 
-	public void setPaymentMethodId(String paymentMethodId) {
-		this.paymentMethodId = paymentMethodId;
-	}
-
 	public Integer getInstallments() {
 		return installments;
 	}
@@ -212,12 +248,6 @@ public class PaymentRetrieved {
 		this.id = id;
 	}
 
-	@Override
-	public String toString() {
-		return "Payment [id=" + id + ", transactionAmount=" + transactionAmount + ", paymentMethodId=" + paymentMethodId
-				+ ", description=" + description + ", installments=" + installments + ", payer=" + payer + "]";
-	}
-
 	public OperationType getOperationType() {
 		return operationType;
 	}
@@ -248,6 +278,40 @@ public class PaymentRetrieved {
 
 	public void setAdditionalInformation(PaymentAdditionalInformations additionalInformation) {
 		this.additionalInformation = additionalInformation;
+	}
+
+	public Boolean isInBinaryMode() {
+		return binaryMode;
+	}
+
+	public String getExternalReferenceCode() {
+		return externalReferenceCode;
+	}
+
+	public BigDecimal getCouponAmount() {
+		return couponAmount;
+	}
+
+	public void setCouponAmount(BigDecimal couponAmount) {
+		this.couponAmount = couponAmount;
+	}
+
+	public Boolean wereCaptured() {
+		return captured;
+	}
+
+	public String getNotificationUrl() {
+		return notificationUrl;
+	}
+
+	@Override
+	public String toString() {
+		return "PaymentRetrieved [id=" + id + ", transactionAmount=" + transactionAmount + ", paymentMethodId="
+				+ paymentMethodId + ", description=" + description + ", installments=" + installments + ", payer="
+				+ payer + ", operationType=" + operationType + ", order=" + order + ", status=" + status
+				+ ", couponAmount=" + couponAmount + ", additionalInformation=" + additionalInformation
+				+ ", binaryMode=" + binaryMode + ", captured=" + captured + ", externalReferenceCode="
+				+ externalReferenceCode + ", notificationUrl=" + notificationUrl + "]";
 	}
 
 }
