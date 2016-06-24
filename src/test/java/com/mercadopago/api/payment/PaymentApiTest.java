@@ -5,10 +5,12 @@ import static com.mercadopago.payment.PaymentRetrieved.OperationType.REGULAR_PAY
 import static com.mercadopago.payment.PaymentRetrieved.PaymentStatus.PENDING;
 import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
 import static java.math.BigDecimal.TEN;
+import static java.math.BigDecimal.ZERO;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
@@ -25,6 +27,7 @@ import com.mercadopago.payment.PaymentPayer;
 import com.mercadopago.payment.PaymentRetrieved;
 import com.mercadopago.payment.PaymentRetrieved.PaymentStatus;
 import com.mercadopago.payment.PaymentToCreate;
+import com.mercadopago.payment.TransactionDetails;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Address;
 import com.mercadopago.preference.Phone;
@@ -268,6 +271,34 @@ public class PaymentApiTest {
 		assertThat(paymentCreated.getExternalReferenceCode(), is(equalTo("123456789")));
 		assertThat(paymentCreated.getNotificationUrl(), is(equalTo("http://www.elo7.com.br/notification_url")));
 		assertTrue(paymentCreated.wereCaptured());
+	}
+	
+	@Test
+	public void shouldCreateANewPaymentRetrievingAllTransactionDetails() throws Exception {
+		PaymentMethod paymentMethod = mercadoPagoApi.paymentMethods().getBy("pagofacil").get();
+		
+		PaymentPayer payer = new PaymentPayer();
+		payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
+		payer.setEmail("alexandre.gama@elo7.com");
+		
+		Address address = new Address();
+		address.setStreetName("Rua Beira Rio");
+		address.setStreetNumber(70);
+		address.setZipCode("04689115");
+		
+		PaymentToCreate payment = new PaymentToCreate();
+		payment.setDescription("Title of what you are paying for");
+		payment.setTransactionAmount(TEN);
+		payment.setPaymentMethodId(paymentMethod.getId());
+		payment.setInstallments(12);
+		payment.setPayer(payer);
+		
+		PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
+		TransactionDetails transactionDetails = paymentCreated.getTransactionDetails();
+		
+		assertThat(transactionDetails.getFinancialInstitution(), nullValue());
+		assertThat(transactionDetails.getAmountReceiveBySeller(), is(equalTo(ZERO)));
+		
 	}
 	
 }
