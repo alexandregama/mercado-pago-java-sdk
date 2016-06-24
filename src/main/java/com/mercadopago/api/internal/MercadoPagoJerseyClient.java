@@ -1,9 +1,6 @@
 package com.mercadopago.api.internal;
 
 import com.google.common.base.MoreObjects;
-import com.mercadopago.api.service.JerseyPaymentApi;
-import com.mercadopago.api.service.JerseyPaymentMethodApi;
-import com.mercadopago.api.service.JerseyPreferenceApi;
 import com.mercadopago.token.MercadoPagoToken;
 
 public class MercadoPagoJerseyClient implements MercadoPagoApi {

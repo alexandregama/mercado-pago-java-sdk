@@ -1,4 +1,4 @@
-package com.mercadopago.api.service;
+package com.mercadopago.api.internal;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,17 +9,23 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.mercadopago.api.paymentmethod.PaymentMethodApi;
+import com.mercadopago.api.service.PaymentMethodApi;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.token.MercadoPagoToken;
 
+/**
+ * 
+ * @author Alexandre Gama
+ * PaymentMethodApi implemented using Jersey
+ *
+ */
 public class JerseyPaymentMethodApi implements PaymentMethodApi {
 
 	private static final String MERCADO_PAGO_API = "https://api.mercadopago.com/v1";
 	
 	private final MercadoPagoToken token;
 
-	public JerseyPaymentMethodApi(final MercadoPagoToken token) {
+	JerseyPaymentMethodApi(final MercadoPagoToken token) {
 		this.token = token;
 	}
 	

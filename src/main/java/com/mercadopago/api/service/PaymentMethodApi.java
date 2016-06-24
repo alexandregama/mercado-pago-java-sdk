@@ -1,4 +1,4 @@
-package com.mercadopago.api.paymentmethod;
+package com.mercadopago.api.service;
 
 import java.util.List;
 import java.util.Optional;

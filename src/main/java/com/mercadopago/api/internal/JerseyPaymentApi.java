@@ -1,4 +1,4 @@
-package com.mercadopago.api.service;
+package com.mercadopago.api.internal;
 
 import static javax.ws.rs.core.Response.Status.CREATED;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import com.google.common.base.Optional;
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
 import com.mercadopago.api.exception.MercadoPagoExceptionInformation;
+import com.mercadopago.api.service.PaymentApi;
 import com.mercadopago.payment.PaymentRetrieved;
 import com.mercadopago.payment.PaymentToCreate;
 import com.mercadopago.token.MercadoPagoToken;
@@ -20,6 +21,7 @@ import com.mercadopago.token.MercadoPagoToken;
 /**
  * 
  * @author Alexandre Gama
+ * PaymentApi implemented using Jersey
  *
  */
 public class JerseyPaymentApi implements PaymentApi {
@@ -28,7 +30,7 @@ public class JerseyPaymentApi implements PaymentApi {
 	
 	private MercadoPagoToken token;
 
-	public JerseyPaymentApi(MercadoPagoToken token) {
+	JerseyPaymentApi(MercadoPagoToken token) {
 		this.token = token;
 	}
 

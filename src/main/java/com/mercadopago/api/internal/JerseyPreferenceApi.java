@@ -1,4 +1,4 @@
-package com.mercadopago.api.service;
+package com.mercadopago.api.internal;
 
 import static javax.ws.rs.core.Response.Status.CREATED;
 
@@ -13,14 +13,21 @@ import javax.ws.rs.core.Response.Status;
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
 import com.mercadopago.api.exception.MercadoPagoExceptionInformation;
 import com.mercadopago.api.exception.MercadoPagoNotFoundException;
+import com.mercadopago.api.service.PreferenceApi;
 import com.mercadopago.preference.Preference;
 import com.mercadopago.token.MercadoPagoToken;
 
+/**
+ * 
+ * @author Alexandre Gama
+ * PreferenceApi implemented using Jersey
+ *
+ */
 public class JerseyPreferenceApi implements PreferenceApi {
 
 	private final MercadoPagoToken token;
 
-	public JerseyPreferenceApi(final MercadoPagoToken token) {
+	JerseyPreferenceApi(final MercadoPagoToken token) {
 		this.token = token;
 	}
 
