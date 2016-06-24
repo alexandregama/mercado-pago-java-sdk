@@ -85,7 +85,7 @@ public class PreferenceApiTest {
 		preference.setAdditionalInformation("Elo7 - Additional Infos");
 		preference.setPayer(payer);
 		
-		Preference preferenceCreted = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreted = mercadoPago.preferences().createNew(preference);
 		Item cretedItem = preferenceCreted.getItems().get(0);
 		
 		assertThat(cretedItem.getId(), is(equalTo("1")));
@@ -135,7 +135,7 @@ public class PreferenceApiTest {
 		
 		preference.addItem(item);
 		
-		Preference preferenceCreted = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreted = mercadoPago.preferences().createNew(preference);
 		Item cretedItem = preferenceCreted.getItems().get(0);
 		
 		assertThat(preferenceCreted.getId(), is(notNullValue()));
@@ -152,7 +152,7 @@ public class PreferenceApiTest {
 		item.setCurrency("BRL");
 		
 		preference.addItem(item);
-		mercadoPago.preferences().createPreference(preference);
+		mercadoPago.preferences().createNew(preference);
 	}
 	
 	@Test(expected = MercadoPagoBadRequestException.class)
@@ -165,7 +165,7 @@ public class PreferenceApiTest {
 		item.setCurrency("BRL");
 		
 		preference.addItem(item);
-		mercadoPago.preferences().createPreference(preference);
+		mercadoPago.preferences().createNew(preference);
 	}
 	
 	@Test(expected = MercadoPagoBadRequestException.class)
@@ -177,7 +177,7 @@ public class PreferenceApiTest {
 		item.setCategory("Music");
 		item.setCurrency("BRL");
 		
-		mercadoPago.preferences().createPreference(preference);
+		mercadoPago.preferences().createNew(preference);
 	}
 	
 	@Test
@@ -188,7 +188,7 @@ public class PreferenceApiTest {
 		item.setQuantity(3);
 		
 		preference.addItem(item);
-		mercadoPago.preferences().createPreference(preference);
+		mercadoPago.preferences().createNew(preference);
 	}
 
 	@Test
@@ -207,7 +207,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setPaymentMethods(excludedPaymentMethods);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		PreferencePaymentMethods paymentMethod = preferenceCreated.getPaymentMethods();
 		
 		paymentMethod.getExcludedPaymentMethods().forEach(method -> assertThat(method.getId(), is(equalTo("visa"))));
@@ -227,7 +227,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setPaymentMethods(paymentMethods);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		String defaultPaymentMethodId = preferenceCreated.getPaymentMethods().getDefaultPaymentMethod();
 		
 		assertThat(defaultPaymentMethodId, is(equalTo(paymentMethodToBeDefault.getId())));
@@ -244,7 +244,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setPaymentMethods(paymentMethods);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		Integer maximumInstallmentsAllowed = preferenceCreated.getPaymentMethods().getMaximumInstallmentsAllowed();
 		
 		assertThat(maximumInstallmentsAllowed, is(equalTo(12)));
@@ -261,7 +261,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setPaymentMethods(paymentMethods);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		Integer preferedInstallmentsForCreditCard = preferenceCreated.getPaymentMethods().getPreferedInstallmentsForCreditCard();
 		
 		assertThat(preferedInstallmentsForCreditCard, is(equalTo(3)));
@@ -278,7 +278,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipments);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		Mode mode = preferenceCreated.getShipments().getMode();
 		
 		assertThat(mode, is(equalTo(CUSTOM)));
@@ -296,7 +296,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipments);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		Mode mode = preferenceCreated.getShipments().getMode();
 		boolean isUsingLocalPickup = preferenceCreated.getShipments().isUsingLocalPickup();
 		
@@ -316,7 +316,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipments);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		Mode mode = preferenceCreated.getShipments().getMode();
 		boolean isUsingLocalPickup = preferenceCreated.getShipments().isUsingLocalPickup();
 		
@@ -336,7 +336,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipments);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		BigDecimal customShippingCost = preferenceCreated.getShipments().getCost();
 		
 		assertThat(customShippingCost, is(equalTo(TEN)));
@@ -354,7 +354,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipments);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		Boolean usingFreeShipping = preferenceCreated.getShipments().isUsingFreeShipping();
 		
 		assertTrue(usingFreeShipping);
@@ -372,7 +372,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipments);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		Boolean usingFreeShipping = preferenceCreated.getShipments().isUsingFreeShipping();
 		
 		assertFalse(usingFreeShipping);
@@ -392,7 +392,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipment);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
 		
 		assertThat(receiverAddress.getZipcode(), is(equalTo("123456789")));
@@ -412,7 +412,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipment);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
 		
 		assertThat(receiverAddress.getStreetName(), is(equalTo("Rua Beira Rio")));
@@ -432,7 +432,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipment);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
 		
 		assertThat(receiverAddress.getStreetNumber(), is(equalTo(158)));
@@ -452,7 +452,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipment);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
 		
 		assertThat(receiverAddress.getFloor(), is(equalTo("Ap 32")));
@@ -472,7 +472,7 @@ public class PreferenceApiTest {
 		preference.addItem(item);
 		preference.setShipments(shipment);
 		
-		Preference preferenceCreated = mercadoPago.preferences().createPreference(preference);
+		Preference preferenceCreated = mercadoPago.preferences().createNew(preference);
 		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
 		
 		assertThat(receiverAddress.getFloor(), is(equalTo("Ap 32")));
