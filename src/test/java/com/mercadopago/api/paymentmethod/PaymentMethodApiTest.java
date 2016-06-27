@@ -1,6 +1,5 @@
 package com.mercadopago.api.paymentmethod;
 
-import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -24,8 +23,7 @@ import com.mercadopago.api.internal.MercadoPagoJerseyApi;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.token.MercadoPagoToken;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
-import com.mercadopago.token.TokenClientCredentialsReader;
-import com.mercadopago.token.MercadoPagoCredentials;
+import com.mercadopago.token.PropertiesReader;
 
 public class PaymentMethodApiTest {
 	
@@ -39,8 +37,8 @@ public class PaymentMethodApiTest {
 
 	@BeforeClass
 	public static void generateNewTokenForAllThoseTests() {
-		MercadoPagoCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
-		token = MercadoPagoTokenGenerator.generateUsing(credentials, SANDBOX);
+		String accessTokenForSandbox = new PropertiesReader().getPropertyValueFrom("access_token_sandbox");
+		token = MercadoPagoTokenGenerator.generateSandboxTokenUsing(accessTokenForSandbox);
 	}
 	
 	@Before

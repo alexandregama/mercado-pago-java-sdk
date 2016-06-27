@@ -1,7 +1,5 @@
 package com.mercadopago.token;
 
-import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -11,12 +9,7 @@ import javax.ws.rs.core.Response;
 
 public class MercadoPagoTokenGenerator {
 
-	public MercadoPagoToken generateUsing(TokenCredentials credentials, ENVIRONMENT_MODE environmentMode) {
-		if (environmentMode == SANDBOX) {
-			MercadoPagoToken mercadoPagoToken = new MercadoPagoToken("TEST-3716-121113-7ac6b5b4f059fcc5c2e6630db047b7b8__LB_LA__-123456");
-			return mercadoPagoToken;
-		}
-		
+	public static MercadoPagoProductionToken generateProductionCodeUsing(MercadoPagoCredentials credentials) {
 		Client client = ClientBuilder.newClient();
 		
 		Form form = new Form();
@@ -29,13 +22,15 @@ public class MercadoPagoTokenGenerator {
 			.request(MediaType.APPLICATION_JSON_TYPE)
 			.post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
 		
-		MercadoPagoToken token = response.readEntity(MercadoPagoToken.class);
+		MercadoPagoProductionToken token = response.readEntity(MercadoPagoProductionToken.class);
 		
 		return token;
 	}
 
-	
-	public enum ENVIRONMENT_MODE {
-		SANDBOX, PRODUCTION;
+	public static MercadoPagoProductionToken generateSandboxTokenUsing(String accessTokenUsedOnSandbox) {
+		MercadoPagoProductionToken mercadoPagoToken = new MercadoPagoProductionToken(accessTokenUsedOnSandbox);
+		
+		return mercadoPagoToken;
 	}
+	
 }

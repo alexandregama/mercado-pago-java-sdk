@@ -3,7 +3,6 @@ package com.mercadopago.api.payment;
 import static com.mercadopago.payment.OrderOnPayment.OrderType.MERCADOPAGO;
 import static com.mercadopago.payment.PaymentRetrieved.OperationType.REGULAR_PAYMENT;
 import static com.mercadopago.payment.PaymentRetrieved.PaymentStatus.PENDING;
-import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
 import static java.math.BigDecimal.TEN;
 import static java.math.BigDecimal.ZERO;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -34,10 +33,9 @@ import com.mercadopago.payment.TransactionDetails;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Address;
 import com.mercadopago.preference.Phone;
-import com.mercadopago.token.MercadoPagoToken;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
-import com.mercadopago.token.TokenClientCredentialsReader;
-import com.mercadopago.token.MercadoPagoCredentials;
+import com.mercadopago.token.PropertiesReader;
+import com.mercadopago.token.MercadoPagoToken;
 
 /**
  * 
@@ -50,8 +48,8 @@ public class PaymentApiTest {
 
 	@Before
 	public void getCredentials() {
-		MercadoPagoCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
-		MercadoPagoToken token = MercadoPagoTokenGenerator.generateUsing(credentials, SANDBOX);
+		String accessTokenForSandbox = new PropertiesReader().getPropertyValueFrom("access_token_sandbox");
+		MercadoPagoToken token = MercadoPagoTokenGenerator.generateSandboxTokenUsing(accessTokenForSandbox);
 		
 		mercadoPagoApi = new MercadoPagoJerseyApi(token);
 	}

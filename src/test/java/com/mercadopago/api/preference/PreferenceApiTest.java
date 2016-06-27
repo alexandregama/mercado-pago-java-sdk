@@ -4,7 +4,6 @@ import static com.mercadopago.paymentmethod.PaymentType.TICKET;
 import static com.mercadopago.preference.Preference.PreferenceOperationType.REGULAR_PAYMENT;
 import static com.mercadopago.preference.Shipment.Mode.CUSTOM;
 import static com.mercadopago.preference.Shipment.Mode.NOT_SPECIFIED;
-import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.PRODUCTION;
 import static java.math.BigDecimal.TEN;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -48,7 +47,7 @@ public class PreferenceApiTest {
 	public static void generateToken() {
 		MercadoPagoCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		
-		token = MercadoPagoTokenGenerator.generateUsing(credentials, PRODUCTION);
+		token = MercadoPagoTokenGenerator.generateProductionCodeUsing(credentials);
 	}
 	
 	@Before
