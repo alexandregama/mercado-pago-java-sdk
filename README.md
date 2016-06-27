@@ -5,6 +5,29 @@
 
 [![Throughput Graph](https://graphs.waffle.io/alexandregama/mercado-pago-java-sdk/throughput.svg)](https://waffle.io/alexandregama/mercado-pago-java-sdk/metrics/throughput)
 
+## Authenticating your application
+
+It's pretty simple authenticate your application to be able to use Mercado Pago Api. Just follow the code bellow:
+
+```java
+TokenCredentials credentials = new TokenCredentials("your_client_id", "your_secret_key");
+```
+
+But where can I get my credentials? It's pretty easy also! Go to the [credentials page](https://www.mercadopago.com/mla/account/credentials?type=basic) on Mercado Pago and get it :)
+
+After that you can use the **MercadoPagoApi** class that contains all operations you need. The following code works well
+
+```java
+TokenCredentials credentials = new TokenCredentials("your_client_id", "your_secret_key");
+
+MercadoPagoApi mercadoPagoApi = new MercadoPagoJerseyClient(credentials);
+```
+
+Notice that we are using Jersey as implementation. All SDK code is based on Interfaces and you can implement your own code \o/. We are planning to implement the SDK with [Java native URL](https://docs.oracle.com/javase/7/docs/api/java/net/URL.html). 
+
+Feel free to send your [Pull Request](https://help.github.com/articles/using-pull-requests/) with your own implementation! :)
+
+
 ## Preference
 
 **Understanding Preference process**
