@@ -27,6 +27,21 @@ Notice that we are using Jersey as implementation. All SDK code is based on Inte
 
 Feel free to send your [Pull Request](https://help.github.com/articles/using-pull-requests/) with your own implementation! :)
 
+With **mercadoPagoApi** in your hands, you are capable to retrieve a few api implementations as follows:
+
+```java
+public interface MercadoPagoApi {
+
+	PaymentMethodApi paymentMethods();
+	
+	PreferenceApi preferences();
+	
+	PaymentApi payments();
+
+}
+```
+
+Every method on MercadoPagoApi retrieves a Api implementation. Bellow you will see how to use them :)
 
 ## Preference
 
