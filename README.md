@@ -82,7 +82,54 @@ To create a new Preference you just need to create a new **Preference** object w
 In the following example you will see how to create a new Preference with basic informations:
 
 ```java
+Preference preference = new Preference();
+Item item = Item
+	.fromId("1")
+	.withProductNamed("First Product")
+	.withDescription("First Awesome Product")
+	.costing(TEN)
+	.withQuantity(10)
+	.usingPictureOnUrl("http://s3.amazon.com/mercadopago/image.png")
+	.fromCategory("Music")
+	.withCurrecyCode("ARS")
+	.build();
+preference.addItem(item);
 ```
+
+Notice that you must use the **Item** class to describe your Item informations. If you prefer, you could use Item class without the builder, just using all setters methods on Item class.
+
+You can describe your Buyer also just using the following code:
+
+```java
+PreferencePayer payer = new PreferencePayer();
+payer.setName("Alexandre");
+payer.setLastname("Gama");
+payer.setEmail("alexandre.gama.lima@gmail.com");
+payer.setPhone(new Phone("55", "987653786"));
+preference.setPayer(payer);
+```
+
+What about Buyer address? It's easy too!
+
+```java
+Address address = new Address();
+address.setZipCode("04676500");
+address.setStreetNumber(40);
+address.setStreetName("First Street");
+payer.setAddress(address);
+```
+
+Now its the expected time to create a new Preference \o/. Let's use the code that we created until now!
+
+```java
+TokenCredentials credentials = new TokenCredentials("your_client_id", "your_secret_key");
+
+MercadoPagoApi mercadoPagoApi = new MercadoPagoJerseyClient(credentials);
+
+Preference preferenceCreted = mercadoPagoApi.preferences().createNew(preference);
+```
+
+Simple as that man \o/. And we will return to you the Payment created :)
 
 ## Payment Methods
 
