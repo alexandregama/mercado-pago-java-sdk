@@ -35,7 +35,7 @@ import com.mercadopago.preference.Shipment.Mode;
 import com.mercadopago.token.MercadoPagoCredentials;
 import com.mercadopago.token.MercadoPagoToken;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
-import com.mercadopago.token.TokenClientCredentialsReader;
+import com.mercadopago.token.PropertiesReader;
 
 public class PreferenceApiTest {
 
@@ -45,7 +45,11 @@ public class PreferenceApiTest {
 
 	@BeforeClass
 	public static void generateToken() {
-		MercadoPagoCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
+		PropertiesReader propertiesReader = new PropertiesReader();
+		String clientId = propertiesReader.getPropertyValueFrom(MercadoPagoToken.CLIENT_ID);
+		String secretKey = propertiesReader.getPropertyValueFrom(MercadoPagoToken.SECRET_KEY);
+		
+		MercadoPagoCredentials credentials = new MercadoPagoCredentials(clientId, secretKey);
 		
 		token = MercadoPagoTokenGenerator.generateProductionCodeUsing(credentials);
 	}

@@ -15,7 +15,7 @@ public class MercadoPagoTokenGenerator {
 		Form form = new Form();
 		form.param("grant_type", "client_credentials");
 		form.param("client_id", credentials.getClientId());
-		form.param("client_secret", credentials.getClientSecret());
+		form.param("client_secret", credentials.getSecretKey());
 		
 		Response response = client
 			.target("https://api.mercadopago.com/oauth/token")
