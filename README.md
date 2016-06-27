@@ -18,7 +18,7 @@ But where can I get my credentials? It's pretty easy also! Go to the [credential
 After that you can use the **MercadoPagoApi** class that contains all operations you need. The following code works well
 
 ```java
-TokenCredentials credentials = new TokenCredentials("your_client_id", "your_secret_key");
+MercadoPagoCredentials credentials = new MercadoPagoCredentials("your_client_id", "your_secret_key");
 
 MercadoPagoApi mercadoPagoApi = new MercadoPagoJerseyClient(credentials);
 ```
@@ -122,7 +122,7 @@ payer.setAddress(address);
 Now its the expected time to create a new Preference \o/. Let's use the code that we created until now!
 
 ```java
-TokenCredentials credentials = new TokenCredentials("your_client_id", "your_secret_key");
+MercadoPagoCredentials credentials = new MercadoPagoCredentials("your_client_id", "your_secret_key");
 
 MercadoPagoApi mercadoPagoApi = new MercadoPagoJerseyClient(credentials);
 
@@ -133,7 +133,34 @@ Simple as that man \o/. And we will return to you the Payment created :)
 
 ## Payment Methods
 
+Payment Methods are used on Custom Checkout. It just mean all payments that are available to be used.
+
+The only action to be made is **get payment methods**
+
+To do that, you can follow the code bellow:
+
+```java
+```java
+MercadoPagoCredentials credentials = new MercadoPagoCredentials("your_client_id", "your_secret_key");
+
+MercadoPagoApi mercadoPagoApi = new MercadoPagoJerseyClient(credentials);
+
+Preference preferenceCreted = mercadoPagoApi.preferences().createNew(preference);
+```java
+MercadoPagoCredentials credentials = new MercadoPagoCredentials("your_client_id", "your_secret_key");
+
+MercadoPagoApi mercadoPagoApi = new MercadoPagoJerseyClient(credentials);
+
+List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().getAll();
+```
+
+Simple as that again! \o/
+
 [API Documentation](https://www.mercadopago.com.br/developers/en/api-docs/custom-checkout/payment-methods/)
+
+# Mercado Pago REST API
+
+## Payment Methods
 
 **Making a call using curl**
 
