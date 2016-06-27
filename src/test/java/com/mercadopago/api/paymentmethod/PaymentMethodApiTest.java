@@ -40,8 +40,7 @@ public class PaymentMethodApiTest {
 	@BeforeClass
 	public static void generateNewTokenForAllThoseTests() {
 		MercadoPagoCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
-		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
-		token = tokenGenerator.generateUsing(credentials, SANDBOX);
+		token = MercadoPagoTokenGenerator.generateUsing(credentials, SANDBOX);
 	}
 	
 	@Before

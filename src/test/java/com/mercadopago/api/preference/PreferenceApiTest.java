@@ -10,7 +10,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
@@ -32,10 +33,10 @@ import com.mercadopago.preference.PreferencePaymentMethods;
 import com.mercadopago.preference.ReceiverAddress;
 import com.mercadopago.preference.Shipment;
 import com.mercadopago.preference.Shipment.Mode;
+import com.mercadopago.token.MercadoPagoCredentials;
 import com.mercadopago.token.MercadoPagoToken;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 import com.mercadopago.token.TokenClientCredentialsReader;
-import com.mercadopago.token.MercadoPagoCredentials;
 
 public class PreferenceApiTest {
 
@@ -46,8 +47,8 @@ public class PreferenceApiTest {
 	@BeforeClass
 	public static void generateToken() {
 		MercadoPagoCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
-		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
-		token = tokenGenerator.generateUsing(credentials, PRODUCTION);
+		
+		token = MercadoPagoTokenGenerator.generateUsing(credentials, PRODUCTION);
 	}
 	
 	@Before

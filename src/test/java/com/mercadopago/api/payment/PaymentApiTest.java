@@ -51,8 +51,7 @@ public class PaymentApiTest {
 	@Before
 	public void getCredentials() {
 		MercadoPagoCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
-		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
-		MercadoPagoToken token = tokenGenerator.generateUsing(credentials, SANDBOX);
+		MercadoPagoToken token = MercadoPagoTokenGenerator.generateUsing(credentials, SANDBOX);
 		
 		mercadoPagoApi = new MercadoPagoJerseyApi(token);
 	}
