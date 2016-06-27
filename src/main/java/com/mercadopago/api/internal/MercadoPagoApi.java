@@ -1,11 +1,15 @@
 package com.mercadopago.api.internal;
 
+import com.mercadopago.api.service.PaymentApi;
+import com.mercadopago.api.service.PaymentMethodApi;
+import com.mercadopago.api.service.PreferenceApi;
+
 public interface MercadoPagoApi {
 
-	JerseyPaymentMethodApi paymentMethods();
+	PaymentMethodApi paymentMethods();
 	
-	JerseyPreferenceApi preferences();
+	PreferenceApi preferences();
 	
-	JerseyPaymentApi payments();
+	PaymentApi payments();
 
 }

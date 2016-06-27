@@ -20,7 +20,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.base.Optional;
-import com.mercadopago.api.internal.MercadoPagoJerseyClient;
+import com.mercadopago.api.internal.MercadoPagoApi;
+import com.mercadopago.api.internal.MercadoPagoJerseyApi;
 import com.mercadopago.payment.OrderOnPayment;
 import com.mercadopago.payment.PayerInformation;
 import com.mercadopago.payment.PaymentAdditionalInformations;
@@ -36,7 +37,7 @@ import com.mercadopago.preference.Phone;
 import com.mercadopago.token.MercadoPagoToken;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 import com.mercadopago.token.TokenClientCredentialsReader;
-import com.mercadopago.token.TokenCredentials;
+import com.mercadopago.token.MercadoPagoCredentials;
 
 /**
  * 
@@ -45,15 +46,15 @@ import com.mercadopago.token.TokenCredentials;
  */
 public class PaymentApiTest {
 
-	private MercadoPagoJerseyClient mercadoPagoApi;
+	private MercadoPagoApi mercadoPagoApi;
 
 	@Before
 	public void getCredentials() {
-		TokenCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
+		MercadoPagoCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
 		MercadoPagoToken token = tokenGenerator.generateUsing(credentials, SANDBOX);
 		
-		mercadoPagoApi = new MercadoPagoJerseyClient(token);
+		mercadoPagoApi = new MercadoPagoJerseyApi(token);
 	}
 	
 	@Test

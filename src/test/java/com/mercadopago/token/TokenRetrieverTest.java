@@ -8,13 +8,13 @@ import org.junit.Test;
 import com.mercadopago.token.MercadoPagoToken;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
 import com.mercadopago.token.TokenClientCredentialsReader;
-import com.mercadopago.token.TokenCredentials;
+import com.mercadopago.token.MercadoPagoCredentials;
 
 public class TokenRetrieverTest {
 
 	@Test
 	public void shouldGetANewTokenWhenCredentialsAreCorrect() throws Exception {
-		TokenCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
+		MercadoPagoCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
 
 		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
 		MercadoPagoToken token = tokenGenerator.generateUsing(credentials, PRODUCTION);

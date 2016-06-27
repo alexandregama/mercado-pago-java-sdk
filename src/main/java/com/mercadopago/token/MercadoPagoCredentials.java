@@ -1,11 +1,11 @@
 package com.mercadopago.token;
 
-public class TokenCredentials {
+public class MercadoPagoCredentials {
 
 	private final String clientId;
 	private final String clientSecret;
 
-	public TokenCredentials(final String clientId, final String clientSecret) {
+	public MercadoPagoCredentials(final String clientId, final String clientSecret) {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 	}
