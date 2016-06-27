@@ -5,7 +5,39 @@
 
 [![Throughput Graph](https://graphs.waffle.io/alexandregama/mercado-pago-java-sdk/throughput.svg)](https://waffle.io/alexandregama/mercado-pago-java-sdk/metrics/throughput)
 
-### Payment Methods
+## Preference
+
+**Understanding Preference process**
+
+You should use a Preference creation when you are working with **Basic Checkout**. Don't worry, it's easy :)
+
+Let's getting started!
+
+First of all, there are 3 major actions that you can use, according with [api documentation](https://www.mercadopago.com.ar/developers/en/api-docs/basic-checkout/checkout-preferences/):
+
+- Retrieve preference data
+
+- Create preference
+
+- Modify preference data
+
+This API allows you to set up, during the payment process on Basic Checkout, all the item information, any accepted means of payment and a lot of other options as:
+
+- Items informations
+
+- Buyer informations
+
+- Payment methods accepteds for payment process
+
+- Shipment information
+
+- A lot of readable attributes
+
+A preference needs to be created when you would like to use basic checkout, meaning that you'll send your customer/buyer to Mercado Pago's site usig a special **url**.
+
+For example, your customer purchased something in your site and need to pay for that. At this moment, you can **Create a new Preference** based on your customers order, as **Items** informations, **Buyer** informations, **Shipments** characteristics and so on and you can create a link to send your buyer to Mercado Pago's site.
+
+## Payment Methods
 
 [API Documentation](https://www.mercadopago.com.br/developers/en/api-docs/custom-checkout/payment-methods/)
 
