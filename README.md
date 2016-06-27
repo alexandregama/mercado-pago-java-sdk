@@ -146,6 +146,7 @@ MercadoPagoCredentials credentials = new MercadoPagoCredentials("your_client_id"
 MercadoPagoApi mercadoPagoApi = new MercadoPagoJerseyClient(credentials);
 
 Preference preferenceCreted = mercadoPagoApi.preferences().createNew(preference);
+
 ```java
 MercadoPagoCredentials credentials = new MercadoPagoCredentials("your_client_id", "your_secret_key");
 
@@ -156,7 +157,61 @@ List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().get
 
 Simple as that again! \o/
 
-[API Documentation](https://www.mercadopago.com.br/developers/en/api-docs/custom-checkout/payment-methods/)
+## Payment
+
+This service allows you to create, read or update a new Payment on Custom Checkout.
+
+You can do the following actions:
+
+- Retrieves information about a payment
+
+- Updates a payment
+
+- Issues a new payment
+
+**Creating a new Payment**
+
+To create a new Payment you just need to create a **Payment object** and fill all informations that you need.
+
+Filling buyer informations
+
+```java
+PaymentPayer payer = new PaymentPayer();
+payer.setCustomerId("218136417-Npn1qbvt94mMJ2");
+payer.setEmail("alexandre.gama@elo7.com");
+```
+
+What about Payer's address? 
+
+```java
+Address address = new Address();
+address.setStreetName("Rua Beira Rio");
+address.setStreetNumber(70);
+address.setZipCode("04689115");
+```
+
+Now its the moment to create a new Payment object using all informations above :)
+
+```java
+PaymentToCreate payment = new PaymentToCreate();
+payment.setDescription("Title of what you are paying for");
+payment.setTransactionAmount(BigDecimal.TEN);
+payment.setPaymentMethodId(paymentMethod.getId());
+payment.setInstallments(12);
+payment.setPayer(payer);
+```
+
+Last, you must pass the Payment object to createNew method on payments api as follows:
+
+```java
+MercadoPagoCredentials credentials = new MercadoPagoCredentials("your_client_id", "your_secret_key");
+
+MercadoPagoApi mercadoPagoApi = new MercadoPagoJerseyClient(credentials);
+
+PaymentRetrieved paymentCreated = mercadoPagoApi.payments().createNew(payment);
+```
+
+You must notice that we are using different objects to deal with Payment, the **&PaymentToCreate** object and the **PaymentRetrieved** object. This is necessary once Mercado Pago deal with them differently, meaning that the Payment that has been created does not match with the Payment created internaly by Mercado Pago.
 
 # Mercado Pago REST API
 
