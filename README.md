@@ -75,6 +75,15 @@ A preference needs to be created when you would like to use basic checkout, mean
 
 For example, your customer purchased something in your site and need to pay for that. At this moment, you can **Create a new Preference** based on your customers order, as **Items** informations, **Buyer** informations, **Shipments** characteristics and so on and you can create a link to send your buyer to Mercado Pago's site.
 
+**Creating a new Preference**
+
+To create a new Preference you just need to create a new **Preference** object with all informations that you need
+
+In the following example you will see how to create a new Preference with basic informations:
+
+```java
+```
+
 ## Payment Methods
 
 [API Documentation](https://www.mercadopago.com.br/developers/en/api-docs/custom-checkout/payment-methods/)
