@@ -23,7 +23,7 @@ import com.mercadopago.token.MercadoPagoToken;
  * PreferenceApi implemented using Jersey
  *
  */
-public class JerseyPreferenceApi implements PreferenceApi {
+class JerseyPreferenceApi implements PreferenceApi {
 
 	private final MercadoPagoToken token;
 

@@ -19,7 +19,7 @@ import com.mercadopago.token.MercadoPagoToken;
  * PaymentMethodApi implemented using Jersey
  *
  */
-public class JerseyPaymentMethodApi implements PaymentMethodApi {
+class JerseyPaymentMethodApi implements PaymentMethodApi {
 
 	private static final String MERCADO_PAGO_API = "https://api.mercadopago.com/v1";
 	

@@ -53,7 +53,7 @@ public class PaymentMethodApiTest {
 		List<String> methodsIds = new ArrayList<>();
 		paymentAcceptedMethods.forEach(method -> methodsIds.add(method.getId()));
 		
-		assertThat(paymentAcceptedMethods.size(), is(equalTo(18)));
+		assertThat(paymentAcceptedMethods.size(), is(equalTo(17)));
 		PAYMENT_METHODS_IDS.forEach(id -> assertThat(methodsIds, hasItem(id)));
 	}
 	
