@@ -1,6 +1,5 @@
 package com.mercadopago.api.paymentmethod;
 
-import static com.mercadopago.token.MercadoPagoTokenGenerator.ENVIRONMENT_MODE.SANDBOX;
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -20,77 +19,75 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mercadopago.api.internal.MercadoPagoApi;
-import com.mercadopago.api.internal.MercadoPagoJerseyClient;
+import com.mercadopago.api.internal.MercadoPagoJerseyApi;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.token.MercadoPagoToken;
 import com.mercadopago.token.MercadoPagoTokenGenerator;
-import com.mercadopago.token.TokenClientCredentialsReader;
-import com.mercadopago.token.TokenCredentials;
+import com.mercadopago.token.PropertiesReader;
 
 public class PaymentMethodApiTest {
 	
-	private static final Set<String> PaymentMethodsIds = new HashSet<>(asList("visa", "master", "amex", "naranja", "nativa", 
+	private static final Set<String> PAYMENT_METHODS_IDS = new HashSet<>(asList("visa", "master", "amex", "naranja", "nativa", 
 			"cencosud", "cabal", "diners", "argencard", "pagofacil", "rapipago", "redlink", "bapropagos", "cargavirtual",
 			"cordial", "cordobesa", "cmr"));
 	
 	private static MercadoPagoToken token;
 
-	private MercadoPagoApi mercadoPago;
+	private MercadoPagoApi mercadoPagoApi;
 
 	@BeforeClass
 	public static void generateNewTokenForAllThoseTests() {
-		TokenCredentials credentials = new TokenClientCredentialsReader().getCredentialsForFile("config.properties");
-		MercadoPagoTokenGenerator tokenGenerator = new MercadoPagoTokenGenerator();
-		token = tokenGenerator.generateUsing(credentials, SANDBOX);
+		String accessTokenForSandbox = new PropertiesReader().getPropertyValueFrom("access_token_sandbox");
+		token = MercadoPagoTokenGenerator.generateSandboxTokenUsing(accessTokenForSandbox);
 	}
 	
 	@Before
 	public void before() {
-		mercadoPago = new MercadoPagoJerseyClient(token);
+		mercadoPagoApi = new MercadoPagoJerseyApi(token);
 	}
 	
 	@Test
 	public void shouldRetrieveAllAcceptedPaymentMethodsFromMercadoPago() throws Exception {
-		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.paymentMethods().getAll();
+		List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().getAll();
 		
 		List<String> methodsIds = new ArrayList<>();
 		paymentAcceptedMethods.forEach(method -> methodsIds.add(method.getId()));
 		
 		assertThat(paymentAcceptedMethods.size(), is(equalTo(18)));
-		PaymentMethodsIds.forEach(id -> assertThat(methodsIds, hasItem(id)));
+		PAYMENT_METHODS_IDS.forEach(id -> assertThat(methodsIds, hasItem(id)));
 	}
 	
 	@Test
 	public void shouldRetrieveAllAcceptedPaymentMethodsFromMercadoPagoAndCheckIfAllStatusesAreActive() throws Exception {
-		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.paymentMethods().getAll();
+		List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().getAll();
 		
 		paymentAcceptedMethods.forEach(method -> assertThat(method.getStatus().getName(), is(equalTo("active"))));
 	}
 	
 	@Test
 	public void shouldCheckIfAllPaymentMethodsHaveASecureThumbnail() throws Exception {
-		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.paymentMethods().getAll();
+		List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().getAll();
 		
 		paymentAcceptedMethods.forEach(method -> assertThat(method.getSecureThumbnail(), is(notNullValue())));
 	}
 
 	@Test
 	public void shouldCheckIfAllPaymentMethodsHaveAThumbnail() throws Exception {
-		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.paymentMethods().getAll();
+		List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().getAll();
 		
 		paymentAcceptedMethods.forEach(method -> assertThat(method.getThumbnail(), is(notNullValue())));
 	}
 
 	@Test
 	public void shouldCheckIfAllPaymentMethodsHaveADeferredCapture() throws Exception {
-		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.paymentMethods().getAll();
+		List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().getAll();
 		
 		paymentAcceptedMethods.forEach(method -> assertThat(method.getDeferredCapture(), is(notNullValue())));
 	}
 
 	@Test
 	public void shouldCheckIfAllPaymentMethodsHaveSettingsWithBinPattern() throws Exception {
-		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.paymentMethods().getAll();
+		List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().getAll();
 
 		PaymentMethod paymentMethod = paymentAcceptedMethods.stream().filter(method -> method.getId().equals("visa")).findFirst().get();
 		String pattern = paymentMethod.getSettings().get(0).getBin().getPattern();
@@ -104,7 +101,7 @@ public class PaymentMethodApiTest {
 	
 	@Test
 	public void shouldCheckIfExistsAdditionalInformationNeededForVisaCreditCard() throws Exception {
-		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.paymentMethods().getAll();
+		List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().getAll();
 
 		PaymentMethod paymentMethod = paymentAcceptedMethods.stream().filter(method -> method.getId().equals("visa")).findFirst().get();
 		
@@ -117,7 +114,7 @@ public class PaymentMethodApiTest {
 	
 	@Test
 	public void shouldCheckIfExistsMaxAllowedAmountForVisaCreditCard() throws Exception {
-		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.paymentMethods().getAll();
+		List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().getAll();
 		
 		PaymentMethod paymentMethod = paymentAcceptedMethods.stream().filter(method -> method.getId().equals("visa")).findFirst().get();
 		
@@ -127,7 +124,7 @@ public class PaymentMethodApiTest {
 	
 	@Test
 	public void shouldCheckIfExistsAccreditationTimeForVisaCreditCard() throws Exception {
-		List<PaymentMethod> paymentAcceptedMethods = mercadoPago.paymentMethods().getAll();
+		List<PaymentMethod> paymentAcceptedMethods = mercadoPagoApi.paymentMethods().getAll();
 
 		PaymentMethod paymentMethod = paymentAcceptedMethods.stream().filter(method -> method.getId().equals("visa")).findFirst().get();
 		
@@ -137,7 +134,7 @@ public class PaymentMethodApiTest {
 	@Test
 	public void shouldRetrieveAPaymentMethodByItsId() throws Exception {
 		String paymentMethodId = "visa";
-		Optional<PaymentMethod> paymentMethod = mercadoPago.paymentMethods().findBy(paymentMethodId);
+		Optional<PaymentMethod> paymentMethod = mercadoPagoApi.paymentMethods().findBy(paymentMethodId);
 		
 		assertTrue(paymentMethod.isPresent());
 	}
