@@ -790,3 +790,7 @@ Complete JSON Response from Pyament Method API
 ### Payment
 
 [API Documentation](https://www.mercadopago.com.ar/developers/en/api-docs/custom-checkout/create-payments/)
+
+### Mercado Pago Connect
+
+To edit the Redirect URL you must go to the [api documentation page](https://applications.mercadopago.com.br/show?appId=8745648399028232&platform=mp)
