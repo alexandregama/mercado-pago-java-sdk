@@ -1,15 +1,15 @@
 package com.mercadopago.api.internal;
 
-import com.mercadopago.api.oauth.MercadoPagoOAuthTokeanableApi;
+import com.mercadopago.api.oauth.OAuthTokeanableApi;
 import com.mercadopago.api.oauth.MercadoPagoOAuthTokenApi;
 import com.mercadopago.api.service.SellerConnectableAccount;
 import com.mercadopago.token.MercadoPagoCredentials;
 
-public class MercadoPagoOAuthApiImpl implements MercadoPagoOAuthApi {
+public class OAuthAuthorizationApi implements AuthorizationApi {
 
 	private MercadoPagoCredentials credentials;
 
-	public MercadoPagoOAuthApiImpl(MercadoPagoCredentials credentials) {
+	public OAuthAuthorizationApi(MercadoPagoCredentials credentials) {
 		this.credentials = credentials;
 	}
 	
@@ -19,7 +19,7 @@ public class MercadoPagoOAuthApiImpl implements MercadoPagoOAuthApi {
 	}
 
 	@Override
-	public MercadoPagoOAuthTokeanableApi tokenApi() {
+	public OAuthTokeanableApi tokenApi() {
 		return new MercadoPagoOAuthTokenApi(credentials);
 	}
 

@@ -20,8 +20,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.common.base.Optional;
+import com.mercadopago.api.factory.MercadoPagoFactory;
 import com.mercadopago.api.internal.MercadoPagoApi;
-import com.mercadopago.api.internal.MercadoPagoJerseyApi;
 import com.mercadopago.api.oauth.MercadoPagoOAuthTokenApi;
 import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.payment.OrderOnPayment;
@@ -63,7 +63,7 @@ public class PaymentApiTest {
 		String accessTokenForSandbox = new PropertiesReader().getPropertyValueFrom("access_token_sandbox");
 		MercadoPagoToken token = new MercadoPagoOAuthTokenApi(credentials).generateSandboxTokenUsing(accessTokenForSandbox);
 		
-		mercadoPagoApi = new MercadoPagoJerseyApi(token);
+		mercadoPagoApi = MercadoPagoFactory.from(token);
 	}
 	
 	@Test

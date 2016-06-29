@@ -21,7 +21,6 @@ import com.mercadopago.token.MercadoPagoCredentials;
  *
  */
 public class AccountConnectOAuthApi implements AccountConnectApi {
-	
 
 	private String accessToken;
 
@@ -54,7 +53,7 @@ public class AccountConnectOAuthApi implements AccountConnectApi {
 	}
 
 	public static void main(String[] args) {
-		MercadoPagoOAuthApi mercadoPagoOAuthApi = new MercadoPagoOAuthApiImpl(new MercadoPagoCredentials("", ""));
+		AuthorizationApi mercadoPagoOAuthApi = new OAuthAuthorizationApi(new MercadoPagoCredentials("", ""));
 		AccountConnectOAuthApi api = mercadoPagoOAuthApi.accountConnectApiUsing("TEST-8745648399028232-121112-ceb22b63e13a380f5768440f243bad67__LC_LB__-123456");
 		try {
 			MercadoPagoToken sellerCredentials = api.getSellerCredentials();

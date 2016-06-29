@@ -1,13 +1,13 @@
 package com.mercadopago.api.internal;
 
-import com.mercadopago.api.oauth.MercadoPagoOAuthTokeanableApi;
+import com.mercadopago.api.oauth.OAuthTokeanableApi;
 import com.mercadopago.api.service.SellerConnectableAccount;
 
-public interface MercadoPagoOAuthApi {
+public interface AuthorizationApi {
 
 	SellerConnectableAccount sellerConnect();
 	
-	MercadoPagoOAuthTokeanableApi tokenApi();
+	OAuthTokeanableApi tokenApi();
 	
 	AccountConnectOAuthApi accountConnectApiUsing(String accessToken);
 	

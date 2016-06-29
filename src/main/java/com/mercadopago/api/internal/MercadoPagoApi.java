@@ -11,5 +11,5 @@ public interface MercadoPagoApi {
 	PreferenceApi preferences();
 	
 	PaymentApi payments();
-	
+
 }

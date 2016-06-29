@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 
 import com.mercadopago.token.MercadoPagoCredentials;
 
-public class MercadoPagoOAuthTokenApi implements MercadoPagoOAuthTokeanableApi {
+public class MercadoPagoOAuthTokenApi implements OAuthTokeanableApi {
 
 	private MercadoPagoCredentials credentials;
 

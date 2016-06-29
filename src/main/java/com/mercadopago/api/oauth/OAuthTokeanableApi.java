@@ -1,6 +1,6 @@
 package com.mercadopago.api.oauth;
 
-public interface MercadoPagoOAuthTokeanableApi {
+public interface OAuthTokeanableApi {
 
 	MercadoPagoProductionToken generateProductionTokenUsing();
 
