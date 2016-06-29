@@ -4,7 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mercadopago.api.exception.MercadoPagoException;
@@ -24,14 +24,15 @@ public class SellerConnectAccountTest {
 	private static MercadoPagoCredentials credentials;
 	private static MercadoPagoToken token;
 
-	@Before
-	public void setup() {
+	@BeforeClass
+	public static void setup() {
 		PropertiesReader propertiesReader = new PropertiesReader();
 		String clientId = propertiesReader.getPropertyValueFrom(MercadoPagoToken.CLIENT_ID);
 		String secretKey = propertiesReader.getPropertyValueFrom(MercadoPagoToken.SECRET_KEY);
+		String sandboxAccessToken = propertiesReader.getPropertyValueFrom("access_token_sandbox");
 		
 		credentials = new MercadoPagoCredentials(clientId, secretKey);
-		token = MercadoPagoAuthenticationFactory.generateSandboxTokenUsing("TEST-TOKEN");
+		token = MercadoPagoAuthenticationFactory.generateSandboxTokenUsing(sandboxAccessToken);
 	}
 	
 	@Test
@@ -42,6 +43,7 @@ public class SellerConnectAccountTest {
 		assertThat(url, is(equalTo("https://auth.mercadopago.com.br/authorization?access_type=offline&client_id=3716&response_type=code&platform_id=mp&redirect_uri=http://www.elo7.com.br/teste")));
 	}
 	
+	@Test
 	public void testName() throws Exception {
 		AuthorizationApi mercadoPagoOAuthApi = new OAuthAuthorizationApi(credentials);
 		AccountConnectOAuthApi api = mercadoPagoOAuthApi.accountConnectApiUsing(token);

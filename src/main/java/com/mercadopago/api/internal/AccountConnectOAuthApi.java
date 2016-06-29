@@ -32,7 +32,7 @@ public class AccountConnectOAuthApi implements AccountConnectApi {
 		Form form = new Form();
 		form.param("client_secret", token.getAccessToken());
 		form.param("grant_type", "authorization_code");
-		form.param("code", "TG-5773c95fe4b05f92a104cf95-200679335");
+		form.param("code", "TG-57741f20e4b07d84f15d6751-200679335");
 		form.param("redirect_uri", "http://localhost:8080/mercado-pago-web-app/connected");
 		
 		Response response = ClientBuilder.newClient()
