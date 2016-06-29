@@ -14,14 +14,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
+import com.mercadopago.api.factory.MercadoPagoFactory;
 import com.mercadopago.api.internal.MercadoPagoApi;
-import com.mercadopago.api.internal.MercadoPagoJerseyApi;
-import com.mercadopago.api.oauth.MercadoPagoOAuthTokenApi;
+import com.mercadopago.api.oauth.MercadoPagoAuthenticationFactory;
 import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.paymentmethod.ExcludedPaymentType;
 import com.mercadopago.paymentmethod.PaymentMethod;
@@ -39,24 +38,16 @@ import com.mercadopago.token.PropertiesReader;
 
 public class PreferenceApiTest {
 
-	private static MercadoPagoToken token;
-	
-	private MercadoPagoApi mercadoPagoApi;
+	private static MercadoPagoApi mercadoPagoApi;
 
 	@BeforeClass
 	public static void generateToken() {
-		PropertiesReader propertiesReader = new PropertiesReader();
-		String clientId = propertiesReader.getPropertyValueFrom(MercadoPagoToken.CLIENT_ID);
-		String secretKey = propertiesReader.getPropertyValueFrom(MercadoPagoToken.SECRET_KEY);
-		
+		String clientId = new PropertiesReader().getPropertyValueFrom(MercadoPagoToken.CLIENT_ID);
+		String secretKey = new PropertiesReader().getPropertyValueFrom(MercadoPagoToken.SECRET_KEY);
 		MercadoPagoCredentials credentials = new MercadoPagoCredentials(clientId, secretKey);
+		MercadoPagoToken token = MercadoPagoAuthenticationFactory.generateProductionTokenUsing(credentials);
 		
-		token = new MercadoPagoOAuthTokenApi(credentials).generateProductionToken();
-	}
-	
-	@Before
-	public void before() {
-		mercadoPagoApi = new MercadoPagoJerseyApi(token);
+		mercadoPagoApi = MercadoPagoFactory.from(token);
 	}
 	
 	@Test

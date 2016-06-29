@@ -14,7 +14,7 @@ public class MercadoPagoCredentials {
 		return clientId;
 	}
 
-	public String getSecretKey() {
+	public String getClientSecret() {
 		return secretKey;
 	}
 	

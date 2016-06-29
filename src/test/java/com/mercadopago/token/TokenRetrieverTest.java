@@ -5,8 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.mercadopago.api.oauth.MercadoPagoOAuthTokenApi;
-import com.mercadopago.api.oauth.MercadoPagoProductionToken;
+import com.mercadopago.api.oauth.MercadoPagoAuthenticationFactory;
 import com.mercadopago.api.oauth.MercadoPagoToken;
 
 public class TokenRetrieverTest {
@@ -23,7 +22,7 @@ public class TokenRetrieverTest {
 	
 	@Test
 	public void shouldGetANewTokenWhenCredentialsAreCorrect() throws Exception {
-		MercadoPagoProductionToken token = new MercadoPagoOAuthTokenApi(credentials).generateProductionToken();
+		MercadoPagoToken token = MercadoPagoAuthenticationFactory.generateProductionTokenUsing(credentials);
 		
 		assertNotNull(token.getAccessToken());
 	}

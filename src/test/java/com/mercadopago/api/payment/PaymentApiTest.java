@@ -15,14 +15,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.common.base.Optional;
 import com.mercadopago.api.factory.MercadoPagoFactory;
 import com.mercadopago.api.internal.MercadoPagoApi;
-import com.mercadopago.api.oauth.MercadoPagoOAuthTokenApi;
+import com.mercadopago.api.oauth.MercadoPagoAuthenticationFactory;
 import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.payment.OrderOnPayment;
 import com.mercadopago.payment.PayerInformation;
@@ -36,7 +35,6 @@ import com.mercadopago.payment.TransactionDetails;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Address;
 import com.mercadopago.preference.Phone;
-import com.mercadopago.token.MercadoPagoCredentials;
 import com.mercadopago.token.PropertiesReader;
 
 /**
@@ -46,22 +44,12 @@ import com.mercadopago.token.PropertiesReader;
  */
 public class PaymentApiTest {
 
-	private MercadoPagoApi mercadoPagoApi;
+	private static MercadoPagoApi mercadoPagoApi;
 	
-	private static MercadoPagoCredentials credentials;
-
 	@BeforeClass
-	public static void before() {
-		PropertiesReader propertiesReader = new PropertiesReader();
-		String clientId = propertiesReader.getPropertyValueFrom(MercadoPagoToken.CLIENT_ID);
-		String secretKey = propertiesReader.getPropertyValueFrom(MercadoPagoToken.SECRET_KEY);
-		credentials = new MercadoPagoCredentials(clientId, secretKey);
-	}
-	
-	@Before
-	public void getCredentials() {
+	public static void getCredentials() {
 		String accessTokenForSandbox = new PropertiesReader().getPropertyValueFrom("access_token_sandbox");
-		MercadoPagoToken token = new MercadoPagoOAuthTokenApi(credentials).generateSandboxTokenUsing(accessTokenForSandbox);
+		MercadoPagoToken token = MercadoPagoAuthenticationFactory.generateSandboxTokenUsing(accessTokenForSandbox);
 		
 		mercadoPagoApi = MercadoPagoFactory.from(token);
 	}
