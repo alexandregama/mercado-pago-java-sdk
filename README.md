@@ -794,3 +794,81 @@ Complete JSON Response from Pyament Method API
 ### Mercado Pago Connect
 
 To edit the Redirect URL you must go to the [api documentation page](https://applications.mercadopago.com.br/show?appId=8745648399028232&platform=mp)
+
+
+# Mercado Pago Documentation
+
+Here you'll find a few documentations about the Mercado Pago usage
+
+### Basic Authentication
+
+[Oficial Api Documentation](https://www.mercadopago.com.ar/developers/en/api-docs/basics/authentication/)
+
+**Authentication**
+
+Using your credentials, you can be sure that your data is only available for your application.
+
+You must follow the steps:
+
+1 - Send your **credentials** and receive your **access_token**.
+
+2 - Use your **access_token** to operate with the API.
+
+**How to obtain my access_token?**
+
+First, you'll need to obtain your [credentials](https://www.mercadopago.com/mlb/account/credentials?type=basic). In that link you'll see that you can get credentials for **Basic Checkout** and **Custom Checkout**
+
+Then, you must send to Mercado Pago your **CLIENT_ID** and **CLIENT_SECRET** using the Mercado Pago Java SDK.
+
+Just to understand what is underhood, you can see the **curl** command bellow with the necessary code
+
+```bash
+curl -X POST \
+     -H 'accept: application/json' \
+     -H 'content-type: application/x-www-form-urlencoded' \
+     'https://api.mercadopago.com/oauth/token' \
+     -d 'grant_type=client_credentials' \
+     -d 'client_id=CLIENT_ID' \
+     -d 'client_secret=CLIENT_SECRET'
+```
+
+Notice that you must use it for every operation you do with the API, sending it as a parameter in the URL: ```https://api.mercadopago.com/.../?access_token=YOUR_ACCESS_TOKEN```
+
+
+### Custom Checkout
+
+Using your credentials, you can be sure that your data is only available for your application.
+
+**Authentication**
+
+Each application has two pairs of keys for connecting with the MercadoPago API. You can see it at [oficial documentation](https://www.mercadopago.com/mlb/account/credentials)
+
+The sandbox environment keys allows you to make **test payments**, and the production ones, **real payments**.
+
+Besides the sandbox and production environments, one of the keys is **public** (PUBLIC_KEY) and the other is **private** (ACCESS_TOKEN).
+
+The public keys identifies your MercadoPago account and aren't secret.
+
+These keys are used in frontends, through the MercadoPago SDKs, in mobile applications or in Javascript code.
+
+For example, you can use your **public key** to retrieve a installments resouce using GET request on Mercado Pago Api
+
+```bash
+curl -G -X GET \
+	-H "accept: application/json" \
+	"https://api.mercadopago.com/v1/payment_methods/installments" \
+	-d "public_key=PUBLIC_KEY" \
+	-d "amount=100" \
+	-d "payment_method_id=visa"
+```
+
+The private keys must be kept confidentially in your backend servers and never should be published.
+
+Example of a GET request to the payments resource using your private key (ACCESS_TOKEN):
+
+```bash
+curl -G -X GET \
+	-H "accept: application/json" \
+	"https://api.mercadopago.com/v1/payments/[ID]" \
+	-d "access_token=ACCESS_TOKEN"
+```
