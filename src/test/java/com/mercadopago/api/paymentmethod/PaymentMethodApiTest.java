@@ -20,9 +20,10 @@ import org.junit.Test;
 
 import com.mercadopago.api.internal.MercadoPagoApi;
 import com.mercadopago.api.internal.MercadoPagoJerseyApi;
+import com.mercadopago.api.oauth.MercadoPagoOAuthTokenApi;
+import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.paymentmethod.PaymentMethod;
-import com.mercadopago.token.MercadoPagoToken;
-import com.mercadopago.token.MercadoPagoTokenGenerator;
+import com.mercadopago.token.MercadoPagoCredentials;
 import com.mercadopago.token.PropertiesReader;
 
 public class PaymentMethodApiTest {
@@ -32,13 +33,20 @@ public class PaymentMethodApiTest {
 			"cordial", "cordobesa", "cmr"));
 	
 	private static MercadoPagoToken token;
-
+	
 	private MercadoPagoApi mercadoPagoApi;
+
+	private static MercadoPagoCredentials credentials;
 
 	@BeforeClass
 	public static void generateNewTokenForAllThoseTests() {
+		PropertiesReader propertiesReader = new PropertiesReader();
+		String clientId = propertiesReader.getPropertyValueFrom(MercadoPagoToken.CLIENT_ID);
+		String secretKey = propertiesReader.getPropertyValueFrom(MercadoPagoToken.SECRET_KEY);
+		credentials = new MercadoPagoCredentials(clientId, secretKey);
+		
 		String accessTokenForSandbox = new PropertiesReader().getPropertyValueFrom("access_token_sandbox");
-		token = MercadoPagoTokenGenerator.generateSandboxTokenUsing(accessTokenForSandbox);
+		token = new MercadoPagoOAuthTokenApi(credentials).generateSandboxTokenUsing(accessTokenForSandbox);
 	}
 	
 	@Before

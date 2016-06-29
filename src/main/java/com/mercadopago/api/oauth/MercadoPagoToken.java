@@ -1,4 +1,4 @@
-package com.mercadopago.token;
+package com.mercadopago.api.oauth;
 
 public interface MercadoPagoToken {
 

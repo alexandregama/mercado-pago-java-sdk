@@ -1,6 +1,7 @@
 package com.mercadopago.api.internal;
 
 import com.mercadopago.api.service.SellerConnectableAccount;
+import com.mercadopago.token.MercadoPagoCredentials;
 
 /**
  * 
@@ -12,19 +13,19 @@ import com.mercadopago.api.service.SellerConnectableAccount;
  */
 public class SellerConnectAccount implements SellerConnectableAccount {
 
-	private String clientId;
+	private MercadoPagoCredentials credentials;
 
 	/**
 	 * 
 	 * @param clientId
 	 * You must pass your clientId to this method. Notice that you can retrieve this one by creating your own application on {@link https://applications.mercadopago.com/}
 	 */
-	public SellerConnectAccount(String clientId) {
-		this.clientId = clientId;
+	public SellerConnectAccount(MercadoPagoCredentials credentials) {
+		this.credentials = credentials;
 	}
 
 	public String redirectingTo(String url) {
-		return String.format("https://auth.mercadopago.com.br/authorization?access_type=offline&client_id=%s&response_type=code&platform_id=mp&redirect_uri=%s", clientId, url);
+		return String.format("https://auth.mercadopago.com.br/authorization?access_type=offline&client_id=%s&response_type=code&platform_id=mp&redirect_uri=%s", credentials.getClientId(), url);
 	}
 
 }

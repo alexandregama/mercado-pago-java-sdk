@@ -1,4 +1,4 @@
-package com.mercadopago.token;
+package com.mercadopago.api.oauth;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -7,16 +7,24 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-public class MercadoPagoTokenGenerator {
+import com.mercadopago.token.MercadoPagoCredentials;
 
-	public static MercadoPagoProductionToken generateProductionCodeUsing(MercadoPagoCredentials credentials) {
-		Client client = ClientBuilder.newClient();
-		
+public class MercadoPagoOAuthTokenApi implements MercadoPagoOAuthTokeanableApi {
+
+	private MercadoPagoCredentials credentials;
+
+	public MercadoPagoOAuthTokenApi(MercadoPagoCredentials credentials) {
+		this.credentials = credentials;
+	}
+
+	@Override
+	public MercadoPagoProductionToken generateProductionTokenUsing() {
 		Form form = new Form();
 		form.param("grant_type", "client_credentials");
 		form.param("client_id", credentials.getClientId());
 		form.param("client_secret", credentials.getSecretKey());
 		
+		Client client = ClientBuilder.newClient();
 		Response response = client
 			.target("https://api.mercadopago.com/oauth/token")
 			.request(MediaType.APPLICATION_JSON_TYPE)
@@ -27,7 +35,8 @@ public class MercadoPagoTokenGenerator {
 		return token;
 	}
 
-	public static MercadoPagoProductionToken generateSandboxTokenUsing(String accessTokenUsedOnSandbox) {
+	@Override
+	public MercadoPagoProductionToken generateSandboxTokenUsing(String accessTokenUsedOnSandbox) {
 		MercadoPagoProductionToken mercadoPagoToken = new MercadoPagoProductionToken(accessTokenUsedOnSandbox);
 		
 		return mercadoPagoToken;

@@ -21,6 +21,8 @@ import org.junit.Test;
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
 import com.mercadopago.api.internal.MercadoPagoApi;
 import com.mercadopago.api.internal.MercadoPagoJerseyApi;
+import com.mercadopago.api.oauth.MercadoPagoOAuthTokenApi;
+import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.paymentmethod.ExcludedPaymentType;
 import com.mercadopago.paymentmethod.PaymentMethod;
 import com.mercadopago.preference.Address;
@@ -33,8 +35,6 @@ import com.mercadopago.preference.ReceiverAddress;
 import com.mercadopago.preference.Shipment;
 import com.mercadopago.preference.Shipment.Mode;
 import com.mercadopago.token.MercadoPagoCredentials;
-import com.mercadopago.token.MercadoPagoToken;
-import com.mercadopago.token.MercadoPagoTokenGenerator;
 import com.mercadopago.token.PropertiesReader;
 
 public class PreferenceApiTest {
@@ -51,7 +51,7 @@ public class PreferenceApiTest {
 		
 		MercadoPagoCredentials credentials = new MercadoPagoCredentials(clientId, secretKey);
 		
-		token = MercadoPagoTokenGenerator.generateProductionCodeUsing(credentials);
+		token = new MercadoPagoOAuthTokenApi(credentials).generateProductionTokenUsing();
 	}
 	
 	@Before
