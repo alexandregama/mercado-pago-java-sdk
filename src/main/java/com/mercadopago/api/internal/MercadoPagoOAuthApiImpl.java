@@ -23,4 +23,9 @@ public class MercadoPagoOAuthApiImpl implements MercadoPagoOAuthApi {
 		return new MercadoPagoOAuthTokenApi(credentials);
 	}
 
+	@Override
+	public AccountConnectOAuthApi accountConnectApiUsing(String accessToken) {
+		return new AccountConnectOAuthApi(accessToken);
+	}
+
 }

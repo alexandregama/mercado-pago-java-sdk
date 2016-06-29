@@ -13,6 +13,7 @@ import com.mercadopago.api.exception.MercadoPagoExceptionInformation;
 import com.mercadopago.api.oauth.MercadoPagoProductionToken;
 import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.api.service.AccountConnectApi;
+import com.mercadopago.token.MercadoPagoCredentials;
 
 /**
  * 
@@ -21,12 +22,19 @@ import com.mercadopago.api.service.AccountConnectApi;
  */
 public class AccountConnectOAuthApi implements AccountConnectApi {
 	
+
+	private String accessToken;
+
+	public AccountConnectOAuthApi(String accessToken) {
+		this.accessToken = accessToken;
+	}
+
 	@Override
 	public MercadoPagoToken getSellerCredentials() {
 		Form form = new Form();
-		form.param("client_secret", "TEST-8745648399028232-121112-ceb22b63e13a380f5768440f243bad67__LC_LB__-12345678");
+		form.param("client_secret", accessToken);
 		form.param("grant_type", "authorization_code");
-		form.param("code", "TG-5773be97e4b0d077dfccebdb-200679335");
+		form.param("code", "TG-5773c95fe4b05f92a104cf95-200679335");
 		form.param("redirect_uri", "http://localhost:8080/mercado-pago-web-app/connected");
 		
 		Response response = ClientBuilder.newClient()
@@ -46,7 +54,8 @@ public class AccountConnectOAuthApi implements AccountConnectApi {
 	}
 
 	public static void main(String[] args) {
-		AccountConnectOAuthApi api = new AccountConnectOAuthApi();
+		MercadoPagoOAuthApi mercadoPagoOAuthApi = new MercadoPagoOAuthApiImpl(new MercadoPagoCredentials("", ""));
+		AccountConnectOAuthApi api = mercadoPagoOAuthApi.accountConnectApiUsing("TEST-8745648399028232-121112-ceb22b63e13a380f5768440f243bad67__LC_LB__-123456");
 		try {
 			MercadoPagoToken sellerCredentials = api.getSellerCredentials();
 			System.out.println(sellerCredentials);

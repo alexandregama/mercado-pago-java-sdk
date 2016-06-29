@@ -9,4 +9,6 @@ public interface MercadoPagoOAuthApi {
 	
 	MercadoPagoOAuthTokeanableApi tokenApi();
 	
+	AccountConnectOAuthApi accountConnectApiUsing(String accessToken);
+	
 }
