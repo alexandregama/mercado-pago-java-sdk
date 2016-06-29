@@ -906,3 +906,47 @@ Important 2: Notice that your redirect_url needs to be configured on Mercado Pag
 ````
 https://applications.mercadopago.com.br/show?appId=YOU_APP_ID&platform=mp
 ```
+
+**Get your user's credentials**
+
+Use the **authorization code** got in the previous step to get your **user's credentials** through the OAuth API, so you can operate on behalf of him.
+
+Just in case, you can see the code that is underhood
+
+```
+curl -X POST \
+     -H 'accept: application/json' \
+     -H 'content-type: application/x-www-form-urlencoded' \
+     'https://api.mercadopago.com/oauth/token' \
+     -d 'client_secret=TEST-8745648399028232-121112-ceb22b63e13a380f5768440f243bad67__LC_LB__-200679335' \
+     -d 'grant_type=authorization_code' \
+     -d 'code=AUTHORIZATION_CODE' \
+     -d 'redirect_uri=REDIRECT_URI'
+```
+
+You must include these parameters:
+
+- **client_secret**: Your access_token (private key) that you find in the section Credentials of your account.
+
+- **code**: The authorization code you got after redirecting the user back to your site.
+
+- **redirect_uri**: It must be the same Redirect URI you've configured in your application.
+
+The answer will have the connected user's credentials:
+
+```json
+{
+    "access_token": "USER_AT",
+    "public_key": "USER_PK",
+    "refresh_token": "USER_RT",
+    "live_mode": false,
+    "user_id": 123456789,
+    "token_type": "bearer",
+    "expires_in": 15768000,
+    "scope": "offline_access read write"
+}
+```
+
+Besides the **access_token** and the **public_key** generated to be used as your user's credentials, the answer also has the field **expires_in** which specifies the time, in seconds, during which these credentials will be valid (15768000 seconds = **6 months**), a **refresh_token** that you must use to renovate them, and your user's MercadoPago account identificator (user_id).
+
+Advice from Mercado Pago: save and keep updated the obtained credentials associated to your users, because you will need them to operate later. If you don't do this, you'll need to ask your user for authorization again.
