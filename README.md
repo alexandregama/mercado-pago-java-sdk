@@ -872,3 +872,37 @@ curl -G -X GET \
 	"https://api.mercadopago.com/v1/payments/[ID]" \
 	-d "access_token=ACCESS_TOKEN"
 ```
+
+## Mercado Pago Connect
+
+MercadoPago Connect, based in OAuth 2.0, allows you to access the account information of your users, so you can make charges for them and access the payments information.
+
+Besides, if you're a virtual shop or any other system that allows your users to get paid, you can offer them any payment solution and receive a **fee** for the service.
+
+**Create your application**
+
+[Create your application](https://applications.mercadopago.com/) and get the **APP_ID** (application identificator) needed for the next step.
+
+Make sure you check the option that indicates that you want to operate with **MP** Connect / **marketplace** mode and select the scope **offline_access**.
+
+**Connect your users**
+
+To operate in MercadoPago on behalf of your users, you first have to ask them for their authorization. To do this, redirect the user to the following URL sending in **client_id** the value of **APP_ID** that you got in the previous step:
+
+```
+https://auth.mercadopago.com.br/authorization?client_id=APP_ID&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Fwww.return_URL.com
+```
+
+You'll receive the authorization code in the **redirect_uri** that you specified:
+
+```
+http://www.return_URL.com?code=AUTHORIZATION_CODE
+```
+
+Important: This **AUTHORIZATION_CODE** is valid for **10 minutes**, so be sure to use it soon.
+
+Important 2: Notice that your redirect_url needs to be configured on Mercado Pago dashboard in the following url:
+
+````
+https://applications.mercadopago.com.br/show?appId=YOU_APP_ID&platform=mp
+```
