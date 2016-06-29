@@ -18,7 +18,7 @@ public class MercadoPagoOAuthTokenApi implements OAuthTokeanableApi {
 	}
 
 	@Override
-	public MercadoPagoProductionToken generateProductionTokenUsing() {
+	public MercadoPagoProductionToken generateProductionToken() {
 		Form form = new Form();
 		form.param("grant_type", "client_credentials");
 		form.param("client_id", credentials.getClientId());
@@ -36,8 +36,8 @@ public class MercadoPagoOAuthTokenApi implements OAuthTokeanableApi {
 	}
 
 	@Override
-	public MercadoPagoProductionToken generateSandboxTokenUsing(String accessTokenUsedOnSandbox) {
-		MercadoPagoProductionToken mercadoPagoToken = new MercadoPagoProductionToken(accessTokenUsedOnSandbox);
+	public MercadoPagoSandboxToken generateSandboxTokenUsing(String accessTokenUsedOnSandbox) {
+		MercadoPagoSandboxToken mercadoPagoToken = new MercadoPagoSandboxToken(accessTokenUsedOnSandbox);
 		
 		return mercadoPagoToken;
 	}

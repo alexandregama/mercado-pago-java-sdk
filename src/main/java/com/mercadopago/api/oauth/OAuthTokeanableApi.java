@@ -2,8 +2,8 @@ package com.mercadopago.api.oauth;
 
 public interface OAuthTokeanableApi {
 
-	MercadoPagoProductionToken generateProductionTokenUsing();
+	MercadoPagoProductionToken generateProductionToken();
 
-	MercadoPagoProductionToken generateSandboxTokenUsing(String accessTokenUsedOnSandbox);
+	MercadoPagoSandboxToken generateSandboxTokenUsing(String accessTokenUsedOnSandbox);
 	
 }

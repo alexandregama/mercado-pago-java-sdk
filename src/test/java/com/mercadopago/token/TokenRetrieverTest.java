@@ -23,7 +23,7 @@ public class TokenRetrieverTest {
 	
 	@Test
 	public void shouldGetANewTokenWhenCredentialsAreCorrect() throws Exception {
-		MercadoPagoProductionToken token = new MercadoPagoOAuthTokenApi(credentials).generateProductionTokenUsing();
+		MercadoPagoProductionToken token = new MercadoPagoOAuthTokenApi(credentials).generateProductionToken();
 		
 		assertNotNull(token.getAccessToken());
 	}
