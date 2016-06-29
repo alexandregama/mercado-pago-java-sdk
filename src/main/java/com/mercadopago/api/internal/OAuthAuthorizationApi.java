@@ -4,7 +4,7 @@ import com.mercadopago.api.oauth.TokenGeneratableApi;
 import com.mercadopago.api.oauth.MercadoPagoProductionTokenApi;
 import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.api.service.SellerConnectableAccount;
-import com.mercadopago.token.MercadoPagoCredentials;
+import com.mercadopago.api.token.MercadoPagoCredentials;
 
 public class OAuthAuthorizationApi implements AuthorizationApi {
 

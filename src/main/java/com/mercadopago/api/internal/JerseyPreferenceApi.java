@@ -14,8 +14,8 @@ import com.mercadopago.api.exception.MercadoPagoBadRequestException;
 import com.mercadopago.api.exception.MercadoPagoExceptionInformation;
 import com.mercadopago.api.exception.MercadoPagoNotFoundException;
 import com.mercadopago.api.oauth.MercadoPagoToken;
+import com.mercadopago.api.preference.Preference;
 import com.mercadopago.api.service.PreferenceApi;
-import com.mercadopago.preference.Preference;
 
 /**
  * 

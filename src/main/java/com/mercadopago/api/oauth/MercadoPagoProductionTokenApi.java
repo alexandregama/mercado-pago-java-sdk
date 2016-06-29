@@ -6,7 +6,7 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.mercadopago.token.MercadoPagoCredentials;
+import com.mercadopago.api.token.MercadoPagoCredentials;
 
 public class MercadoPagoProductionTokenApi implements TokenGeneratableApi {
 

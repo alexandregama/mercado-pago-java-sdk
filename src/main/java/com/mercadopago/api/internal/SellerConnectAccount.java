@@ -1,7 +1,7 @@
 package com.mercadopago.api.internal;
 
 import com.mercadopago.api.service.SellerConnectableAccount;
-import com.mercadopago.token.MercadoPagoCredentials;
+import com.mercadopago.api.token.MercadoPagoCredentials;
 
 /**
  * 

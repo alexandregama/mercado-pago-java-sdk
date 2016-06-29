@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import com.mercadopago.api.oauth.MercadoPagoAuthenticationFactory;
 import com.mercadopago.api.oauth.MercadoPagoToken;
+import com.mercadopago.api.token.MercadoPagoCredentials;
+import com.mercadopago.api.token.PropertiesReader;
 
 public class TokenRetrieverTest {
 

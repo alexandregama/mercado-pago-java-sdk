@@ -1,6 +1,6 @@
 package com.mercadopago.api.oauth;
 
-import com.mercadopago.token.MercadoPagoCredentials;
+import com.mercadopago.api.token.MercadoPagoCredentials;
 
 public class MercadoPagoAuthenticationFactory {
 

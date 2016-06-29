@@ -16,8 +16,8 @@ import com.mercadopago.api.internal.SellerConnectAccount;
 import com.mercadopago.api.oauth.MercadoPagoAuthenticationFactory;
 import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.api.service.SellerConnectableAccount;
-import com.mercadopago.token.MercadoPagoCredentials;
-import com.mercadopago.token.PropertiesReader;
+import com.mercadopago.api.token.MercadoPagoCredentials;
+import com.mercadopago.api.token.PropertiesReader;
 
 public class SellerConnectAccountTest {
 

@@ -13,7 +13,7 @@ import com.mercadopago.api.service.PreferenceApi;
  * Class to be used when user needs to access all operations on SDK
  *
  */
-public class MercadoPagoJerseyApi implements MercadoPagoApi {
+class MercadoPagoJerseyApi implements MercadoPagoApi {
 
 	private final MercadoPagoToken token;
 	

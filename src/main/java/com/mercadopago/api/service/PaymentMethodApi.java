@@ -3,7 +3,7 @@ package com.mercadopago.api.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.mercadopago.paymentmethod.PaymentMethod;
+import com.mercadopago.api.paymentmethod.PaymentMethod;
 
 public interface PaymentMethodApi {
 
