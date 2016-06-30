@@ -45,7 +45,7 @@ public class PreferenceApiTest {
 		MercadoPagoCredentials credentials = new MercadoPagoCredentials(clientId, secretKey);
 		MercadoPagoToken token = MercadoPagoApiFactory.generateProductionTokenUsing(credentials);
 		
-		mercadoPagoApi = MercadoPagoApiFactory.enableOperationsFrom(token);
+		mercadoPagoApi = MercadoPagoApiFactory.enableApiOperationsFrom(token);
 	}
 	
 	@Test

@@ -14,7 +14,7 @@ import com.mercadopago.api.token.MercadoPagoCredentials;
  */
 public class MercadoPagoApiFactory {
 
-	public static MercadoPagoApi enableOperationsFrom(MercadoPagoToken token) {
+	public static MercadoPagoApi enableApiOperationsFrom(MercadoPagoToken token) {
 		return new MercadoPagoJerseyApi(token);
 	}
 	
