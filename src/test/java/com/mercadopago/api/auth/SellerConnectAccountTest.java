@@ -11,9 +11,9 @@ import com.mercadopago.api.exception.MercadoPagoException;
 import com.mercadopago.api.exception.MercadoPagoExceptionInformation;
 import com.mercadopago.api.internal.AccountConnectOAuthApi;
 import com.mercadopago.api.internal.AuthorizationApi;
+import com.mercadopago.api.internal.MercadoPagoApiFactory;
 import com.mercadopago.api.internal.OAuthAuthorizationApi;
 import com.mercadopago.api.internal.SellerConnectAccount;
-import com.mercadopago.api.oauth.MercadoPagoAuthenticationFactory;
 import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.api.service.SellerConnectableAccount;
 import com.mercadopago.api.token.MercadoPagoCredentials;
@@ -32,7 +32,7 @@ public class SellerConnectAccountTest {
 		String sandboxAccessToken = propertiesReader.getPropertyValueFrom("access_token_sandbox");
 		
 		credentials = new MercadoPagoCredentials(clientId, secretKey);
-		token = MercadoPagoAuthenticationFactory.generateSandboxTokenUsing(sandboxAccessToken);
+		token = MercadoPagoApiFactory.generateSandboxTokenUsing(sandboxAccessToken);
 	}
 	
 	@Test

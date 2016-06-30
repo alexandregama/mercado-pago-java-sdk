@@ -19,9 +19,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
-import com.mercadopago.api.internal.MercadoPagoApi;
-import com.mercadopago.api.internal.MercadoPagoApiFactory;
-import com.mercadopago.api.oauth.MercadoPagoAuthenticationFactory;
 import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.api.paymentmethod.ExcludedPaymentType;
 import com.mercadopago.api.paymentmethod.PaymentMethod;
@@ -46,7 +43,7 @@ public class PreferenceApiTest {
 		String clientId = new PropertiesReader().getPropertyValueFrom(MercadoPagoToken.CLIENT_ID);
 		String secretKey = new PropertiesReader().getPropertyValueFrom(MercadoPagoToken.SECRET_KEY);
 		MercadoPagoCredentials credentials = new MercadoPagoCredentials(clientId, secretKey);
-		MercadoPagoToken token = MercadoPagoAuthenticationFactory.generateProductionTokenUsing(credentials);
+		MercadoPagoToken token = MercadoPagoApiFactory.generateProductionTokenUsing(credentials);
 		
 		mercadoPagoApi = MercadoPagoApiFactory.from(token);
 	}

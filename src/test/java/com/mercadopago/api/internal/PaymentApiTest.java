@@ -19,7 +19,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.google.common.base.Optional;
-import com.mercadopago.api.oauth.MercadoPagoAuthenticationFactory;
 import com.mercadopago.api.oauth.MercadoPagoToken;
 import com.mercadopago.api.payment.OrderOnPayment;
 import com.mercadopago.api.payment.PayerInformation;
@@ -27,9 +26,9 @@ import com.mercadopago.api.payment.PaymentAdditionalInformations;
 import com.mercadopago.api.payment.PaymentItem;
 import com.mercadopago.api.payment.PaymentPayer;
 import com.mercadopago.api.payment.PaymentRetrieved;
+import com.mercadopago.api.payment.PaymentRetrieved.PaymentStatus;
 import com.mercadopago.api.payment.PaymentToCreate;
 import com.mercadopago.api.payment.TransactionDetails;
-import com.mercadopago.api.payment.PaymentRetrieved.PaymentStatus;
 import com.mercadopago.api.paymentmethod.PaymentMethod;
 import com.mercadopago.api.preference.Address;
 import com.mercadopago.api.preference.Phone;
@@ -47,7 +46,7 @@ public class PaymentApiTest {
 	@BeforeClass
 	public static void getCredentials() {
 		String accessTokenForSandbox = new PropertiesReader().getPropertyValueFrom("access_token_sandbox");
-		MercadoPagoToken token = MercadoPagoAuthenticationFactory.generateSandboxTokenUsing(accessTokenForSandbox);
+		MercadoPagoToken token = MercadoPagoApiFactory.generateSandboxTokenUsing(accessTokenForSandbox);
 		
 		mercadoPagoApi = MercadoPagoApiFactory.from(token);
 	}
