@@ -1,15 +1,14 @@
 package com.mercadopago.api.internal;
 
-import com.mercadopago.api.oauth.MercadoPagoToken;
-import com.mercadopago.api.oauth.MercadoPagoTokenGeneratableApi;
-import com.mercadopago.api.service.MercadoPagoSellerConnectableAccount;
+import com.mercadopago.api.oauth.MercadoPagoGeneratableTokenApi;
+import com.mercadopago.api.service.MercadoPagoSellerConnectableUrlAccount;
 
 public interface MercadoPagoAuthorizableApi {
 
-	MercadoPagoSellerConnectableAccount sellerConnect();
+	MercadoPagoSellerConnectableUrlAccount askForSellerAccountConnection();
 	
-	MercadoPagoTokenGeneratableApi tokenApi();
+	MercadoPagoGeneratableTokenApi tokenApi();
 	
-	MercadoPagoAccountConnectOAuthApi accountConnectApiUsing(MercadoPagoToken token);
+	MercadoPagoAccountConnectOAuthApi accountConnectApiUsing(String fixedAccessToken);
 	
 }

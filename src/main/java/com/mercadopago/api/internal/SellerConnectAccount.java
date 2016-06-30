@@ -1,6 +1,6 @@
 package com.mercadopago.api.internal;
 
-import com.mercadopago.api.service.MercadoPagoSellerConnectableAccount;
+import com.mercadopago.api.service.MercadoPagoSellerConnectableUrlAccount;
 import com.mercadopago.api.token.MercadoPagoCredentials;
 
 /**
@@ -11,7 +11,7 @@ import com.mercadopago.api.token.MercadoPagoCredentials;
  * You can use it when you would like to access seller's account
  * 
  */
-public class SellerConnectAccount implements MercadoPagoSellerConnectableAccount {
+public class SellerConnectAccount implements MercadoPagoSellerConnectableUrlAccount {
 
 	private MercadoPagoCredentials credentials;
 

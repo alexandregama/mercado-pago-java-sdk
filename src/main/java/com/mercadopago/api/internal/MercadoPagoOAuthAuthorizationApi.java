@@ -1,9 +1,8 @@
 package com.mercadopago.api.internal;
 
-import com.mercadopago.api.oauth.MercadoPagoTokenGeneratableApi;
+import com.mercadopago.api.oauth.MercadoPagoGeneratableTokenApi;
 import com.mercadopago.api.oauth.MercadoPagoProductionTokenApi;
-import com.mercadopago.api.oauth.MercadoPagoToken;
-import com.mercadopago.api.service.MercadoPagoSellerConnectableAccount;
+import com.mercadopago.api.service.MercadoPagoSellerConnectableUrlAccount;
 import com.mercadopago.api.token.MercadoPagoCredentials;
 
 public class MercadoPagoOAuthAuthorizationApi implements MercadoPagoAuthorizableApi {
@@ -15,18 +14,18 @@ public class MercadoPagoOAuthAuthorizationApi implements MercadoPagoAuthorizable
 	}
 	
 	@Override
-	public MercadoPagoSellerConnectableAccount sellerConnect() {
+	public MercadoPagoSellerConnectableUrlAccount askForSellerAccountConnection() {
 		return new SellerConnectAccount(credentials);
 	}
 
 	@Override
-	public MercadoPagoTokenGeneratableApi tokenApi() {
+	public MercadoPagoGeneratableTokenApi tokenApi() {
 		return new MercadoPagoProductionTokenApi(credentials);
 	}
 
 	@Override
-	public MercadoPagoAccountConnectOAuthApi accountConnectApiUsing(MercadoPagoToken token) {
-		return new MercadoPagoAccountConnectOAuthApi(token);
+	public MercadoPagoAccountConnectOAuthApi accountConnectApiUsing(String fixedAccessToken) {
+		return new MercadoPagoAccountConnectOAuthApi(fixedAccessToken);
 	}
 
 }

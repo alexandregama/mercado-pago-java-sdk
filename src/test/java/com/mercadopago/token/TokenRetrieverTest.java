@@ -26,6 +26,7 @@ public class TokenRetrieverTest {
 	public void shouldGetANewTokenWhenCredentialsAreCorrect() throws Exception {
 		MercadoPagoToken token = MercadoPagoApiFactory.generateProductionTokenUsing(credentials);
 		
+		System.out.println(token.getAccessToken());
 		assertNotNull(token.getAccessToken());
 	}
 	

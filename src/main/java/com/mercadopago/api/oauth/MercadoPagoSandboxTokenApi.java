@@ -1,6 +1,6 @@
 package com.mercadopago.api.oauth;
 
-public class MercadoPagoSandboxTokenApi implements MercadoPagoTokenGeneratableApi {
+public class MercadoPagoSandboxTokenApi implements MercadoPagoGeneratableTokenApi {
 
 	private String accessToken;
 
