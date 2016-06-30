@@ -14,7 +14,7 @@ import com.mercadopago.api.token.MercadoPagoCredentials;
  */
 public class MercadoPagoApiFactory {
 
-	public static MercadoPagoApi from(MercadoPagoToken token) {
+	public static MercadoPagoApi enableOperationsFrom(MercadoPagoToken token) {
 		return new MercadoPagoJerseyApi(token);
 	}
 	
@@ -24,6 +24,10 @@ public class MercadoPagoApiFactory {
 	
 	public static MercadoPagoToken generateSandboxTokenUsing(String sandboxAccessToken) {
 		return new MercadoPagoSandboxTokenApi(sandboxAccessToken).generateToken();
+	}
+
+	public static MercadoPagoAuthorizableApi authorizationFrom(MercadoPagoCredentials credentials) {
+		return new MercadoPagoOAuthAuthorizationApi(credentials);
 	}
 	 
 }

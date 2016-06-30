@@ -19,11 +19,11 @@ import com.mercadopago.api.service.AccountConnectApi;
  * @author Alexandre Gama
  *
  */
-public class AccountConnectOAuthApi implements AccountConnectApi {
+public class MercadoPagoAccountConnectOAuthApi implements AccountConnectApi {
 
 	private MercadoPagoToken token;
 
-	public AccountConnectOAuthApi(MercadoPagoToken token) {
+	public MercadoPagoAccountConnectOAuthApi(MercadoPagoToken token) {
 		this.token = token;
 	}
 

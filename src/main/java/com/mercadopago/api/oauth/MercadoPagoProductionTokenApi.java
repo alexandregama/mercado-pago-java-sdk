@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response;
 
 import com.mercadopago.api.token.MercadoPagoCredentials;
 
-public class MercadoPagoProductionTokenApi implements TokenGeneratableApi {
+public class MercadoPagoProductionTokenApi implements MercadoPagoTokenGeneratableApi {
 
 	private MercadoPagoCredentials credentials;
 

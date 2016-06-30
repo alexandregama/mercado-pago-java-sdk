@@ -9,13 +9,12 @@ import org.junit.Test;
 
 import com.mercadopago.api.exception.MercadoPagoException;
 import com.mercadopago.api.exception.MercadoPagoExceptionInformation;
-import com.mercadopago.api.internal.AccountConnectOAuthApi;
-import com.mercadopago.api.internal.AuthorizationApi;
+import com.mercadopago.api.internal.MercadoPagoAccountConnectOAuthApi;
 import com.mercadopago.api.internal.MercadoPagoApiFactory;
-import com.mercadopago.api.internal.OAuthAuthorizationApi;
+import com.mercadopago.api.internal.MercadoPagoAuthorizableApi;
 import com.mercadopago.api.internal.SellerConnectAccount;
 import com.mercadopago.api.oauth.MercadoPagoToken;
-import com.mercadopago.api.service.SellerConnectableAccount;
+import com.mercadopago.api.service.MercadoPagoSellerConnectableAccount;
 import com.mercadopago.api.token.MercadoPagoCredentials;
 import com.mercadopago.api.token.PropertiesReader;
 
@@ -37,7 +36,7 @@ public class SellerConnectAccountTest {
 	
 	@Test
 	public void shouldCreateALinkToAllowsSellersToConnectWithItsOwnMercadoPagoAccount() throws Exception {
-		SellerConnectableAccount sellerConnectAccount = new SellerConnectAccount(credentials);
+		MercadoPagoSellerConnectableAccount sellerConnectAccount = new SellerConnectAccount(credentials);
 		String url = sellerConnectAccount.redirectingTo("http://www.elo7.com.br/teste");
 		
 		assertThat(url, is(equalTo("https://auth.mercadopago.com.br/authorization?access_type=offline&client_id=3716&response_type=code&platform_id=mp&redirect_uri=http://www.elo7.com.br/teste")));
@@ -45,8 +44,8 @@ public class SellerConnectAccountTest {
 	
 	@Test
 	public void testName() throws Exception {
-		AuthorizationApi mercadoPagoOAuthApi = new OAuthAuthorizationApi(credentials);
-		AccountConnectOAuthApi api = mercadoPagoOAuthApi.accountConnectApiUsing(token);
+		MercadoPagoAuthorizableApi mercadoPagoOAuthApi = MercadoPagoApiFactory.authorizationFrom(credentials);
+		MercadoPagoAccountConnectOAuthApi api = mercadoPagoOAuthApi.accountConnectApiUsing(token);
 		try {
 			MercadoPagoToken sellerCredentials = api.getSellerCredentials();
 			System.out.println(sellerCredentials);

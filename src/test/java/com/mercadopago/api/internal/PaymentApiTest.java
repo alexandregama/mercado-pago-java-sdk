@@ -48,7 +48,7 @@ public class PaymentApiTest {
 		String accessTokenForSandbox = new PropertiesReader().getPropertyValueFrom("access_token_sandbox");
 		MercadoPagoToken token = MercadoPagoApiFactory.generateSandboxTokenUsing(accessTokenForSandbox);
 		
-		mercadoPagoApi = MercadoPagoApiFactory.from(token);
+		mercadoPagoApi = MercadoPagoApiFactory.enableOperationsFrom(token);
 	}
 	
 	@Test

@@ -1,6 +1,6 @@
 package com.mercadopago.api.service;
 
-public interface SellerConnectableAccount {
+public interface MercadoPagoSellerConnectableAccount {
 
 	String redirectingTo(String url);
 	
