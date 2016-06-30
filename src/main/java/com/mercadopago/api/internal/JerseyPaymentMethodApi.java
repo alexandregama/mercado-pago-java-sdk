@@ -9,9 +9,9 @@ import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.mercadopago.api.oauth.MercadoPagoToken;
+import com.mercadopago.api.paymentmethod.PaymentMethod;
 import com.mercadopago.api.service.PaymentMethodApi;
-import com.mercadopago.paymentmethod.PaymentMethod;
-import com.mercadopago.token.MercadoPagoToken;
 
 /**
  * 

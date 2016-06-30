@@ -1,6 +1,6 @@
 package com.mercadopago.api.service;
 
-import com.mercadopago.preference.Preference;
+import com.mercadopago.api.preference.Preference;
 
 public interface PreferenceApi {
 

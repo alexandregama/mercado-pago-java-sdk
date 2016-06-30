@@ -13,10 +13,10 @@ import javax.ws.rs.core.Response;
 import com.google.common.base.Optional;
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
 import com.mercadopago.api.exception.MercadoPagoExceptionInformation;
+import com.mercadopago.api.oauth.MercadoPagoToken;
+import com.mercadopago.api.payment.PaymentRetrieved;
+import com.mercadopago.api.payment.PaymentToCreate;
 import com.mercadopago.api.service.PaymentApi;
-import com.mercadopago.payment.PaymentRetrieved;
-import com.mercadopago.payment.PaymentToCreate;
-import com.mercadopago.token.MercadoPagoToken;
 
 /**
  * 
