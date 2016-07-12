@@ -2,6 +2,7 @@ package com.mercadopago.api.preference;
 
 import static javax.xml.bind.annotation.XmlAccessType.FIELD;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,9 +26,12 @@ import com.google.common.base.MoreObjects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Preference {
 
-	@XmlElement(name = "id")
+	@XmlElement(name = "id", required = true)
 	private String id;
-	
+
+	/**
+	 * Notice that you must send at least one Item. This is required by Mercado Pago Api
+	 */
 	@XmlElement(name = "items")
 	private List<Item> items = new ArrayList<>();
 	
@@ -51,6 +55,26 @@ public class Preference {
 	
 	@XmlElement(name = "shipments")
 	private Shipment shipments;
+	
+	/**
+	 * Origin of the payment. Default value: NONE
+	 * 
+	 * Data type: String(256)
+	 * Mode: readable | writable
+	 * 
+	 */
+	@XmlElement(name = "marketplace")
+	private String marketplace;
+	
+	/**
+	 * Marketplace's fee charged by application owner. Default value: 0%
+	 * 
+	 * Data type: Float on Mercado Pago
+	 * Mode: readable | writable
+	 * 
+	 */
+	@XmlElement(name = "marketplace_fee")
+	private BigDecimal marketplaceFee;
 	
 	public enum PreferenceOperationType {
 		REGULAR_PAYMENT("regular_payment"), MONEY_TRANSFER("money_transfer");
@@ -135,6 +159,7 @@ public class Preference {
 			.add("payer", payer)
 			.add("paymentMethods", paymentMethods)
 			.add("shipments", shipments)
+			.add("marketplace", marketplace)
 		.toString();
 	}
 
@@ -144,6 +169,22 @@ public class Preference {
 
 	public void setShipments(Shipment shipments) {
 		this.shipments = shipments;
+	}
+
+	public String getMarketplace() {
+		return marketplace;
+	}
+
+	public void setMarketplace(String marketplace) {
+		this.marketplace = marketplace;
+	}
+
+	public BigDecimal getMarketplaceFee() {
+		return marketplaceFee;
+	}
+
+	public void setMarketplaceFee(BigDecimal marketplaceFee) {
+		this.marketplaceFee = marketplaceFee;
 	}
 	
 }
