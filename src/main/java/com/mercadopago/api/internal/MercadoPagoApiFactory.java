@@ -7,9 +7,9 @@ import com.mercadopago.api.token.MercadoPagoCredentials;
 
 /**
  * 
- * @author Alexandre Gama
+ * @author Alexandre Gama - <a href="https://github.com/alexandregama">GitHub Account</a>
  * 
- * Class to be used when you must use Mercado Pago operations
+ * Class to be used when you would like to use Mercado Pago Operations
  * 
  */
 public class MercadoPagoApiFactory {
