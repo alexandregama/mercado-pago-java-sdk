@@ -970,3 +970,86 @@ curl -X POST
 	"marketplace": "Elo7"
 }' "https://api.mercadopago.com/checkout/preferences?access_token=APP_USR-123456-321654-b98758b2ebdc5abacdc846ddf513c544__F_J__-74108466"
 ```
+
+The command above will return the follwing content:
+
+```json
+{
+  "collector_id": 74108466,
+  "operation_type": "regular_payment",
+  "items": [
+    {
+      "id": "",
+      "title": "Producto sin descripci&oacute;n",
+      "description": "",
+      "category_id": "",
+      "picture_url": "",
+      "currency_id": "ARS",
+      "quantity": 3,
+      "unit_price": 10
+    }
+  ],
+  "payer": {
+    "name": "",
+    "surname": "",
+    "email": "",
+    "date_created": "",
+    "phone": {
+      "area_code": "",
+      "number": ""
+    },
+    "identification": {
+      "type": "",
+      "number": ""
+    },
+    "address": {
+      "street_name": "",
+      "street_number": null,
+      "zip_code": ""
+    }
+  },
+  "back_urls": {
+    "success": "",
+    "pending": "",
+    "failure": ""
+  },
+  "auto_return": "",
+  "payment_methods": {
+    "excluded_payment_methods": [
+      {
+        "id": ""
+      }
+    ],
+    "excluded_payment_types": [
+      {
+        "id": ""
+      }
+    ],
+    "installments": null,
+    "default_payment_method_id": null,
+    "default_installments": null
+  },
+  "client_id": "963",
+  "marketplace": "NONE",
+  "marketplace_fee": 0,
+  "shipments": {
+    "receiver_address": {
+      "zip_code": "",
+      "street_number": null,
+      "street_name": "",
+      "floor": "",
+      "apartment": ""
+    }
+  },
+  "notification_url": null,
+  "external_reference": "",
+  "additional_info": "",
+  "expires": false,
+  "expiration_date_from": null,
+  "expiration_date_to": null,
+  "date_created": "2016-07-12T08:44:54.725-04:00",
+  "id": "74108466-4ae3a055-8817-4124-8734-0f80278e35c7",
+  "init_point": "https://www.mercadopago.com/mla/checkout/start?pref_id=74108466-4ae3a055-8817-4124-8734-0f80278e35c7",
+  "sandbox_init_point": "https://sandbox.mercadopago.com/mla/checkout/pay?pref_id=74108466-4ae3a055-8817-4124-8734-0f80278e35c7"
+}
+```
