@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 import java.math.BigDecimal;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.mercadopago.api.exception.MercadoPagoBadRequestException;
@@ -470,6 +471,39 @@ public class PreferenceApiTest {
 		ReceiverAddress receiverAddress = preferenceCreated.getShipments().getReceiverAddress();
 		
 		assertThat(receiverAddress.getFloor(), is(equalTo("Ap 32")));
+	}
+	
+	@Test @Ignore("This test needs to be ignored until we have the Seller Account")
+	public void shouldCreateANewPreferenceWithMarketplaceFieldFilled() throws Exception {
+		Preference preference = new Preference();
+		preference.setMarketplace("Elo7");
+		
+		Item item = new Item();
+		item.setPrice(BigDecimal.TEN);
+		item.setQuantity(3);
+		
+		preference.addItem(item);
+		
+		Preference preferenceCreated = mercadoPagoApi.preferences().createNew(preference);
+		
+		assertThat(preferenceCreated.getMarketplace(), is(equalTo("Elo7")));
+	}
+	
+	@Test
+	public void shouldCreateANewPreferenceWithMarketplaceFeeFieldFilled() throws Exception {
+		Preference preference = new Preference();
+		preference.setMarketplace("Elo7");
+		preference.setMarketplaceFee(TEN);
+		
+		Item item = new Item();
+		item.setPrice(BigDecimal.TEN);
+		item.setQuantity(3);
+		
+		preference.addItem(item);
+		
+		Preference preferenceCreated = mercadoPagoApi.preferences().createNew(preference);
+		
+		assertThat(preferenceCreated.getMarketplaceFee(), is(equalTo(TEN)));
 	}
 	
 }

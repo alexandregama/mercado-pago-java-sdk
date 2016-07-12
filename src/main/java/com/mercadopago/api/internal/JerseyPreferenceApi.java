@@ -1,5 +1,4 @@
 package com.mercadopago.api.internal;
-
 import static javax.ws.rs.core.Response.Status.CREATED;
 
 import javax.ws.rs.client.Client;
