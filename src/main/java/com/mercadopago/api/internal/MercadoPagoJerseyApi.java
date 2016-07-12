@@ -8,7 +8,7 @@ import com.mercadopago.api.service.PreferenceApi;
 
 /**
  * 
- * @author Alexandre Gama
+ * @author Alexandre Gama - <a href="https://github.com/alexandregama">GitHub Account</a>
  * 
  * Class to be used when user needs to access all operations on SDK
  *
