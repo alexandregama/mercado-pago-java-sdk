@@ -950,3 +950,23 @@ The answer will have the connected user's credentials:
 Besides the **access_token** and the **public_key** generated to be used as your user's credentials, the answer also has the field **expires_in** which specifies the time, in seconds, during which these credentials will be valid (15768000 seconds = **6 months**), a **refresh_token** that you must use to renovate them, and your user's MercadoPago account identificator (user_id).
 
 Advice from Mercado Pago: save and keep updated the obtained credentials associated to your users, because you will need them to operate later. If you don't do this, you'll need to ask your user for authorization again.
+
+## Creating a new Preference
+
+You can use the following **curl** command:
+
+```bash
+curl -X POST 
+	-H "Content-Type: application/json" 
+	-H "Accept: application/json" 
+	-H "Cache-Control: no-cache" 
+	-H "Postman-Token: 8b8a5ece-74a3-8ca5-dded-6f854cb2fc91" 
+      -d '{
+	"id": null,
+	"items": [{
+		"quantity": 3,
+		"unit_price": 10
+	}],
+	"marketplace": "Elo7"
+}' "https://api.mercadopago.com/checkout/preferences?access_token=APP_USR-123456-321654-b98758b2ebdc5abacdc846ddf513c544__F_J__-74108466"
+```
